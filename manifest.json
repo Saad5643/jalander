@@ -1,0 +1,39 @@
+{
+  "name": "Jalandhar Pipe Store",
+  "short_name": "JPS",
+  "description": "Faisalabad's #1 pipe & plumbing supplier since 2003. Browse 2,600+ products.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a4fba",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%231a4fba'/><text y='130' x='96' text-anchor='middle' font-family='Inter,sans-serif' font-weight='900' font-size='90' fill='white'>JP</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%231a4fba'/><text y='340' x='256' text-anchor='middle' font-family='Inter,sans-serif' font-weight='900' font-size='230' fill='white'>JP</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Products",
+      "url": "/products.html",
+      "description": "Browse our full catalogue"
+    },
+    {
+      "name": "Contact Us",
+      "url": "/contact.html",
+      "description": "Get in touch"
+    }
+  ],
+  "categories": ["shopping", "business"]
+}

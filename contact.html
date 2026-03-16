@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Contact Jalandhar Pipe Store in Faisalabad — phone, WhatsApp, store location, and inquiry form for all plumbing material needs.">
   <title>Contact Us | Jalandhar Pipe Store — Faisalabad</title>
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="css/style.css?v=9">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -18,8 +24,8 @@
       <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
     </div>
     <div class="tb-side tb-right">
-      <a href="tel:+923001234567" class="tb-item"><i class="fa-solid fa-phone"></i> +92 300 1234567</a>
-      <a href="https://wa.me/923001234567" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
     </div>
   </div>
 </div>
@@ -46,8 +52,15 @@
       <a href="about.html">About Us</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
-    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JPS Management Software"><i class="fa-solid fa-lock"></i> Staff Portal</a>
-    <a href="https://wa.me/923001234567" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist"><i class="fa-solid fa-heart"></i><span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span></button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History"><i class="fa-solid fa-clock-rotate-left"></i><span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span></button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
       <i class="fa-brands fa-whatsapp"></i> WhatsApp
     </a>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -64,7 +77,7 @@
     <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
     <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
     <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
-    <a href="https://wa.me/923001234567" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
   </div>
 </header>
 
@@ -85,18 +98,18 @@
 <section style="background:var(--bg-light);padding:1.75rem 0;border-bottom:1px solid var(--border)">
   <div class="container">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
-      <a href="tel:+923001234567" style="display:flex;align-items:center;gap:.85rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;text-decoration:none;transition:var(--transition)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
+      <a href="tel:+92412645043" style="display:flex;align-items:center;gap:.85rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;text-decoration:none;transition:var(--transition)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:44px;height:44px;background:var(--primary-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:1.15rem;flex-shrink:0"><i class="fa-solid fa-phone"></i></div>
         <div>
           <div style="font-size:.75rem;color:var(--text-light);font-weight:500">Call Us</div>
-          <div style="font-size:.95rem;font-weight:700;color:var(--text-dark)">+92 300 1234567</div>
+          <div style="font-size:.95rem;font-weight:700;color:var(--text-dark)">041 2645043</div>
         </div>
       </a>
-      <a href="https://wa.me/923001234567?text=Hi!%20I%20need%20plumbing%20materials" target="_blank" style="display:flex;align-items:center;gap:.85rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;text-decoration:none;transition:var(--transition)" onmouseover="this.style.borderColor='#25D366'" onmouseout="this.style.borderColor='var(--border)'">
+      <a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" target="_blank" style="display:flex;align-items:center;gap:.85rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;text-decoration:none;transition:var(--transition)" onmouseover="this.style.borderColor='#25D366'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:44px;height:44px;background:#dcfce7;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:#16a34a;font-size:1.15rem;flex-shrink:0"><i class="fa-brands fa-whatsapp"></i></div>
         <div>
           <div style="font-size:.75rem;color:var(--text-light);font-weight:500">WhatsApp</div>
-          <div style="font-size:.95rem;font-weight:700;color:var(--text-dark)">+92 300 1234567</div>
+          <div style="font-size:.95rem;font-weight:700;color:var(--text-dark)">041 2645043</div>
         </div>
       </a>
       <div style="display:flex;align-items:center;gap:.85rem;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem">
@@ -130,7 +143,7 @@
           <div class="c-icon ci-blue"><i class="fa-solid fa-location-dot"></i></div>
           <div class="c-text">
             <h4>Store Address</h4>
-            <p>Jalandhar Pipe Store<br>Main Bazaar, Faisalabad<br>Punjab, Pakistan</p>
+            <p>Jalandhar Pipe Store<br>Shop No. 13, Railway Rd, Tariqabad<br>Faisalabad 38000, Pakistan</p>
           </div>
         </div>
 
@@ -138,7 +151,7 @@
           <div class="c-icon ci-blue"><i class="fa-solid fa-phone"></i></div>
           <div class="c-text">
             <h4>Phone Numbers</h4>
-            <a href="tel:+923001234567">+92 300 1234567</a><br>
+            <a href="tel:+92412645043">041 2645043</a><br>
             <a href="tel:+924112345678">+92 41 1234567</a>
           </div>
         </div>
@@ -147,7 +160,7 @@
           <div class="c-icon ci-green"><i class="fa-brands fa-whatsapp"></i></div>
           <div class="c-text">
             <h4>WhatsApp</h4>
-            <a href="https://wa.me/923001234567" target="_blank">+92 300 1234567</a>
+            <a href="https://wa.me/92412645043" target="_blank">041 2645043</a>
             <p style="font-size:.8rem;margin-top:.2rem">Send product inquiries &amp; bulk orders via WhatsApp</p>
           </div>
         </div>
@@ -172,7 +185,7 @@
         </div>
 
         <!-- WhatsApp CTA -->
-        <a href="https://wa.me/923001234567?text=Hi!%20I%20want%20to%20inquire%20about%20plumbing%20materials"
+        <a href="https://wa.me/92412645043?text=Hi!%20I%20want%20to%20inquire%20about%20plumbing%20materials"
            class="btn btn-whatsapp btn-block" style="margin-top:1.5rem" target="_blank">
           <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp Now
         </a>
@@ -196,7 +209,7 @@
             </div>
             <div class="form-group">
               <label for="fphone">Phone Number *</label>
-              <input type="tel" id="fphone" name="phone" placeholder="+92 300 1234567" required>
+              <input type="tel" id="fphone" name="phone" placeholder="041 2645043" required>
             </div>
           </div>
           <div class="form-group">
@@ -224,7 +237,7 @@
           </button>
           <p style="font-size:.8rem;color:var(--text-light);text-align:center;margin-top:.85rem">
             Or for faster response, message us on
-            <a href="https://wa.me/923001234567" target="_blank" style="color:#25D366;font-weight:600">
+            <a href="https://wa.me/92412645043" target="_blank" style="color:#25D366;font-weight:600">
               <i class="fa-brands fa-whatsapp"></i> WhatsApp
             </a>
           </p>
@@ -233,20 +246,21 @@
     </div>
 
     <!-- ══ Map ══ -->
-    <div class="map-wrap">
-      <h3><i class="fa-solid fa-map-location-dot" style="color:var(--primary);margin-right:.5rem"></i>Find Us in Faisalabad</h3>
-      <div class="map-box">
+    <div class="map-wrap" style="margin-top:2rem">
+      <h3 style="font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:1rem"><i class="fa-solid fa-map-location-dot" style="color:var(--primary);margin-right:.5rem"></i>Find Us in Faisalabad</h3>
+      <div class="maps-embed">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108782.9977050283!2d73.0150349!3d31.41504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3922693bf95acbff%3A0x8e64f30ce0efacee!2sFaisalabad%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+          src="https://maps.google.com/maps?q=Jalander+Pipe+Store+Railway+Rd+Tariqabad+Faisalabad+Pakistan&output=embed"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Jalandhar Pipe Store location in Faisalabad">
+          title="Jalandhar Pipe Store location — Faisalabad, Pakistan"
+          style="border:0">
         </iframe>
       </div>
-      <p style="font-size:.85rem;color:var(--text-light);margin-top:.75rem">
-        <i class="fa-solid fa-info-circle" style="color:var(--primary)"></i>
-        Located in Main Bazaar, Faisalabad. Contact us on WhatsApp for precise directions.
+      <p style="font-size:.83rem;color:var(--text-light);margin-top:.75rem">
+        <i class="fa-solid fa-circle-info" style="color:var(--primary);margin-right:.3rem"></i>
+        Located at Railway Rd, Tariqabad, Faisalabad. Send us a WhatsApp for precise directions.
       </p>
     </div>
   </div>
@@ -285,7 +299,7 @@
           <i class="fa-solid fa-chevron-down" style="color:var(--primary);font-size:.8rem"></i>
         </summary>
         <div style="padding:0 1.25rem 1.1rem;font-size:.9rem;color:var(--text-medium);border-top:1px solid var(--border);padding-top:.9rem">
-          Absolutely! Message us your list of required products on WhatsApp (+92 300 1234567) and we'll confirm availability and pricing. You can then collect from the store at your convenience.
+          Absolutely! Message us your list of required products on WhatsApp (041 2645043) and we'll confirm availability and pricing. You can then collect from the store at your convenience.
         </div>
       </details>
 
@@ -328,7 +342,7 @@
         <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
         <div class="f-social">
           <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://wa.me/923001234567" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
           <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
@@ -356,9 +370,9 @@
       <div class="footer-col">
         <h4>Contact Us</h4>
         <div class="f-contacts">
-          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><span>Main Bazaar, Faisalabad, Punjab, Pakistan</span></div>
-          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>+92 300 1234567</span></div>
-          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
           <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
         </div>
       </div>
@@ -370,12 +384,13 @@
   </div>
 </footer>
 
-<a href="https://wa.me/923001234567?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
   <i class="fa-brands fa-whatsapp"></i>
   <span class="wa-tooltip">Chat on WhatsApp</span>
 </a>
 
 <script src="js/products-data.js?v=3"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/main.js?v=9"></script>
+<script src="js/features.js?v=2"></script>
 </body>
 </html>

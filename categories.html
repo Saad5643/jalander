@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse plumbing product categories at Jalandhar Pipe Store — pipes, valves, fittings, tanks, pumps, bathroom accessories in Faisalabad.">
   <title>Categories | Jalandhar Pipe Store — Faisalabad</title>
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="css/style.css?v=9">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -18,8 +24,8 @@
       <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
     </div>
     <div class="tb-side tb-right">
-      <a href="tel:+923001234567" class="tb-item"><i class="fa-solid fa-phone"></i> +92 300 1234567</a>
-      <a href="https://wa.me/923001234567" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
     </div>
   </div>
 </div>
@@ -46,8 +52,15 @@
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JPS Management Software"><i class="fa-solid fa-lock"></i> Staff Portal</a>
-    <a href="https://wa.me/923001234567" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist"><i class="fa-solid fa-heart"></i><span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span></button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History"><i class="fa-solid fa-clock-rotate-left"></i><span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span></button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
       <i class="fa-brands fa-whatsapp"></i> WhatsApp
     </a>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -64,7 +77,7 @@
     <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
     <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
     <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
-    <a href="https://wa.me/923001234567" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
   </div>
 </header>
 
@@ -246,7 +259,7 @@
     <h2>Can't Find What You Need?</h2>
     <p>Our extensive stock includes hundreds of items. Contact us on WhatsApp and our team will source exactly what you need for your project.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/923001234567" class="btn btn-whatsapp btn-lg" target="_blank">
+      <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-lg" target="_blank">
         <i class="fa-brands fa-whatsapp"></i> WhatsApp Us Now
       </a>
       <a href="products.html" class="btn btn-white btn-lg">
@@ -271,7 +284,7 @@
         <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
         <div class="f-social">
           <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://wa.me/923001234567" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
           <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
@@ -299,9 +312,9 @@
       <div class="footer-col">
         <h4>Contact Us</h4>
         <div class="f-contacts">
-          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><span>Main Bazaar, Faisalabad, Punjab, Pakistan</span></div>
-          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>+92 300 1234567</span></div>
-          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
           <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
         </div>
       </div>
@@ -313,12 +326,13 @@
   </div>
 </footer>
 
-<a href="https://wa.me/923001234567" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+<a href="https://wa.me/92412645043" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
   <i class="fa-brands fa-whatsapp"></i>
   <span class="wa-tooltip">Chat on WhatsApp</span>
 </a>
 
 <script src="js/products-data.js?v=3"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/main.js?v=9"></script>
+<script src="js/features.js?v=2"></script>
 </body>
 </html>
