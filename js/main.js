@@ -623,15 +623,62 @@ function injectGlobalUI() {
       <div class="cart-items" id="cartItemsList"></div>
       <div class="cd-foot" id="cartFoot" style="display:none">
         <div class="cd-count" id="cdCount"></div>
-        <button class="btn-wa-cart" onclick="sendCartToWA()">
-          <i class="fa-brands fa-whatsapp"></i> Send Inquiry via WhatsApp
+        <button class="btn-order-now" onclick="openOrderModal()">
+          <i class="fa-solid fa-bag-shopping"></i> Place Order
         </button>
-        <button class="btn-print-cart" onclick="printCart()">
-          <i class="fa-solid fa-print"></i> Print List
-        </button>
-        <button class="btn-clear-cart" onclick="clearCart()">
-          <i class="fa-solid fa-trash-can"></i> Clear all items
-        </button>
+        <div class="cd-secondary-actions">
+          <button class="btn-wa-cart" onclick="sendCartToWA()" title="Send as WhatsApp Inquiry">
+            <i class="fa-brands fa-whatsapp"></i> Quick Inquiry
+          </button>
+          <button class="btn-clear-cart" onclick="clearCart()" title="Clear cart">
+            <i class="fa-solid fa-trash-can"></i> Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Order Modal (Customer Info) ══ -->
+    <div class="order-overlay" id="orderOverlay">
+      <div class="order-modal">
+        <div class="om-head">
+          <div class="om-head-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+          <div>
+            <h3>Place Your Order</h3>
+            <p>Tell us who you are and we'll prepare your receipt</p>
+          </div>
+          <button class="om-close" onclick="closeOrderModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="om-body">
+          <div class="om-items-preview" id="omItemsPreview"></div>
+          <div class="om-form">
+            <div class="om-field">
+              <label for="orderName"><i class="fa-solid fa-user"></i> Your Name <span class="required">*</span></label>
+              <input type="text" id="orderName" placeholder="e.g. Muhammad Ali" autocomplete="name">
+              <span class="om-error" id="nameError"></span>
+            </div>
+            <div class="om-field">
+              <label for="orderShop"><i class="fa-solid fa-store"></i> Shop / Business Name</label>
+              <input type="text" id="orderShop" placeholder="e.g. Ali Brothers Traders (optional)" autocomplete="organization">
+            </div>
+            <div class="om-field">
+              <label for="orderPhone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+              <input type="tel" id="orderPhone" placeholder="e.g. 0300-1234567 (optional)" autocomplete="tel">
+            </div>
+          </div>
+        </div>
+        <div class="om-foot">
+          <button class="btn-om-cancel" onclick="closeOrderModal()">Cancel</button>
+          <button class="btn-om-confirm" onclick="submitOrder()">
+            <i class="fa-solid fa-receipt"></i> Generate Receipt
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Receipt Modal ══ -->
+    <div class="receipt-overlay" id="receiptOverlay">
+      <div class="receipt-modal" id="receiptModal">
+        <!-- dynamically filled -->
       </div>
     </div>
 
@@ -674,7 +721,7 @@ function toggleCart(id) {
   const idx = cartItems.findIndex(c => c.id === id);
   if (idx === -1) {
     const p = (window.PRODUCTS || []).find(x => x.id === id);
-    if (p) cartItems.push({ id: p.id, name: p.name, brand: p.brand, category: p.category, img: p.img });
+    if (p) cartItems.push({ id: p.id, name: p.name, brand: p.brand, category: p.category, img: p.img, qty: 1 });
   } else {
     cartItems.splice(idx, 1);
   }
@@ -718,25 +765,40 @@ function updateCartUI() {
     else if (n > 0) fab.insertAdjacentHTML('beforeend', `<span class="cart-badge">${n}</span>`);
   }
   if (foot) foot.style.display = n ? '' : 'none';
-  if (cnt)  cnt.textContent = `${n} item${n !== 1 ? 's' : ''} in your inquiry list`;
+  const totalQtyCount = cartItems.reduce((s, c) => s + (c.qty || 1), 0);
+  if (cnt) cnt.innerHTML = `<strong>${n}</strong> product${n !== 1 ? 's' : ''} · <strong>${totalQtyCount}</strong> pcs total`;
+}
+
+function updateQty(id, delta) {
+  const item = cartItems.find(c => c.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, (item.qty || 1) + delta);
+  saveCart();
+  updateCartUI();
+  renderCartItems();
 }
 
 function renderCartItems() {
   const el = document.getElementById('cartItemsList');
   if (!el) return;
   if (cartItems.length === 0) {
-    el.innerHTML = `<div class="cart-empty"><i class="fa-solid fa-basket-shopping"></i><p>Your inquiry list is empty.<br>Add products to send a group WhatsApp inquiry.</p></div>`;
+    el.innerHTML = `<div class="cart-empty"><i class="fa-solid fa-basket-shopping"></i><p>Your cart is empty.<br>Add products then place your order.</p></div>`;
     return;
   }
   el.innerHTML = cartItems.map(c => {
     const meta = CAT_ICONS[c.category] || { fa: 'fa-box', img: 'img-product' };
+    const qty = c.qty || 1;
     return `
       <div class="cart-item">
         <div class="ci-icon ${meta.img}"><i class="fa-solid ${meta.fa}"></i></div>
         <div class="ci-info">
           <div class="ci-brand">${escHtml(c.brand)}</div>
           <div class="ci-name">${escHtml(c.name)}</div>
-          <div class="ci-cat">${escHtml(c.category)}</div>
+          <div class="ci-qty-row">
+            <button class="ci-qty-btn" onclick="updateQty(${c.id}, -1)"><i class="fa-solid fa-minus"></i></button>
+            <span class="ci-qty">${qty}</span>
+            <button class="ci-qty-btn" onclick="updateQty(${c.id}, 1)"><i class="fa-solid fa-plus"></i></button>
+          </div>
         </div>
         <button class="ci-remove" onclick="removeFromCart(${c.id})" title="Remove"><i class="fa-solid fa-xmark"></i></button>
       </div>`;
@@ -756,29 +818,255 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 
+/* Quick Inquiry (no form) */
 function sendCartToWA() {
   if (cartItems.length === 0) return;
-  const lines = cartItems.map((c, i) => `${i + 1}. *${c.name}* (${c.brand}) — ${c.category}`).join('\n');
+  const lines = cartItems.map((c, i) => `${i + 1}. *${c.name}* (${c.brand}) × ${c.qty || 1}`).join('\n');
   const msg = encodeURIComponent(`Hi! I'd like to inquire about the following products:\n\n${lines}\n\nPlease share availability and prices. Thank you!`);
   window.open(`https://wa.me/923001234567?text=${msg}`, '_blank');
 }
 
-function printCart() {
+/* ─── ORDER MODAL ─── */
+function openOrderModal() {
   if (cartItems.length === 0) return;
-  const rows = cartItems.map((c, i) =>
-    `<tr><td>${i + 1}</td><td>${c.name}</td><td>${c.brand}</td><td>${c.category}</td><td></td></tr>`
+
+  // Populate items preview
+  const preview = document.getElementById('omItemsPreview');
+  if (preview) {
+    preview.innerHTML = `
+      <div class="om-preview-label"><i class="fa-solid fa-list-check"></i> ${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} in your order</div>
+      <div class="om-preview-chips">
+        ${cartItems.slice(0, 4).map(c => `<span class="om-chip">${escHtml(c.name)} × ${c.qty || 1}</span>`).join('')}
+        ${cartItems.length > 4 ? `<span class="om-chip om-chip-more">+${cartItems.length - 4} more</span>` : ''}
+      </div>`;
+  }
+
+  // Clear previous values / errors
+  const nameEl  = document.getElementById('orderName');
+  const shopEl  = document.getElementById('orderShop');
+  const phoneEl = document.getElementById('orderPhone');
+  const errEl   = document.getElementById('nameError');
+  if (nameEl)  nameEl.value  = '';
+  if (shopEl)  shopEl.value  = '';
+  if (phoneEl) phoneEl.value = '';
+  if (errEl)   errEl.textContent = '';
+
+  closeCart();
+  document.getElementById('orderOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => { if (nameEl) nameEl.focus(); }, 300);
+}
+
+function closeOrderModal() {
+  document.getElementById('orderOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitOrder() {
+  const name  = (document.getElementById('orderName')?.value || '').trim();
+  const shop  = (document.getElementById('orderShop')?.value || '').trim();
+  const phone = (document.getElementById('orderPhone')?.value || '').trim();
+  const errEl = document.getElementById('nameError');
+
+  if (!name) {
+    if (errEl) errEl.textContent = 'Please enter your name.';
+    document.getElementById('orderName')?.focus();
+    return;
+  }
+  if (errEl) errEl.textContent = '';
+
+  closeOrderModal();
+  showReceipt(name, shop, phone);
+}
+
+/* ─── RECEIPT ─── */
+function generateOrderNumber() {
+  const d = new Date();
+  const ymd = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+  const rand = String(Math.floor(1000 + Math.random() * 9000));
+  return `JPS-${ymd}-${rand}`;
+}
+
+let _currentOrderData = null;
+
+function showReceipt(customerName, shopName, phone) {
+  const orderNo   = generateOrderNumber();
+  const orderDate = new Date().toLocaleDateString('en-PK', { year:'numeric', month:'long', day:'numeric' });
+  const orderTime = new Date().toLocaleTimeString('en-PK', { hour:'2-digit', minute:'2-digit' });
+
+  _currentOrderData = { orderNo, orderDate, orderTime, customerName, shopName, phone, items: [...cartItems] };
+
+  const rows = cartItems.map((c, i) => `
+    <tr>
+      <td class="rc-td-num">${i + 1}</td>
+      <td class="rc-td-prod">
+        <div class="rc-prod-name">${escHtml(c.name)}</div>
+        <div class="rc-prod-brand">${escHtml(c.brand)} · ${escHtml(c.category)}</div>
+      </td>
+      <td class="rc-td-qty">${c.qty || 1}</td>
+      <td class="rc-td-note"></td>
+    </tr>`).join('');
+
+  const modal = document.getElementById('receiptModal');
+  modal.innerHTML = `
+    <div class="rc-head">
+      <div class="rc-logo">
+        <div class="rc-logo-icon"><i class="fa-solid fa-pipe-section"></i></div>
+        <div>
+          <div class="rc-store-name">Jalandhar Pipe Store</div>
+          <div class="rc-store-sub">Plumbing Materials · Faisalabad</div>
+        </div>
+      </div>
+      <div class="rc-meta">
+        <div class="rc-order-no"># ${orderNo}</div>
+        <div class="rc-date">${orderDate} · ${orderTime}</div>
+      </div>
+    </div>
+
+    <div class="rc-customer">
+      <div class="rc-cust-row"><i class="fa-solid fa-user"></i><span>${escHtml(customerName)}</span></div>
+      ${shopName  ? `<div class="rc-cust-row"><i class="fa-solid fa-store"></i><span>${escHtml(shopName)}</span></div>` : ''}
+      ${phone     ? `<div class="rc-cust-row"><i class="fa-solid fa-phone"></i><span>${escHtml(phone)}</span></div>` : ''}
+    </div>
+
+    <div class="rc-divider"></div>
+
+    <table class="rc-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+
+    <div class="rc-divider"></div>
+
+    <div class="rc-summary">
+      <div class="rc-summary-row">
+        <span>Total Items</span>
+        <strong>${cartItems.length} product${cartItems.length !== 1 ? 's' : ''}</strong>
+      </div>
+      <div class="rc-summary-row">
+        <span>Total Quantity</span>
+        <strong>${cartItems.reduce((s, c) => s + (c.qty || 1), 0)} pcs</strong>
+      </div>
+    </div>
+
+    <div class="rc-note">
+      <i class="fa-solid fa-circle-info"></i>
+      Prices will be confirmed by Jalandhar Pipe Store. This receipt is for order tracking only.
+    </div>
+
+    <div class="rc-actions">
+      <button class="btn-rc-wa" onclick="shareReceiptWA()">
+        <i class="fa-brands fa-whatsapp"></i> Send to Shop via WhatsApp
+      </button>
+      <button class="btn-rc-print" onclick="printReceipt()">
+        <i class="fa-solid fa-print"></i> Print Receipt
+      </button>
+      <button class="btn-rc-close" onclick="closeReceipt()">
+        <i class="fa-solid fa-xmark"></i> Close
+      </button>
+    </div>`;
+
+  document.getElementById('receiptOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReceipt() {
+  document.getElementById('receiptOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function shareReceiptWA() {
+  if (!_currentOrderData) return;
+  const d = _currentOrderData;
+  const itemLines = d.items.map((c, i) => `${i + 1}. ${c.name} (${c.brand}) × ${c.qty || 1}`).join('\n');
+  const custLine  = d.shopName ? `${d.customerName} — ${d.shopName}` : d.customerName;
+  const phoneLine = d.phone ? `\n📞 ${d.phone}` : '';
+  const totalQty  = d.items.reduce((s, c) => s + (c.qty || 1), 0);
+
+  const msg = encodeURIComponent(
+`🧾 *NEW ORDER — Jalandhar Pipe Store*
+━━━━━━━━━━━━━━━━━━━━
+📋 Order No: ${d.orderNo}
+📅 Date: ${d.orderDate} · ${d.orderTime}
+👤 Customer: ${custLine}${phoneLine}
+━━━━━━━━━━━━━━━━━━━━
+*Items Ordered:*
+${itemLines}
+━━━━━━━━━━━━━━━━━━━━
+📦 Total: ${d.items.length} product${d.items.length !== 1 ? 's' : ''} · ${totalQty} pcs
+
+Please confirm availability and pricing. Thank you!`);
+
+  window.open(`https://wa.me/923001234567?text=${msg}`, '_blank');
+}
+
+function printReceipt() {
+  if (!_currentOrderData) return;
+  const d = _currentOrderData;
+  const itemRows = d.items.map((c, i) =>
+    `<tr><td>${i+1}</td><td><strong>${c.name}</strong><br><small>${c.brand} · ${c.category}</small></td><td style="text-align:center">${c.qty||1}</td><td></td></tr>`
   ).join('');
+  const totalQty = d.items.reduce((s, c) => s + (c.qty || 1), 0);
+
   const win = window.open('', '_blank');
-  win.document.write(`<!DOCTYPE html><html><head><title>Inquiry List — Jalandhar Pipe Store</title>
-  <style>body{font-family:Arial,sans-serif;padding:2rem}h2{color:#1a4fba}table{width:100%;border-collapse:collapse;margin-top:1rem}th,td{border:1px solid #ddd;padding:.5rem .75rem;text-align:left}th{background:#1a4fba;color:#fff}tr:nth-child(even){background:#f8fafc}.footer{margin-top:2rem;font-size:.8rem;color:#6b7280}</style>
-  </head><body>
-  <h2>Jalandhar Pipe Store — Inquiry List</h2>
-  <p>Faisalabad, Pakistan &nbsp;|&nbsp; +92 300 1234567 &nbsp;|&nbsp; Printed: ${new Date().toLocaleDateString()}</p>
-  <table><thead><tr><th>#</th><th>Product</th><th>Brand</th><th>Category</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>
-  <div class="footer">Please contact us on WhatsApp or call to confirm availability and pricing.</div>
+  win.document.write(`<!DOCTYPE html><html><head>
+  <title>Order Receipt — ${d.orderNo}</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;padding:1.5rem;color:#111;font-size:14px}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #1a4fba;padding-bottom:1rem;margin-bottom:1rem}
+    .store{display:flex;align-items:center;gap:.75rem}
+    .store-icon{width:44px;height:44px;background:#1a4fba;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;flex-shrink:0}
+    .store-name{font-size:1.1rem;font-weight:800;color:#1a4fba}
+    .store-sub{font-size:.75rem;color:#6b7280}
+    .order-meta{text-align:right}
+    .order-no{font-size:1rem;font-weight:700;color:#1a4fba}
+    .order-date{font-size:.75rem;color:#6b7280;margin-top:.2rem}
+    .customer{background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;display:flex;gap:2rem;flex-wrap:wrap}
+    .customer div{font-size:.85rem;color:#374151}<br>.customer span{font-weight:600;color:#111}
+    table{width:100%;border-collapse:collapse;margin-bottom:1rem}
+    th{background:#1a4fba;color:#fff;padding:.5rem .75rem;text-align:left;font-size:.8rem}
+    td{padding:.5rem .75rem;border-bottom:1px solid #f1f5f9;font-size:.85rem;vertical-align:top}
+    tr:nth-child(even) td{background:#f8fafc}
+    .summary{background:#f0f5ff;border:1px solid #dbeafe;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;display:flex;gap:2rem}
+    .summary div{font-size:.85rem;color:#374151}.summary strong{color:#1a4fba}
+    .footer{font-size:.75rem;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:.75rem;text-align:center}
+    @media print{body{padding:.5rem}button{display:none!important}}
+  </style></head><body>
+  <div class="header">
+    <div class="store">
+      <div class="store-icon">🔧</div>
+      <div><div class="store-name">Jalandhar Pipe Store</div><div class="store-sub">Plumbing Materials · Faisalabad · +92 300 1234567</div></div>
+    </div>
+    <div class="order-meta">
+      <div class="order-no">Order # ${d.orderNo}</div>
+      <div class="order-date">${d.orderDate} · ${d.orderTime}</div>
+    </div>
+  </div>
+  <div class="customer">
+    <div>👤 Customer: <span>${d.customerName}</span></div>
+    ${d.shopName ? `<div>🏪 Shop: <span>${d.shopName}</span></div>` : ''}
+    ${d.phone    ? `<div>📞 Phone: <span>${d.phone}</span></div>` : ''}
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Product</th><th>Qty</th><th>Notes / Price</th></tr></thead>
+    <tbody>${itemRows}</tbody>
+  </table>
+  <div class="summary">
+    <div>Total Products: <strong>${d.items.length}</strong></div>
+    <div>Total Quantity: <strong>${totalQty} pcs</strong></div>
+  </div>
+  <div class="footer">Prices to be confirmed by Jalandhar Pipe Store · This is an order receipt, not a tax invoice</div>
+  <script>window.onload=()=>window.print();<\/script>
   </body></html>`);
   win.document.close();
-  win.print();
 }
 
 function initCart() {
