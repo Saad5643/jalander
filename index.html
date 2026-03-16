@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jalandhar Pipe Store — Faisalabad's trusted plumbing material supplier. PVC pipes, valves, fittings, water tanks, pumps and bathroom accessories.">
+  <title>Jalandhar Pipe Store | Plumbing Materials — Faisalabad</title>
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+923001234567" class="tb-item"><i class="fa-solid fa-phone"></i> +92 300 1234567</a>
+      <a href="https://wa.me/923001234567" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><i class="fa-solid fa-pipe-section"></i></div>
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JPS Management Software"><i class="fa-solid fa-lock"></i> Staff Portal</a>
+    <a href="https://wa.me/923001234567" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/923001234567" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Hero ══ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <i class="fa-solid fa-star"></i> Faisalabad's #1 Plumbing Material Store Since 2003
+    </div>
+    <h1>
+      Everything You Need for<br>
+      <span class="accent">Perfect Plumbing</span>
+    </h1>
+    <p class="hero-subtitle">
+      2,600+ products in stock — PVC pipes, valves, fittings, water tanks, pumps &amp; bathroom accessories. Trusted by 10,000+ plumbers &amp; contractors in Faisalabad.
+    </p>
+    <div class="hero-search-bar">
+      <input type="text" id="heroSearch" placeholder="Search pipes, valves, pumps, fittings…" autocomplete="off">
+      <button onclick="heroSearchGo()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    </div>
+    <div class="hero-cta-row">
+      <a href="products.html" class="btn btn-accent btn-lg"><i class="fa-solid fa-boxes-stacked"></i> Browse All Products</a>
+      <a href="https://wa.me/923001234567?text=Hi!%20I%20need%20plumbing%20materials" class="btn btn-white btn-lg" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Order
+      </a>
+    </div>
+    <div class="hero-trust">
+      <div class="hero-trust-item"><div class="tn">2,600+</div><div class="tl">Products in Stock</div></div>
+      <div class="hero-trust-item"><div class="tn">20+</div><div class="tl">Years Experience</div></div>
+      <div class="hero-trust-item"><div class="tn">10K+</div><div class="tl">Happy Customers</div></div>
+      <div class="hero-trust-item"><div class="tn">10</div><div class="tl">Product Categories</div></div>
+    </div>
+    <div class="hero-cats">
+      <a href="products.html?cat=Pipes" class="hero-cat-pill"><i class="fa-solid fa-pipe-section"></i> Pipes</a>
+      <a href="products.html?cat=Valves" class="hero-cat-pill"><i class="fa-solid fa-faucet"></i> Valves</a>
+      <a href="products.html?cat=Pipe Fittings" class="hero-cat-pill"><i class="fa-solid fa-screwdriver-wrench"></i> Pipe Fittings</a>
+      <a href="products.html?cat=Water Tanks" class="hero-cat-pill"><i class="fa-solid fa-fill-drip"></i> Water Tanks</a>
+      <a href="products.html?cat=Pumps" class="hero-cat-pill"><i class="fa-solid fa-pump-medical"></i> Pumps</a>
+      <a href="products.html?cat=Bathroom Accessories" class="hero-cat-pill"><i class="fa-solid fa-shower"></i> Bathroom</a>
+      <a href="products.html?cat=Sanitary Ware" class="hero-cat-pill"><i class="fa-solid fa-toilet"></i> Sanitary</a>
+      <a href="products.html" class="hero-cat-pill"><i class="fa-solid fa-arrow-right"></i> All Categories</a>
+    </div>
+  </div>
+</section>
+
+<script>
+function heroSearchGo() {
+  const q = document.getElementById('heroSearch').value.trim();
+  if (q) window.location.href = 'products.html?search=' + encodeURIComponent(q);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const inp = document.getElementById('heroSearch');
+  if (inp) inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') heroSearchGo();
+  });
+});
+</script>
+
+<!-- ══ Stats Strip ══ -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stat-box">
+      <i class="fa-solid fa-calendar-check"></i>
+      <div class="n">20+</div>
+      <div class="l">Years in Business</div>
+    </div>
+    <div class="stat-box">
+      <i class="fa-solid fa-boxes-stacked"></i>
+      <div class="n">500+</div>
+      <div class="l">Products in Stock</div>
+    </div>
+    <div class="stat-box">
+      <i class="fa-solid fa-users"></i>
+      <div class="n">10,000+</div>
+      <div class="l">Customers Served</div>
+    </div>
+    <div class="stat-box">
+      <i class="fa-solid fa-award"></i>
+      <div class="n">5+</div>
+      <div class="l">Trusted Brands</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Categories ══ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Shop by Category</h2>
+    <p class="section-subtitle">Browse our wide selection of plumbing materials organized by category</p>
+    <div class="cats-grid" id="homeCats">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ Featured Products ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-subtitle">Top picks from our extensive plumbing inventory</p>
+    <div class="products-grid" id="homeProducts">
+      <!-- Rendered by JS -->
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="products.html" class="btn btn-outline btn-lg">
+        <i class="fa-solid fa-arrow-right"></i> View All Products
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Brands ══ -->
+<section class="brands-strip">
+  <div class="container">
+    <p class="section-title" style="font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-light);margin-bottom:1.25rem">Trusted Brands We Carry</p>
+    <div class="brands-list">
+      <span class="brand-chip">Adamjee</span>
+      <span class="brand-chip">Faisal Pipes</span>
+      <span class="brand-chip">Dura Max</span>
+      <span class="brand-chip">Master Pipes</span>
+      <span class="brand-chip">Pak Pipes</span>
+      <span class="brand-chip">Brass Fittings</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Why Choose Us ══ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Why Choose Jalandhar Pipe Store?</h2>
+    <p class="section-subtitle">We've been serving plumbers, contractors and homeowners in Faisalabad for over 20 years</p>
+    <div class="feats-grid">
+      <div class="feat-card">
+        <div class="feat-icon ci-1"><i class="fa-solid fa-certificate"></i></div>
+        <h3>Genuine Products</h3>
+        <p>We stock only authentic, brand-certified plumbing materials from trusted manufacturers.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon ci-2"><i class="fa-solid fa-tags"></i></div>
+        <h3>Competitive Prices</h3>
+        <p>Best market prices on all plumbing supplies. Bulk discounts available for contractors.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon ci-3"><i class="fa-solid fa-boxes-stacked"></i></div>
+        <h3>Wide Selection</h3>
+        <p>Over 500 products spanning pipes, valves, fittings, tanks, pumps and accessories.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon ci-4"><i class="fa-solid fa-headset"></i></div>
+        <h3>Expert Advice</h3>
+        <p>Our experienced staff will help you choose the right materials for any plumbing project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Testimonials ══ -->
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-subtitle">Trusted by plumbers, contractors and homeowners across Faisalabad</p>
+    <div class="tests-grid">
+      <div class="test-card">
+        <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="test-text">"I've been buying from Jalandhar Pipe Store for over 10 years. Always have the right material in stock and at fair prices. The staff is very helpful too."</p>
+        <div class="test-author">
+          <div class="test-avatar">AK</div>
+          <div>
+            <div class="test-name">Ahmad Khan</div>
+            <div class="test-role">Master Plumber, Faisalabad</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="test-text">"Best plumbing store in Faisalabad. Got all my pipeline fittings for a construction project at great bulk prices. Fast service and genuine Adamjee pipes."</p>
+        <div class="test-author">
+          <div class="test-avatar">MR</div>
+          <div>
+            <div class="test-name">Muhammad Raza</div>
+            <div class="test-role">Civil Contractor</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+        <p class="test-text">"Easy to find what I need, whether it's a simple ball valve or a complete submersible pump setup. Highly recommend for any plumbing needs."</p>
+        <div class="test-author">
+          <div class="test-avatar">SA</div>
+          <div>
+            <div class="test-name">Sajid Anwar</div>
+            <div class="test-role">Homeowner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA Banner ══ -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Need Help Finding the Right Material?</h2>
+    <p>Contact our expert team via WhatsApp or phone. We're here to help you find the perfect plumbing solution for any project.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/923001234567?text=Hi!%20I%20need%20plumbing%20advice" class="btn btn-whatsapp btn-lg" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+      <a href="contact.html" class="btn btn-white btn-lg">
+        <i class="fa-solid fa-envelope"></i> Contact Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <div class="f-logo-icon"><i class="fa-solid fa-pipe-section"></i></div>
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/923001234567" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><span>Main Bazaar, Faisalabad, Punjab, Pakistan</span></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>+92 300 1234567</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/923001234567?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=8"></script>
+</body>
+</html>

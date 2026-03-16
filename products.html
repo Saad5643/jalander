@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse all plumbing products at Jalandhar Pipe Store — pipes, valves, fittings, tanks, pumps and more in Faisalabad.">
+  <title>Products | Jalandhar Pipe Store — Faisalabad</title>
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+923001234567" class="tb-item"><i class="fa-solid fa-phone"></i> +92 300 1234567</a>
+      <a href="https://wa.me/923001234567" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><i class="fa-solid fa-pipe-section"></i></div>
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JPS Management Software"><i class="fa-solid fa-lock"></i> Staff Portal</a>
+    <a href="https://wa.me/923001234567" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/923001234567" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Hero ══ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Products</span>
+    </div>
+    <h1><i class="fa-solid fa-boxes-stacked" style="margin-right:.5rem;opacity:.8"></i>All Products</h1>
+    <p>Browse our complete range of plumbing materials, fittings and accessories</p>
+  </div>
+</section>
+
+<!-- ══ Products Page ══ -->
+<section class="section" style="padding-top:2.5rem">
+  <div class="container">
+
+    <!-- Search Bar -->
+    <div class="prod-search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="productSearch" placeholder="Search by product name, brand, category or size…">
+    </div>
+
+    <!-- Mobile Filter Button -->
+    <button class="mobile-filter-btn" id="mobileFilterBtn">
+      <i class="fa-solid fa-sliders"></i> Filters &amp; Categories
+    </button>
+
+    <!-- Filter Overlay -->
+    <div class="filter-overlay" id="filterOverlay"></div>
+
+    <div class="products-layout">
+
+      <!-- ── Sidebar Filters ── -->
+      <aside class="filter-panel">
+        <div class="fp-header">
+          <h3><i class="fa-solid fa-sliders" style="margin-right:.4rem;color:var(--primary)"></i>Filters</h3>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <button id="clearFilters">Clear All</button>
+            <button onclick="document.querySelector('.filter-panel').classList.remove('open');document.getElementById('filterOverlay').classList.remove('active')" style="font-size:.8rem;color:var(--text-light)" title="Close"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="fg-title">Category</div>
+          <div class="fg-options" id="catFilters"><!-- Rendered by JS --></div>
+        </div>
+
+        <div class="filter-group">
+          <div class="fg-title">Brand</div>
+          <div class="fg-options" id="brandFilters"><!-- Rendered by JS --></div>
+        </div>
+
+        <div class="filter-group">
+          <div class="fg-title">Quick Filters</div>
+          <div class="fg-options">
+            <label class="fg-option">
+              <input type="checkbox" onchange="if(this.checked){window.location.href='products.html?search=popular'}else{clearAllFilters()}">
+              <label>Popular Items</label>
+            </label>
+            <label class="fg-option">
+              <input type="checkbox" onchange="if(this.checked){window.location.href='products.html?search=new'}else{clearAllFilters()}">
+              <label>New Arrivals</label>
+            </label>
+          </div>
+        </div>
+
+        <a href="https://wa.me/923001234567?text=Hi!%20I%20need%20help%20finding%20a%20product" target="_blank"
+           class="btn btn-whatsapp btn-block" style="margin-top:.5rem">
+          <i class="fa-brands fa-whatsapp"></i> Ask for Help
+        </a>
+      </aside>
+
+      <!-- ── Products Main ── -->
+      <div class="products-main">
+        <!-- Toolbar -->
+        <div class="prod-toolbar">
+          <span class="prod-count" id="prodCount">Loading products…</span>
+          <select class="sort-sel" id="sortSelect">
+            <option value="default">Sort: Default</option>
+            <option value="name-asc">Name: A → Z</option>
+            <option value="name-desc">Name: Z → A</option>
+            <option value="cat">By Category</option>
+          </select>
+        </div>
+
+        <!-- Active Filters -->
+        <div class="active-filters" id="activeFilters"></div>
+
+        <!-- Products Grid -->
+        <div id="productsList">
+          <div style="text-align:center;padding:3rem;color:var(--text-light)">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem;margin-bottom:1rem"></i>
+            <p>Loading products…</p>
+          </div>
+        </div>
+
+        <!-- Recently Viewed -->
+        <div id="recentlyViewed"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <div class="f-logo-icon"><i class="fa-solid fa-pipe-section"></i></div>
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/923001234567" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><span>Main Bazaar, Faisalabad, Punjab, Pakistan</span></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>+92 300 1234567</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/923001234567" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=8"></script>
+</body>
+</html>
