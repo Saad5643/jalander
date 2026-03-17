@@ -662,6 +662,16 @@ function injectGlobalUI() {
               <label for="orderPhone"><i class="fa-solid fa-phone"></i> Phone Number</label>
               <input type="tel" id="orderPhone" placeholder="e.g. 0300-1234567 (optional)" autocomplete="tel">
             </div>
+            <div class="om-field om-discount-row">
+              <label><i class="fa-solid fa-tag"></i> Discount <span class="om-optional">(optional)</span></label>
+              <div class="om-discount-inputs">
+                <div class="om-disc-type-toggle">
+                  <button type="button" id="discTypePct" class="disc-type-btn active" onclick="setDiscType('pct')">%</button>
+                  <button type="button" id="discTypePkr" class="disc-type-btn" onclick="setDiscType('pkr')">PKR</button>
+                </div>
+                <input type="number" id="orderDiscount" min="0" step="0.5" placeholder="0" class="om-disc-input">
+              </div>
+            </div>
           </div>
         </div>
         <div class="om-foot">
@@ -868,11 +878,22 @@ function closeOrderModal() {
   document.body.style.overflow = '';
 }
 
+let _discType = 'pct'; // 'pct' | 'pkr'
+
+function setDiscType(t) {
+  _discType = t;
+  document.getElementById('discTypePct')?.classList.toggle('active', t === 'pct');
+  document.getElementById('discTypePkr')?.classList.toggle('active', t === 'pkr');
+  const inp = document.getElementById('orderDiscount');
+  if (inp) inp.placeholder = t === 'pct' ? '0' : '0.00';
+}
+
 function submitOrder() {
-  const name  = (document.getElementById('orderName')?.value || '').trim();
-  const shop  = (document.getElementById('orderShop')?.value || '').trim();
-  const phone = (document.getElementById('orderPhone')?.value || '').trim();
-  const errEl = document.getElementById('nameError');
+  const name     = (document.getElementById('orderName')?.value || '').trim();
+  const shop     = (document.getElementById('orderShop')?.value || '').trim();
+  const phone    = (document.getElementById('orderPhone')?.value || '').trim();
+  const discVal  = parseFloat(document.getElementById('orderDiscount')?.value) || 0;
+  const errEl    = document.getElementById('nameError');
 
   if (!name) {
     if (errEl) errEl.textContent = 'Please enter your name.';
@@ -882,7 +903,7 @@ function submitOrder() {
   if (errEl) errEl.textContent = '';
 
   closeOrderModal();
-  showReceipt(name, shop, phone);
+  showReceipt(name, shop, phone, _discType, discVal);
 }
 
 /* ─── RECEIPT ─── */

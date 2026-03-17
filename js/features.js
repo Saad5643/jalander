@@ -155,11 +155,50 @@ function closeOrderHistory() {
   document.body.style.overflow = '';
 }
 
+function _ohGetFilters() {
+  return {
+    date:    (document.getElementById('ohFilterDate')?.value    || '').trim(),
+    shop:    (document.getElementById('ohFilterShop')?.value    || '').trim(),
+    account: (document.getElementById('ohFilterAccount')?.value || '').trim()
+  };
+}
+
+function _ohPopulateDropdowns(orders) {
+  const shopSel = document.getElementById('ohFilterShop');
+  const accSel  = document.getElementById('ohFilterAccount');
+  if (!shopSel || !accSel) return;
+  const curShop = shopSel.value;
+  const curAcc  = accSel.value;
+
+  const shops    = [...new Set(orders.map(o => o.shopName).filter(Boolean))].sort();
+  const accounts = [...new Set(orders.map(o => o.customerName).filter(Boolean))].sort();
+
+  shopSel.innerHTML = '<option value="">All Shops</option>' +
+    shops.map(s => `<option value="${escHtml(s)}"${s === curShop ? ' selected' : ''}>${escHtml(s)}</option>`).join('');
+  accSel.innerHTML = '<option value="">All Accounts</option>' +
+    accounts.map(a => `<option value="${escHtml(a)}"${a === curAcc ? ' selected' : ''}>${escHtml(a)}</option>`).join('');
+}
+
+function clearOhFilters() {
+  const d = document.getElementById('ohFilterDate');
+  const s = document.getElementById('ohFilterShop');
+  const a = document.getElementById('ohFilterAccount');
+  if (d) d.value = '';
+  if (s) s.value = '';
+  if (a) a.value = '';
+  renderOrderHistory();
+}
+
 function renderOrderHistory() {
   const el = document.getElementById('orderHistoryList');
   if (!el) return;
-  const orders = JSON.parse(localStorage.getItem('jps_orders') || '[]');
-  if (orders.length === 0) {
+  const allOrders = JSON.parse(localStorage.getItem('jps_orders') || '[]');
+
+  // Populate dropdowns from all orders (before filtering)
+  _ohPopulateDropdowns(allOrders);
+
+  if (allOrders.length === 0) {
+    document.getElementById('ohSummaryBar').style.display = 'none';
     el.innerHTML = `
       <div class="feat-empty-state">
         <i class="fa-solid fa-clock-rotate-left" style="font-size:2.5rem;color:#e2e8f0;margin-bottom:1rem"></i>
@@ -167,9 +206,60 @@ function renderOrderHistory() {
       </div>`;
     return;
   }
+
+  const { date, shop, account } = _ohGetFilters();
+
+  // Apply filters
+  const orders = allOrders.filter(o => {
+    if (date) {
+      // savedAt is ISO string; compare date part
+      const saved = o.savedAt ? o.savedAt.split('T')[0] : '';
+      if (saved !== date) return false;
+    }
+    if (shop    && (o.shopName     || '') !== shop)    return false;
+    if (account && (o.customerName || '') !== account) return false;
+    return true;
+  });
+
+  // Summary bar
+  const summaryBar = document.getElementById('ohSummaryBar');
+  const isFiltered = date || shop || account;
+  if (summaryBar) {
+    if (isFiltered) {
+      const totalProducts = orders.reduce((s, o) => s + o.items.length, 0);
+      const totalQty      = orders.reduce((s, o) => s + o.items.reduce((q, c) => q + (c.qty || 1), 0), 0);
+      summaryBar.style.display = '';
+      summaryBar.innerHTML = `
+        <i class="fa-solid fa-filter" style="color:#1a4fba"></i>
+        <span><strong>${orders.length}</strong> order${orders.length !== 1 ? 's' : ''}</span>
+        <span class="oh-sum-dot">·</span>
+        <span><strong>${totalProducts}</strong> product${totalProducts !== 1 ? 's' : ''}</span>
+        <span class="oh-sum-dot">·</span>
+        <span><strong>${totalQty}</strong> pcs total</span>
+        ${date    ? `<span class="oh-sum-tag"><i class="fa-solid fa-calendar-day"></i> ${date}</span>` : ''}
+        ${shop    ? `<span class="oh-sum-tag"><i class="fa-solid fa-store"></i> ${escHtml(shop)}</span>` : ''}
+        ${account ? `<span class="oh-sum-tag"><i class="fa-solid fa-user"></i> ${escHtml(account)}</span>` : ''}`;
+    } else {
+      summaryBar.style.display = 'none';
+    }
+  }
+
+  if (orders.length === 0) {
+    el.innerHTML = `
+      <div class="feat-empty-state">
+        <i class="fa-solid fa-magnifying-glass" style="font-size:2rem;color:#e2e8f0;margin-bottom:1rem"></i>
+        <p style="color:#94a3b8;font-size:.95rem">No orders match the selected filters.</p>
+      </div>`;
+    return;
+  }
+
   el.innerHTML = orders.map(o => {
     const totalQty = o.items.reduce((s, c) => s + (c.qty || 1), 0);
-    const preview = o.items.slice(0, 3).map(i => escHtml(i.name)).join(', ') + (o.items.length > 3 ? `… +${o.items.length - 3} more` : '');
+    const preview  = o.items.slice(0, 3).map(i => escHtml(i.name)).join(', ') + (o.items.length > 3 ? `… +${o.items.length - 3} more` : '');
+    const disc     = o.discount && o.discount.value > 0
+      ? `<div class="oh-discount"><i class="fa-solid fa-tag"></i> Discount: <strong>${o.discount.type === 'pct' ? o.discount.value + '%' : 'PKR ' + Number(o.discount.value).toLocaleString()}</strong></div>`
+      : '';
+    const safeO = JSON.stringify(o).replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     return `
       <div class="oh-card">
         <div class="oh-card-header">
@@ -177,9 +267,11 @@ function renderOrderHistory() {
           <span class="oh-date">${escHtml(o.orderDate)} · ${escHtml(o.orderTime)}</span>
         </div>
         <div class="oh-customer"><i class="fa-solid fa-user"></i> ${escHtml(o.customerName)}${o.shopName ? ` · <i class="fa-solid fa-store"></i> ${escHtml(o.shopName)}` : ''}</div>
+        ${o.phone ? `<div class="oh-phone"><i class="fa-solid fa-phone"></i> ${escHtml(o.phone)}</div>` : ''}
         <div class="oh-summary">${o.items.length} product${o.items.length !== 1 ? 's' : ''} · ${totalQty} pcs</div>
+        ${disc}
         <div class="oh-preview">${preview}</div>
-        <button class="oh-resend-btn" onclick="reshareOrderWA(${JSON.stringify(o).replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')})">
+        <button class="oh-resend-btn" onclick="reshareOrderWA(${safeO})">
           <i class="fa-brands fa-whatsapp"></i> Resend to Shop
         </button>
       </div>`;
@@ -850,12 +942,13 @@ function toggleWishlistFromModal(id) {
    12. OVERRIDDEN showReceipt
        (saves to order history)
    ═══════════════════════════════════════════ */
-function showReceipt(customerName, shopName, phone) {
+function showReceipt(customerName, shopName, phone, discType, discVal) {
   const orderNo   = generateOrderNumber();
   const orderDate = new Date().toLocaleDateString('en-PK', { year:'numeric', month:'long', day:'numeric' });
   const orderTime = new Date().toLocaleTimeString('en-PK', { hour:'2-digit', minute:'2-digit' });
+  const discount  = { type: discType || 'pct', value: Number(discVal) || 0 };
 
-  _currentOrderData = { orderNo, orderDate, orderTime, customerName, shopName, phone, items: [...cartItems] };
+  _currentOrderData = { orderNo, orderDate, orderTime, customerName, shopName, phone, discount, items: [...cartItems] };
 
   // Save to local history + sync to portal dashboard
   saveOrderToHistory(_currentOrderData);
@@ -901,6 +994,7 @@ function showReceipt(customerName, shopName, phone) {
     <div class="rc-summary">
       <div class="rc-summary-row"><span>Total Items</span><strong>${cartItems.length} product${cartItems.length !== 1 ? 's' : ''}</strong></div>
       <div class="rc-summary-row"><span>Total Quantity</span><strong>${cartItems.reduce((s, c) => s + (c.qty || 1), 0)} pcs</strong></div>
+      ${discount.value > 0 ? `<div class="rc-summary-row rc-discount-row"><span><i class="fa-solid fa-tag" style="color:#16a34a;margin-right:.3rem"></i>Discount</span><strong class="rc-discount-val">${discount.type === 'pct' ? discount.value + '%' : 'PKR ' + discount.value.toLocaleString()}</strong></div>` : ''}
     </div>
     <div class="rc-note"><i class="fa-solid fa-circle-info"></i> Prices will be confirmed by Jalandhar Pipe Store. This receipt is for order tracking only.</div>
     <div class="rc-actions">
@@ -941,14 +1035,34 @@ window.injectGlobalUI = function() {
 
     <!-- ══ Order History Modal ══ -->
     <div class="feat-overlay" id="ordersOverlay" onclick="if(event.target===this)closeOrderHistory()">
-      <div class="feat-modal">
+      <div class="feat-modal feat-modal-lg">
         <div class="feat-modal-head">
           <div class="feat-modal-title">
-            <i class="fa-solid fa-clock-rotate-left" style="color:#1a4fba"></i> Order History
+            <i class="fa-solid fa-clock-rotate-left" style="color:#1a4fba"></i> Sales History
             <span id="orderHistoryBadge" class="feat-modal-badge" style="display:none">0</span>
           </div>
           <button class="feat-modal-close" onclick="closeOrderHistory()"><i class="fa-solid fa-xmark"></i></button>
         </div>
+        <div class="oh-filters">
+          <div class="oh-filter-field">
+            <label><i class="fa-solid fa-calendar-day"></i> Date</label>
+            <input type="date" id="ohFilterDate" onchange="renderOrderHistory()" class="oh-filter-input">
+          </div>
+          <div class="oh-filter-field">
+            <label><i class="fa-solid fa-store"></i> Shop</label>
+            <select id="ohFilterShop" onchange="renderOrderHistory()" class="oh-filter-input">
+              <option value="">All Shops</option>
+            </select>
+          </div>
+          <div class="oh-filter-field">
+            <label><i class="fa-solid fa-user"></i> Account</label>
+            <select id="ohFilterAccount" onchange="renderOrderHistory()" class="oh-filter-input">
+              <option value="">All Accounts</option>
+            </select>
+          </div>
+          <button class="oh-clear-btn" onclick="clearOhFilters()"><i class="fa-solid fa-xmark"></i> Clear</button>
+        </div>
+        <div id="ohSummaryBar" class="oh-summary-bar" style="display:none"></div>
         <div class="feat-modal-body" id="orderHistoryList"></div>
       </div>
     </div>

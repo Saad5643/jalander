@@ -2551,3 +2551,74 @@ p  { color: var(--text-medium); line-height: 1.7; }
 }
 .share-toast.share-toast-show { opacity: 1; }
 .share-toast.share-toast-hide { opacity: 0; }
+
+/* ═══════════════════════════════════════════
+   DISCOUNT FIELD — Order Modal
+   ═══════════════════════════════════════════ */
+.om-discount-row { margin-top: .25rem; }
+.om-optional { font-size: .75rem; color: var(--text-light); font-weight: 400; }
+.om-discount-inputs { display: flex; gap: .5rem; align-items: center; margin-top: .4rem; }
+.om-disc-type-toggle { display: flex; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+.disc-type-btn {
+  padding: .45rem .9rem; border: none; background: #f8fafc;
+  font-size: .82rem; font-weight: 600; cursor: pointer; color: var(--text-light);
+  transition: background .15s, color .15s;
+}
+.disc-type-btn.active { background: var(--primary); color: #fff; }
+.om-disc-input {
+  flex: 1; padding: .45rem .75rem;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: .9rem; background: var(--bg-grey);
+}
+.om-disc-input:focus { outline: none; border-color: var(--primary); background: #fff; }
+
+/* Discount row on receipt */
+.rc-discount-row { border-top: 1px dashed var(--border); margin-top: .35rem; padding-top: .35rem; }
+.rc-discount-val { color: #16a34a !important; }
+
+/* ═══════════════════════════════════════════
+   ORDER HISTORY — Filters & Summary
+   ═══════════════════════════════════════════ */
+.oh-filters {
+  display: flex; gap: .6rem; align-items: flex-end; flex-wrap: wrap;
+  padding: .85rem 1.25rem; border-bottom: 1px solid var(--border);
+  background: var(--bg-grey);
+}
+.oh-filter-field { display: flex; flex-direction: column; gap: .25rem; flex: 1; min-width: 120px; }
+.oh-filter-field label { font-size: .72rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: .04em; }
+.oh-filter-input {
+  padding: .42rem .65rem; border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: .84rem; background: #fff; color: var(--text-dark);
+  appearance: auto;
+}
+.oh-filter-input:focus { outline: none; border-color: var(--primary); }
+.oh-clear-btn {
+  padding: .42rem .85rem; border: 1.5px solid var(--border); border-radius: 8px;
+  background: #fff; font-size: .82rem; color: var(--text-light); cursor: pointer;
+  align-self: flex-end; white-space: nowrap; transition: all .15s;
+}
+.oh-clear-btn:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
+
+.oh-summary-bar {
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  padding: .55rem 1.25rem; background: #eff6ff; border-bottom: 1px solid #bfdbfe;
+  font-size: .82rem; color: #1e40af;
+}
+.oh-sum-dot { color: #93c5fd; }
+.oh-sum-tag {
+  background: #dbeafe; color: #1e40af; border-radius: 99px;
+  padding: .15rem .6rem; font-size: .76rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: .25rem;
+}
+
+.oh-phone { font-size: .8rem; color: var(--text-light); margin: .15rem 0; }
+.oh-discount { font-size: .8rem; color: #16a34a; margin: .2rem 0; }
+
+/* Dark mode support */
+body.dark-mode .oh-filters { background: #1e2534; border-color: rgba(255,255,255,.07); }
+body.dark-mode .oh-filter-input { background: #0d1117; color: #f1f5f9; border-color: rgba(255,255,255,.1); }
+body.dark-mode .oh-clear-btn { background: #1e2534; color: #94a3b8; border-color: rgba(255,255,255,.1); }
+body.dark-mode .oh-summary-bar { background: #0f1f3d; border-color: #1e3a6e; color: #93c5fd; }
+body.dark-mode .oh-sum-tag { background: #1e3a6e; color: #93c5fd; }
+body.dark-mode .disc-type-btn { background: #1e2534; color: #94a3b8; }
+body.dark-mode .om-disc-input { background: #1e2534; color: #f1f5f9; border-color: rgba(255,255,255,.1); }

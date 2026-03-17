@@ -1,4 +1,4 @@
-const CACHE = 'jps-v4';
+const CACHE = 'jps-v5';
 const STATIC = [
   '/',
   '/index.html',
