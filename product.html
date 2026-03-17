@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Product detail — Jalandhar Pipe Store, Faisalabad's trusted plumbing material supplier.">
+  <title>Product | Jalandhar Pipe Store — Faisalabad</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- SEO Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_PK">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ── Product Detail Page ── */
+
+    /* Breadcrumb override for white-bg context */
+    .pd-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.65);
+      flex-wrap: wrap;
+    }
+    .pd-breadcrumb a { color: rgba(255,255,255,.65); text-decoration: none; }
+    .pd-breadcrumb a:hover { color: #fff; }
+    .pd-breadcrumb i { font-size: 0.6rem; }
+
+    /* Product Detail Layout */
+    .pd-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 900px) {
+      .pd-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Left: image card */
+    .pd-img-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      position: sticky;
+      top: 80px;
+    }
+    .pd-icon-circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .pd-icon-circle i {
+      font-size: 4rem;
+    }
+    .pd-img-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-xlight);
+    }
+    .pd-share-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.25rem;
+    }
+    .pd-share-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-light);
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .pd-share-btn:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+
+    /* Right: info */
+    .pd-info { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .pd-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .pd-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .pd-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0.25rem 0;
+    }
+
+    /* Sizes */
+    .pd-section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-xlight);
+      margin-bottom: 0.6rem;
+    }
+    .pd-sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .size-pill {
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      border: 2px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      background: var(--bg-white);
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+    .size-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-xlight);
+    }
+    .size-pill.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Tags */
+    .pd-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .pd-tag {
+      padding: 0.25rem 0.75rem;
+      border-radius: 99px;
+      background: var(--bg-grey);
+      color: var(--text-light);
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    /* Action buttons */
+    .pd-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+    }
+    .pd-actions .btn {
+      flex: 1;
+      min-width: 140px;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    @media (max-width: 480px) {
+      .pd-actions .btn { flex: unset; width: 100%; }
+    }
+
+    .btn-wishlist {
+      background: var(--bg-white);
+      color: #e11d48;
+      border: 2px solid #fecdd3;
+      transition: var(--transition);
+    }
+    .btn-wishlist:hover, .btn-wishlist.active {
+      background: #fff1f2;
+      border-color: #e11d48;
+    }
+    .btn-wishlist.active i { color: #e11d48; }
+
+    /* Description box */
+    .pd-desc-box {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+    }
+    .pd-desc-box p {
+      color: var(--text-medium);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Stock row */
+    .pd-stock-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-light);
+    }
+    .stock-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 3px #dcfce7;
+      flex-shrink: 0;
+    }
+    .stock-text { color: #15803d; font-weight: 600; }
+
+    /* Related products section */
+    .related-section {
+      padding: 4rem 0 5rem;
+      background: var(--bg-light);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Not found state */
+    .pd-not-found {
+      text-align: center;
+      padding: 5rem 1.5rem;
+    }
+    .pd-not-found .nf-icon {
+      font-size: 4rem;
+      color: var(--border-dark);
+      margin-bottom: 1.25rem;
+    }
+    .pd-not-found h2 {
+      font-size: 1.6rem;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+    }
+    .pd-not-found p {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Dark mode tweaks */
+    [data-theme="dark"] .pd-img-card { background: #1e293b; border-color: #1e3a5f; }
+    [data-theme="dark"] .size-pill { background: #1e293b; border-color: #2d4a73; color: var(--text-medium); }
+    [data-theme="dark"] .size-pill:hover { background: var(--primary-xlight); }
+    [data-theme="dark"] .size-pill.selected { background: var(--primary); border-color: var(--primary); color: #fff; }
+    [data-theme="dark"] .pd-tag { background: #1a2540; color: var(--text-light); }
+    [data-theme="dark"] .pd-desc-box { background: #1a2540; border-color: #1e3a5f; }
+    [data-theme="dark"] .btn-wishlist { background: #1e293b; border-color: #4a1018; }
+    [data-theme="dark"] .pd-share-btn { background: #1a2540; border-color: #1e3a5f; }
+    [data-theme="dark"] .related-section { background: #0f172a; border-color: #1e3a5f; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Hero (dynamic breadcrumb) ══ -->
+<section class="page-hero" id="pdHero">
+  <div class="container">
+    <div class="pd-breadcrumb" id="pdBreadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <a href="products.html">Products</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span id="bcCategory">Loading…</span>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span id="bcProduct">Loading…</span>
+    </div>
+    <h1 id="pdHeroTitle" style="margin-top:.6rem"><i class="fa-solid fa-box" style="margin-right:.5rem;opacity:.8"></i>Product Detail</h1>
+    <p id="pdHeroSub">Loading product…</p>
+  </div>
+</section>
+
+<!-- ══ Product Detail Content ══ -->
+<section class="section" style="padding-top:2.5rem;padding-bottom:3rem">
+  <div class="container">
+    <!-- Not found state (hidden by default) -->
+    <div class="pd-not-found" id="pdNotFound" style="display:none">
+      <div class="nf-icon"><i class="fa-solid fa-box-open"></i></div>
+      <h2>Product Not Found</h2>
+      <p>Sorry, we couldn't find the product you're looking for.<br>It may have been removed or the link is incorrect.</p>
+      <a href="products.html" class="btn btn-accent btn-lg">
+        <i class="fa-solid fa-arrow-left"></i> Back to All Products
+      </a>
+    </div>
+
+    <!-- Product layout (shown when product is found) -->
+    <div class="pd-layout" id="pdLayout" style="display:none">
+
+      <!-- Left: Image Card -->
+      <div class="pd-img-card">
+        <div class="pd-icon-circle" id="pdIconCircle">
+          <i class="fa-solid fa-box" id="pdIconFA"></i>
+        </div>
+        <div class="pd-img-label" id="pdImgLabel">Product Image</div>
+        <div class="pd-share-row">
+          <a href="#" class="pd-share-btn" id="pdShareWA" target="_blank" title="Share on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <button class="pd-share-btn" onclick="copyProductLink()" title="Copy product link">
+            <i class="fa-solid fa-link"></i>
+          </button>
+          <a href="products.html" class="pd-share-btn" title="Back to products">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Info Panel -->
+      <div class="pd-info">
+
+        <!-- Badges row -->
+        <div class="pd-badges">
+          <span class="badge badge-green" id="pdStockBadge">
+            <i class="fa-solid fa-circle-check" style="font-size:.7rem;margin-right:.3rem"></i> In Stock
+          </span>
+          <span class="badge badge-blue" id="pdCatBadge">Category</span>
+          <span class="badge badge-orange" id="pdBrandBadge">Brand</span>
+        </div>
+
+        <!-- Product name -->
+        <h1 class="pd-title" id="pdTitle">Loading…</h1>
+
+        <!-- Stock availability row -->
+        <div class="pd-stock-row">
+          <span class="stock-dot"></span>
+          <span class="stock-text">In Stock</span>
+          <span>— Available at our Faisalabad store</span>
+        </div>
+
+        <hr class="pd-divider">
+
+        <!-- Sizes -->
+        <div id="pdSizesSection">
+          <div class="pd-section-label">Available Sizes</div>
+          <div class="pd-sizes" id="pdSizes"></div>
+        </div>
+
+        <hr class="pd-divider" id="pdSizesDivider">
+
+        <!-- Tags -->
+        <div id="pdTagsSection">
+          <div class="pd-section-label">Tags</div>
+          <div class="pd-tags" id="pdTags"></div>
+        </div>
+
+        <hr class="pd-divider" id="pdTagsDivider">
+
+        <!-- Action Buttons -->
+        <div class="pd-actions">
+          <button class="btn btn-accent" id="pdCartBtn" onclick="pdToggleCart()">
+            <i class="fa-solid fa-basket-shopping"></i> Add to List
+          </button>
+          <button class="btn btn-wishlist" id="pdWishlistBtn" onclick="pdToggleWishlist()">
+            <i class="fa-solid fa-heart"></i> Wishlist
+          </button>
+          <a href="#" class="btn btn-whatsapp" id="pdWABtn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Inquire on WhatsApp
+          </a>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <div class="pd-section-label">Description</div>
+          <div class="pd-desc-box">
+            <p id="pdDesc">No description available.</p>
+          </div>
+        </div>
+
+        <!-- Back to category -->
+        <div style="margin-top:.5rem">
+          <a href="#" id="pdCatLink" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-th-large"></i> Browse all <span id="pdCatLinkLabel">products</span>
+          </a>
+        </div>
+
+      </div><!-- /.pd-info -->
+    </div><!-- /.pd-layout -->
+  </div>
+</section>
+
+<!-- ══ Related Products ══ -->
+<section class="related-section" id="relatedSection" style="display:none">
+  <div class="container">
+    <h2 class="section-title">Related Products</h2>
+    <p class="section-subtitle" id="relatedSubtitle">More products from the same category</p>
+    <div class="products-grid" id="relatedGrid"></div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="products.html" id="relatedMoreLink" class="btn btn-outline btn-lg">
+        <i class="fa-solid fa-arrow-right"></i> View All Products
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=10"></script>
+<script src="js/features.js?v=3"></script>
+
+<!-- ══ Product Detail Page Script ══ -->
+<script>
+(function () {
+
+  /* ── Category metadata (mirrors main.js CAT_META / CAT_ICONS) ── */
+  var CAT_IMG_MAP = {
+    'Pipes':                { fa: 'fa-water',              img: 'img-pipe',     ci: 'ci-1' },
+    'Valves':               { fa: 'fa-faucet-drip',        img: 'img-valve',    ci: 'ci-2' },
+    'Pipe Fittings':        { fa: 'fa-screwdriver-wrench', img: 'img-fitting',  ci: 'ci-3' },
+    'PPRC Fittings':        { fa: 'fa-temperature-half',   img: 'img-pprc',     ci: 'ci-4' },
+    'UPVC Fittings':        { fa: 'fa-circle-nodes',       img: 'img-upvc',     ci: 'ci-5' },
+    'Water Tanks':          { fa: 'fa-fill-drip',          img: 'img-tank',     ci: 'ci-6' },
+    'Pumps':                { fa: 'fa-bolt',               img: 'img-pump',     ci: 'ci-7' },
+    'Bathroom Accessories': { fa: 'fa-shower',             img: 'img-bathroom', ci: 'ci-8' },
+    'Sanitary Ware':        { fa: 'fa-toilet',             img: 'img-sanitary', ci: 'ci-1' },
+    'Hardware & Tools':     { fa: 'fa-toolbox',            img: 'img-tools',    ci: 'ci-3' },
+  };
+
+  /* ── ci class → CSS background/color values ── */
+  var CI_STYLES = {
+    'ci-1': { bg: '#dbeafe', color: '#1a4fba' },
+    'ci-2': { bg: '#dcfce7', color: '#16a34a' },
+    'ci-3': { bg: '#ffedd5', color: '#ea580c' },
+    'ci-4': { bg: '#ede9fe', color: '#7c3aed' },
+    'ci-5': { bg: '#ccfbf1', color: '#0d9488' },
+    'ci-6': { bg: '#fce7f3', color: '#db2777' },
+    'ci-7': { bg: '#fef3c7', color: '#d97706' },
+    'ci-8': { bg: '#fee2e2', color: '#dc2626' },
+  };
+
+  /* ── Global state ── */
+  var currentProduct = null;
+  var selectedSize   = null;
+
+  /* ── Helpers ── */
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  function buildWAMsg(p, size) {
+    var msg = 'Hi! I\'d like to inquire about:\n\n*' + p.name + '*\nBrand: ' + p.brand + '\nCategory: ' + p.category;
+    if (size && size !== 'Standard') msg += '\nSize: ' + size;
+    msg += '\n\nPlease share availability and price. Thank you!';
+    return encodeURIComponent(msg);
+  }
+
+  function updateWALinks() {
+    if (!currentProduct) return;
+    var waMsg = buildWAMsg(currentProduct, selectedSize);
+    var url   = 'https://wa.me/92412645043?text=' + waMsg;
+    var waBtn = document.getElementById('pdWABtn');
+    var shareWA = document.getElementById('pdShareWA');
+    if (waBtn)   waBtn.href   = url;
+    if (shareWA) shareWA.href = url;
+  }
+
+  /* ── Size pill click ── */
+  function selectSize(size) {
+    selectedSize = size;
+    document.querySelectorAll('.size-pill').forEach(function (el) {
+      el.classList.toggle('selected', el.dataset.size === size);
+    });
+    updateWALinks();
+  }
+
+  /* ── Cart toggle from detail page ── */
+  window.pdToggleCart = function () {
+    if (!currentProduct) return;
+    if (typeof toggleCart === 'function') {
+      toggleCart(currentProduct.id);
+    }
+    updateCartBtn();
+  };
+
+  function updateCartBtn() {
+    if (!currentProduct) return;
+    var inCart = (window.cartItems || []).some(function (c) { return c.id === currentProduct.id; });
+    var btn = document.getElementById('pdCartBtn');
+    if (!btn) return;
+    if (inCart) {
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Added to List';
+      btn.style.background = '#15803d';
+      btn.style.borderColor = '#15803d';
+    } else {
+      btn.innerHTML = '<i class="fa-solid fa-basket-shopping"></i> Add to List';
+      btn.style.background = '';
+      btn.style.borderColor = '';
+    }
+  }
+
+  /* ── Wishlist toggle from detail page ── */
+  window.pdToggleWishlist = function () {
+    if (!currentProduct) return;
+    if (typeof toggleWishlist === 'function') {
+      toggleWishlist(currentProduct.id);
+    }
+    updateWishlistBtn();
+  };
+
+  function updateWishlistBtn() {
+    if (!currentProduct) return;
+    var liked = typeof isWishlisted === 'function' && isWishlisted(currentProduct.id);
+    var btn = document.getElementById('pdWishlistBtn');
+    if (!btn) return;
+    btn.classList.toggle('active', liked);
+    btn.innerHTML = liked
+      ? '<i class="fa-solid fa-heart"></i> Saved'
+      : '<i class="fa-solid fa-heart"></i> Wishlist';
+  }
+
+  /* ── Copy link ── */
+  window.copyProductLink = function () {
+    navigator.clipboard.writeText(window.location.href).then(function () {
+      var btn = document.querySelector('.pd-share-btn[onclick="copyProductLink()"]');
+      if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function () { btn.innerHTML = '<i class="fa-solid fa-link"></i>'; }, 2000);
+      }
+    }).catch(function () {});
+  };
+
+  /* ── Related product card HTML ── */
+  function relatedCardHTML(p) {
+    var meta   = CAT_IMG_MAP[p.category] || { fa: 'fa-box', img: 'img-product' };
+    var waMsg  = buildWAMsg(p, null);
+    return '<a href="product.html?id=' + p.id + '" class="prod-card" style="text-decoration:none;display:flex;flex-direction:column">' +
+      '<div class="prod-img ' + meta.img + '">' +
+        '<i class="fa-solid ' + meta.fa + ' prod-icon"></i>' +
+      '</div>' +
+      '<div class="prod-body">' +
+        '<div class="prod-brand">' + esc(p.brand) + '</div>' +
+        '<div class="prod-name">' + esc(p.name) + '</div>' +
+        '<div class="prod-tags"><span class="prod-tag">' + esc(p.category) + '</span></div>' +
+        '<div class="prod-foot">' +
+          '<span class="prod-cat">' + (p.sizes && p.sizes[0] !== 'Standard' ? esc(p.sizes[0]) : '') + '</span>' +
+          '<div class="prod-actions">' +
+            '<a class="btn btn-sm btn-whatsapp" href="https://wa.me/92412645043?text=' + waMsg + '" target="_blank" onclick="event.stopPropagation()">' +
+              '<i class="fa-brands fa-whatsapp"></i> Inquire' +
+            '</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</a>';
+  }
+
+  /* ── Main render ── */
+  function renderProduct(p) {
+    currentProduct = p;
+    var meta = CAT_IMG_MAP[p.category] || { fa: 'fa-box', img: 'img-product', ci: 'ci-1' };
+    var ci   = meta.ci || 'ci-1';
+    var ciStyle = CI_STYLES[ci] || CI_STYLES['ci-1'];
+
+    /* Update document title */
+    document.title = p.name + ' | Jalandhar Pipe Store';
+
+    /* Hero */
+    var bcCat  = document.getElementById('bcCategory');
+    var bcProd = document.getElementById('bcProduct');
+    if (bcCat)  bcCat.textContent  = p.category;
+    if (bcProd) bcProd.textContent = p.name;
+
+    /* Make category in breadcrumb a link */
+    if (bcCat) {
+      var catLink = document.createElement('a');
+      catLink.href = 'products.html?cat=' + encodeURIComponent(p.category);
+      catLink.textContent = p.category;
+      catLink.style.color = 'rgba(255,255,255,.65)';
+      bcCat.parentNode.replaceChild(catLink, bcCat);
+    }
+
+    var heroTitle = document.getElementById('pdHeroTitle');
+    var heroSub   = document.getElementById('pdHeroSub');
+    if (heroTitle) heroTitle.innerHTML = '<i class="fa-solid ' + meta.fa + '" style="margin-right:.5rem;opacity:.8"></i>' + esc(p.name);
+    if (heroSub)   heroSub.textContent = p.category + (p.brand ? ' · ' + p.brand : '');
+
+    /* Icon circle */
+    var circle = document.getElementById('pdIconCircle');
+    var iconFA = document.getElementById('pdIconFA');
+    if (circle) {
+      circle.style.background = ciStyle.bg;
+      circle.style.color      = ciStyle.color;
+    }
+    if (iconFA) {
+      iconFA.className = 'fa-solid ' + meta.fa;
+    }
+
+    var imgLabel = document.getElementById('pdImgLabel');
+    if (imgLabel) imgLabel.textContent = p.category;
+
+    /* Badges */
+    var catBadge   = document.getElementById('pdCatBadge');
+    var brandBadge = document.getElementById('pdBrandBadge');
+    if (catBadge)   catBadge.textContent  = p.category;
+    if (brandBadge) brandBadge.textContent = p.brand || 'Unknown';
+
+    /* Title */
+    var title = document.getElementById('pdTitle');
+    if (title) title.textContent = p.name;
+
+    /* Sizes */
+    var sizesSection  = document.getElementById('pdSizesSection');
+    var sizesDivider  = document.getElementById('pdSizesDivider');
+    var sizesContainer = document.getElementById('pdSizes');
+    var realSizes = (p.sizes || []).filter(function (s) { return s && s !== 'Standard'; });
+
+    if (realSizes.length > 0 && sizesContainer) {
+      sizesContainer.innerHTML = realSizes.map(function (s) {
+        return '<button class="size-pill" data-size="' + esc(s) + '" onclick="(function(){selectSizePd(\'' + s.replace(/'/g, "\\'") + '\')})()">' + esc(s) + '</button>';
+      }).join('');
+      /* Auto-select first size */
+      selectedSize = realSizes[0];
+      var firstPill = sizesContainer.querySelector('.size-pill');
+      if (firstPill) firstPill.classList.add('selected');
+    } else {
+      if (sizesSection) sizesSection.style.display = 'none';
+      if (sizesDivider) sizesDivider.style.display = 'none';
+    }
+
+    /* Tags */
+    var tagsSection  = document.getElementById('pdTagsSection');
+    var tagsDivider  = document.getElementById('pdTagsDivider');
+    var tagsContainer = document.getElementById('pdTags');
+    var tags = (p.tags || []).filter(function (t) { return t; });
+
+    if (tags.length > 0 && tagsContainer) {
+      tagsContainer.innerHTML = tags.map(function (t) {
+        return '<span class="pd-tag">' + esc(t) + '</span>';
+      }).join('');
+    } else {
+      if (tagsSection) tagsSection.style.display = 'none';
+      if (tagsDivider) tagsDivider.style.display  = 'none';
+    }
+
+    /* Description */
+    var desc = document.getElementById('pdDesc');
+    if (desc) desc.textContent = (p.desc && p.desc.trim()) ? p.desc : 'No description available for this product. Contact us on WhatsApp for full specifications and pricing.';
+
+    /* Category link */
+    var catLinkEl    = document.getElementById('pdCatLink');
+    var catLinkLabel = document.getElementById('pdCatLinkLabel');
+    if (catLinkEl)    catLinkEl.href = 'products.html?cat=' + encodeURIComponent(p.category);
+    if (catLinkLabel) catLinkLabel.textContent = p.category;
+
+    /* WA button */
+    updateWALinks();
+
+    /* Cart / wishlist button states */
+    updateCartBtn();
+    updateWishlistBtn();
+
+    /* Show layout, hide not-found */
+    var layout   = document.getElementById('pdLayout');
+    var notFound = document.getElementById('pdNotFound');
+    if (layout)   layout.style.display   = '';
+    if (notFound) notFound.style.display = 'none';
+
+    /* Related products */
+    renderRelated(p);
+  }
+
+  /* ── Expose selectSize to inline onclick ── */
+  window.selectSizePd = function (size) {
+    selectedSize = size;
+    document.querySelectorAll('.size-pill').forEach(function (el) {
+      el.classList.toggle('selected', el.dataset.size === size);
+    });
+    updateWALinks();
+  };
+
+  /* ── Related products ── */
+  function renderRelated(p) {
+    var related = (window.PRODUCTS || [])
+      .filter(function (x) { return x.category === p.category && x.id !== p.id; })
+      .slice(0, 4);
+
+    var section = document.getElementById('relatedSection');
+    var grid    = document.getElementById('relatedGrid');
+    var sub     = document.getElementById('relatedSubtitle');
+    var more    = document.getElementById('relatedMoreLink');
+
+    if (related.length === 0 || !section || !grid) return;
+
+    if (sub)  sub.textContent = 'More ' + p.category + ' products you might need';
+    if (more) more.href = 'products.html?cat=' + encodeURIComponent(p.category);
+
+    grid.innerHTML = related.map(relatedCardHTML).join('');
+    section.style.display = '';
+  }
+
+  /* ── Not found state ── */
+  function renderNotFound() {
+    var layout   = document.getElementById('pdLayout');
+    var notFound = document.getElementById('pdNotFound');
+    var heroTitle = document.getElementById('pdHeroTitle');
+    var heroSub   = document.getElementById('pdHeroSub');
+    var bcCat  = document.getElementById('bcCategory');
+    var bcProd = document.getElementById('bcProduct');
+
+    if (layout)    layout.style.display   = 'none';
+    if (notFound)  notFound.style.display = '';
+    if (heroTitle) heroTitle.innerHTML = '<i class="fa-solid fa-box-open" style="margin-right:.5rem;opacity:.8"></i>Product Not Found';
+    if (heroSub)   heroSub.textContent = 'The product you\'re looking for could not be found';
+    if (bcCat)     bcCat.textContent   = '—';
+    if (bcProd)    bcProd.textContent  = 'Not Found';
+
+    document.title = 'Product Not Found | Jalandhar Pipe Store';
+  }
+
+  /* ── Init ── */
+  function init() {
+    var idStr = getParam('id');
+    var id    = idStr ? parseInt(idStr, 10) : NaN;
+
+    if (isNaN(id)) {
+      renderNotFound();
+      return;
+    }
+
+    var products = window.PRODUCTS || [];
+    var product  = products.find(function (p) { return p.id === id; });
+
+    if (!product) {
+      renderNotFound();
+      return;
+    }
+
+    renderProduct(product);
+  }
+
+  /* Run after DOM + PRODUCTS script are both ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  /* Also re-run init after scripts load in case PRODUCTS wasn't ready yet */
+  window.addEventListener('load', function () {
+    /* Only re-render if we haven't successfully rendered a product yet */
+    if (!currentProduct) {
+      init();
+    }
+    /* Refresh cart/wishlist button states after main.js initialises */
+    setTimeout(function () {
+      updateCartBtn();
+      updateWishlistBtn();
+    }, 100);
+  });
+
+})();
+</script>
+
+</body>
+</html>

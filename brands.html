@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jalandhar Pipe Store — Trusted brands we carry: Adamjee, Faisal Pipes, Dura Max, Master Pipes, Pak Pipes and more. Genuine plumbing materials in Faisalabad.">
+  <title>Trusted Brands | Jalandhar Pipe Store — Faisalabad</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- SEO Open Graph -->
+  <meta property="og:title" content="Trusted Brands | Jalandhar Pipe Store — Faisalabad">
+  <meta property="og:description" content="We carry Pakistan's most trusted plumbing brands: Adamjee, Faisal Pipes, Dura Max, Master Pipes, Pak Pipes and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_PK">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Trusted Brands — Jalandhar Pipe Store">
+  <meta name="twitter:description" content="Pakistan's top plumbing brands, all under one roof in Faisalabad.">
+  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ── Page Hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary, #1a4fba) 0%, #0d3080 100%);
+      color: #fff;
+      padding: 4rem 0 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .page-hero .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 1.25rem;
+    }
+    .page-hero .breadcrumb a {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .page-hero .breadcrumb a:hover { color: #fff; }
+    .page-hero .breadcrumb i { font-size: .7rem; }
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 800;
+      margin: 0 0 .75rem;
+      line-height: 1.2;
+    }
+    .page-hero h1 span {
+      color: var(--accent, #e67e22);
+    }
+    .page-hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.82);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Brands Section ── */
+    .brands-page-section {
+      padding: 4rem 0;
+      background: #f8faff;
+    }
+    .brands-page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.75rem;
+      margin-top: 2.5rem;
+    }
+    .brand-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(26,79,186,.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+      border: 1px solid rgba(26,79,186,.08);
+    }
+    .brand-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 32px rgba(26,79,186,.15);
+    }
+    .brand-logo-area {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .brand-initials {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: .05em;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+    .brand-count-chip {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255,255,255,.2);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .25rem .65rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.35);
+      letter-spacing: .03em;
+    }
+    .brand-card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-card-body h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary, #1a4fba);
+      margin: 0 0 .6rem;
+    }
+    .brand-card-body p {
+      font-size: .9rem;
+      color: #5a6580;
+      line-height: 1.6;
+      margin: 0 0 1.25rem;
+      flex: 1;
+    }
+    .brand-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+    .btn-brand-view {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--primary, #1a4fba);
+      color: #fff;
+      font-size: .85rem;
+      font-weight: 700;
+      padding: .55rem 1.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-brand-view:hover {
+      background: #0d3080;
+      transform: translateX(2px);
+    }
+    .brand-product-count {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--accent, #e67e22);
+      background: rgba(230,126,34,.1);
+      padding: .3rem .75rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* Brand logo color palettes */
+    .bl-adamjee   { background: linear-gradient(135deg, #1a4fba 0%, #0d3080 100%); }
+    .bl-faisal    { background: linear-gradient(135deg, #16a085 0%, #0d6b5a 100%); }
+    .bl-duramax   { background: linear-gradient(135deg, #e67e22 0%, #c0530a 100%); }
+    .bl-master    { background: linear-gradient(135deg, #8e44ad 0%, #5e2d7a 100%); }
+    .bl-pakpipes  { background: linear-gradient(135deg, #c0392b 0%, #8b1a14 100%); }
+    .bl-a58       { background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); }
+
+    /* ── Brand Benefits Section ── */
+    .brand-benefits-section {
+      padding: 4rem 0;
+      background: #fff;
+    }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.75rem;
+      margin-top: 2.5rem;
+    }
+    .benefit-card {
+      background: #f8faff;
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(26,79,186,.08);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(26,79,186,.12);
+    }
+    .benefit-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 1.6rem;
+    }
+    .benefit-icon.bi-1 {
+      background: rgba(26,79,186,.12);
+      color: var(--primary, #1a4fba);
+    }
+    .benefit-icon.bi-2 {
+      background: rgba(230,126,34,.12);
+      color: var(--accent, #e67e22);
+    }
+    .benefit-icon.bi-3 {
+      background: rgba(22,160,133,.12);
+      color: #16a085;
+    }
+    .benefit-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1e2a45;
+      margin: 0 0 .6rem;
+    }
+    .benefit-card p {
+      font-size: .88rem;
+      color: #5a6580;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── CTA Section ── */
+    .brands-cta {
+      background: linear-gradient(135deg, var(--primary, #1a4fba) 0%, #0d3080 100%);
+      color: #fff;
+      padding: 4rem 0;
+      text-align: center;
+    }
+    .brands-cta h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      margin: 0 0 .85rem;
+    }
+    .brands-cta p {
+      font-size: 1rem;
+      color: rgba(255,255,255,.82);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .brands-cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) {
+      .brands-page-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Hero ══ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Brands</span>
+    </div>
+    <h1>Trusted <span>Brands</span></h1>
+    <p>We carry products from Pakistan's most trusted plumbing material manufacturers</p>
+  </div>
+</section>
+
+<!-- ══ Brands Grid ══ -->
+<section class="brands-page-section">
+  <div class="container">
+    <h2 class="section-title">Our Brand Partners</h2>
+    <p class="section-subtitle">Every brand we stock is carefully vetted for quality, durability, and compliance with Pakistani plumbing standards</p>
+
+    <div class="brands-page-grid">
+
+      <!-- Adamjee -->
+      <div class="brand-card">
+        <div class="brand-logo-area bl-adamjee">
+          <span class="brand-initials">AD</span>
+          <span class="brand-count-chip">450+ Products</span>
+        </div>
+        <div class="brand-card-body">
+          <h3>Adamjee</h3>
+          <p>One of Pakistan's oldest and most reputable pipe manufacturers. Adamjee produces a comprehensive range of uPVC pipes, fittings and sewerage solutions trusted by engineers and contractors nationwide for their consistent pressure ratings and long service life.</p>
+          <div class="brand-card-footer">
+            <a href="products.html?brand=Adamjee" class="btn-brand-view">
+              <i class="fa-solid fa-boxes-stacked"></i> View Products
+            </a>
+            <span class="brand-product-count">450+ items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faisal Pipes -->
+      <div class="brand-card">
+        <div class="brand-logo-area bl-faisal">
+          <span class="brand-initials">FP</span>
+          <span class="brand-count-chip">380+ Products</span>
+        </div>
+        <div class="brand-card-body">
+          <h3>Faisal Pipes</h3>
+          <p>A leading manufacturer of high-quality PVC and CPVC pressure pipes for water supply systems. Faisal Pipes are widely recognised for their superior burst-pressure tolerance and UV-resistant formulation, making them ideal for both indoor and outdoor installations.</p>
+          <div class="brand-card-footer">
+            <a href="products.html?brand=Faisal+Pipes" class="btn-brand-view">
+              <i class="fa-solid fa-boxes-stacked"></i> View Products
+            </a>
+            <span class="brand-product-count">380+ items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dura Max -->
+      <div class="brand-card">
+        <div class="brand-logo-area bl-duramax">
+          <span class="brand-initials">DM</span>
+          <span class="brand-count-chip">290+ Products</span>
+        </div>
+        <div class="brand-card-body">
+          <h3>Dura Max</h3>
+          <p>Specialists in heavy-duty industrial and commercial plumbing solutions. Dura Max pipes and fittings are engineered for high-pressure applications, chemical resistance and extended operational life in demanding construction and infrastructure projects across Pakistan.</p>
+          <div class="brand-card-footer">
+            <a href="products.html?brand=Dura+Max" class="btn-brand-view">
+              <i class="fa-solid fa-boxes-stacked"></i> View Products
+            </a>
+            <span class="brand-product-count">290+ items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master Pipes -->
+      <div class="brand-card">
+        <div class="brand-logo-area bl-master">
+          <span class="brand-initials">MP</span>
+          <span class="brand-count-chip">320+ Products</span>
+        </div>
+        <div class="brand-card-body">
+          <h3>Master Pipes</h3>
+          <p>A trusted household name for residential plumbing. Master Pipes offers an extensive catalogue of PVC water supply pipes, drainage pipes, and injection-moulded fittings — renowned for easy installation, leak-proof joints, and excellent value for money.</p>
+          <div class="brand-card-footer">
+            <a href="products.html?brand=Master+Pipes" class="btn-brand-view">
+              <i class="fa-solid fa-boxes-stacked"></i> View Products
+            </a>
+            <span class="brand-product-count">320+ items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pak Pipes -->
+      <div class="brand-card">
+        <div class="brand-logo-area bl-pakpipes">
+          <span class="brand-initials">PP</span>
+          <span class="brand-count-chip">260+ Products</span>
+        </div>
+        <div class="brand-card-body">
+          <h3>Pak Pipes</h3>
+          <p>Proudly manufactured in Pakistan with a focus on affordability without compromising quality. Pak Pipes delivers a full range of sewerage, drainage and water supply pipes suitable for small-scale residential builds as well as large municipal infrastructure projects.</p>
+          <div class="brand-card-footer">
+            <a href="products.html?brand=Pak+Pipes" class="btn-brand-view">
+              <i class="fa-solid fa-boxes-stacked"></i> View Products
+            </a>
+            <span class="brand-product-count">260+ items</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- A58 -->
+      <div class="brand-card">
+        <div class="brand-logo-area bl-a58">
+          <span class="brand-initials">A58</span>
+          <span class="brand-count-chip">210+ Products</span>
+        </div>
+        <div class="brand-card-body">
+          <h3>A58</h3>
+          <p>A specialist brand known for precision-engineered brass and GI fittings, gate valves, ball valves and pipe connectors. A58 products meet stringent dimensional standards and are favoured by professional plumbers who demand accuracy, durability and corrosion resistance.</p>
+          <div class="brand-card-footer">
+            <a href="products.html?brand=A58" class="btn-brand-view">
+              <i class="fa-solid fa-boxes-stacked"></i> View Products
+            </a>
+            <span class="brand-product-count">210+ items</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ Brand Benefits ══ -->
+<section class="brand-benefits-section">
+  <div class="container">
+    <h2 class="section-title">Why Buy Branded Products?</h2>
+    <p class="section-subtitle">Choosing a recognised brand means you get more than just a pipe — you get peace of mind</p>
+    <div class="benefits-grid">
+
+      <div class="benefit-card">
+        <div class="benefit-icon bi-1">
+          <i class="fa-solid fa-certificate"></i>
+        </div>
+        <h3>Genuine Products</h3>
+        <p>Every item we sell is sourced directly from authorised distributors. You can be confident that what you buy is 100% authentic — no counterfeits, no compromises on material quality.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon bi-2">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3>Manufacturer Warranty</h3>
+        <p>All branded products carry the full manufacturer warranty. In the rare event of a defect, we'll help you process your claim quickly so your project stays on schedule.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon bi-3">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3>Quality Assured</h3>
+        <p>Our partner brands comply with PSQCA and international ISO standards. Each batch is tested for pressure rating, chemical composition and dimensional accuracy before it reaches our shelves.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="brands-cta">
+  <div class="container">
+    <h2>Not Sure Which Brand Is Right for Your Project?</h2>
+    <p>Our experienced team is ready to help you pick the best brand and spec for your exact requirements — just message us on WhatsApp.</p>
+    <div class="brands-cta-btns">
+      <a href="https://wa.me/92412645043?text=Hi!%20I%20need%20help%20choosing%20the%20right%20brand%20for%20my%20plumbing%20project" class="btn btn-whatsapp btn-lg" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+      <a href="products.html" class="btn btn-white btn-lg">
+        <i class="fa-solid fa-boxes-stacked"></i> Browse All Products
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=10"></script>
+<script src="js/features.js?v=3"></script>
+</body>
+</html>

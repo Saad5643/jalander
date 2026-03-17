@@ -1,4 +1,4 @@
-const CACHE = 'jps-v2';
+const CACHE = 'jps-v3';
 const STATIC = [
   '/',
   '/index.html',
@@ -6,10 +6,13 @@ const STATIC = [
   '/categories.html',
   '/about.html',
   '/contact.html',
+  '/product.html',
+  '/brands.html',
   '/css/style.css',
   '/css/styles.css',
   '/js/main.js',
-  '/js/products-data.js'
+  '/js/products-data.js',
+  '/js/features.js'
 ];
 
 self.addEventListener('install', e => {

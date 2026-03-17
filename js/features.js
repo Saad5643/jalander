@@ -711,6 +711,7 @@ function productCardHTML(p) {
     ? `<img src="${escHtml(p.imgUrl)}" alt="${escHtml(p.name)}" class="prod-real-img" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
     : '';
 
+  const inCompare = (window.compareList || []).includes(p.id);
   return `
     <div class="prod-card" onclick="openProductModal(${p.id})">
       <div class="prod-img ${meta.img}" style="${p.imgUrl ? 'padding:0;overflow:hidden' : ''}">
@@ -722,6 +723,11 @@ function productCardHTML(p) {
           title="${liked ? 'Remove from Wishlist' : 'Save to Wishlist'}">
           <i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i>
         </button>
+        <div class="compare-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" id="cmp-${p.id}" ${inCompare ? 'checked' : ''}
+            onchange="toggleCompare(${p.id})">
+          <label for="cmp-${p.id}"><i class="fa-solid fa-scale-balanced"></i> Compare</label>
+        </div>
       </div>
       <div class="prod-body">
         <div class="prod-brand">${escHtml(p.brand)}</div>
@@ -946,6 +952,28 @@ window.injectGlobalUI = function() {
       </div>
     </div>
 
+    <!-- ══ Compare Overlay ══ -->
+    <div class="compare-overlay" id="compareOverlay" onclick="if(event.target===this)closeCompareModal()">
+      <div class="compare-modal" id="compareModal"></div>
+    </div>
+
+    <!-- ══ Compare Sticky Bar ══ -->
+    <div class="compare-bar" id="compareBar">
+      <div class="compare-bar-info">
+        <i class="fa-solid fa-scale-balanced"></i>
+        <span>Comparing 0 products</span>
+      </div>
+      <div class="compare-bar-thumbs"></div>
+      <div class="compare-bar-actions">
+        <button class="btn-compare-now" onclick="openCompareModal()">
+          <i class="fa-solid fa-scale-balanced"></i> Compare Now
+        </button>
+        <button class="btn-compare-clear" onclick="clearCompareList()">
+          <i class="fa-solid fa-xmark"></i> Clear
+        </button>
+      </div>
+    </div>
+
     <!-- ══ Catalogue Modal ══ -->
     <div class="feat-overlay" id="catalogueOverlay" onclick="if(event.target===this)closeCatalogueModal()">
       <div class="feat-modal feat-modal-sm">
@@ -955,6 +983,11 @@ window.injectGlobalUI = function() {
         </div>
         <div class="feat-modal-body" id="catalogueOptions">
           <p style="color:#64748b;font-size:.9rem;margin-bottom:1.25rem">Choose what to print:</p>
+          <button class="cat-option-btn btn-pricelist" onclick="downloadPriceList();closeCatalogueModal()" style="margin-bottom:.75rem">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span>Download Price List <em>(PDF via print)</em></span>
+            <i class="fa-solid fa-file-pdf cat-opt-icon"></i>
+          </button>
           <div class="cat-option-list" id="catOptionList">
             <button class="cat-option-btn" onclick="printCatalogue(null);closeCatalogueModal()">
               <i class="fa-solid fa-boxes-stacked"></i>
@@ -1045,17 +1078,52 @@ function initNavSearch() {
     drop.classList.add('active');
   });
 
+  let _acIndex = -1;
+
+  function _acItems() { return drop.querySelectorAll('.drop-item'); }
+
+  function _acHighlight(idx) {
+    const items = _acItems();
+    items.forEach((el, i) => el.classList.toggle('ac-selected', i === idx));
+    if (items[idx]) items[idx].scrollIntoView({ block: 'nearest' });
+  }
+
   input.addEventListener('keydown', e => {
+    const items = _acItems();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      _acIndex = Math.min(_acIndex + 1, items.length - 1);
+      _acHighlight(_acIndex);
+      return;
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      _acIndex = Math.max(_acIndex - 1, -1);
+      _acHighlight(_acIndex);
+      return;
+    }
     if (e.key === 'Enter') {
+      if (_acIndex >= 0 && items[_acIndex]) {
+        items[_acIndex].click();
+        return;
+      }
       const q = input.value.trim();
       if (q) { saveSearchHistory(q); window.location.href = `products.html?search=${encodeURIComponent(q)}`; }
     }
-    if (e.key === 'Escape') drop.classList.remove('active');
+    if (e.key === 'Escape') {
+      drop.classList.remove('active');
+      _acIndex = -1;
+    }
   });
 
+  // Reset index when input changes
+  input.addEventListener('input', () => { _acIndex = -1; });
+
   document.addEventListener('click', e => {
-    if (!input.contains(e.target) && !drop.contains(e.target))
+    if (!input.contains(e.target) && !drop.contains(e.target)) {
       drop.classList.remove('active');
+      _acIndex = -1;
+    }
   });
 }
 
@@ -1083,6 +1151,278 @@ function renderDealsSection() {
         <span class="deal-cta">Browse <i class="fa-solid fa-arrow-right"></i></span>
       </div>
     </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════
+   16. COMPARE PRODUCTS
+   ═══════════════════════════════════════════ */
+let compareList = [];
+
+function toggleCompare(productId) {
+  const idx = compareList.indexOf(productId);
+  if (idx === -1) {
+    if (compareList.length >= 3) {
+      alert('You can compare up to 3 products at a time. Remove one first.');
+      // Uncheck the checkbox that was just checked
+      const cb = document.getElementById(`cmp-${productId}`);
+      if (cb) cb.checked = false;
+      return;
+    }
+    compareList.push(productId);
+  } else {
+    compareList.splice(idx, 1);
+  }
+  updateCompareBar();
+}
+
+function updateCompareBar() {
+  let bar = document.getElementById('compareBar');
+  if (!bar) return;
+
+  if (compareList.length === 0) {
+    bar.classList.remove('visible');
+    return;
+  }
+
+  const products = compareList.map(id => (window.PRODUCTS || []).find(p => p.id === id)).filter(Boolean);
+  const thumbsHTML = products.map(p => {
+    const meta = CAT_ICONS[p.category] || { fa: 'fa-box', img: 'img-product' };
+    return `<div class="compare-thumb ${meta.img}" title="${escHtml(p.name)}"><i class="fa-solid ${meta.fa}"></i></div>`;
+  }).join('');
+
+  bar.querySelector('.compare-bar-thumbs').innerHTML = thumbsHTML;
+  bar.querySelector('.compare-bar-info span').textContent = `Comparing ${compareList.length} product${compareList.length !== 1 ? 's' : ''}`;
+  bar.classList.add('visible');
+}
+
+function openCompareModal() {
+  if (compareList.length < 1) return;
+  const products = compareList.map(id => (window.PRODUCTS || []).find(p => p.id === id)).filter(Boolean);
+
+  // Build column headers
+  const headerCols = products.map(p => {
+    const meta = CAT_ICONS[p.category] || { fa: 'fa-box', img: 'img-product' };
+    return `
+      <th class="compare-prod-header">
+        <div class="compare-prod-icon ${meta.img}"><i class="fa-solid ${meta.fa}"></i></div>
+        <div class="compare-prod-name">${escHtml(p.name)}</div>
+        <div class="compare-prod-brand">${escHtml(p.brand)}</div>
+      </th>`;
+  }).join('');
+
+  const rows = [
+    { label: 'Brand',    key: p => escHtml(p.brand || '—') },
+    { label: 'Category', key: p => escHtml(p.category || '—') },
+    { label: 'Sizes',    key: p => p.sizes && p.sizes[0] !== 'Standard' ? escHtml(p.sizes.join(', ')) : 'Standard' },
+    { label: 'Tags',     key: p => p.tags && p.tags.length ? p.tags.map(t => `<span class="pm-tag">${escHtml(t)}</span>`).join(' ') : '—' },
+    { label: 'Description', key: p => escHtml(p.desc || '—') },
+  ];
+
+  const tableRows = rows.map(r => `
+    <tr>
+      <td class="ct-label">${r.label}</td>
+      ${products.map(p => `<td>${r.key(p)}</td>`).join('')}
+    </tr>`).join('');
+
+  const modal = document.getElementById('compareModal');
+  if (!modal) return;
+  modal.innerHTML = `
+    <div class="compare-modal-head">
+      <h3><i class="fa-solid fa-scale-balanced" style="margin-right:.4rem"></i>Product Comparison</h3>
+      <button class="compare-modal-close" onclick="closeCompareModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="compare-modal-body">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:110px">Feature</th>
+            ${headerCols}
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+        </tbody>
+      </table>
+    </div>`;
+
+  document.getElementById('compareOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCompareModal() {
+  document.getElementById('compareOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function clearCompareList() {
+  compareList = [];
+  // Uncheck all checkboxes
+  document.querySelectorAll('.compare-check-wrap input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+  updateCompareBar();
+}
+
+/* ═══════════════════════════════════════════
+   17. QUOTE REQUEST FORM
+   ═══════════════════════════════════════════ */
+function openQuoteModal() {
+  const overlay = document.getElementById('quoteOverlay');
+  if (!overlay) return;
+  // Clear form
+  ['quoteName','quotePhone','quoteCompany','quoteProducts','quoteQty','quoteMessage'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => { const n = document.getElementById('quoteName'); if (n) n.focus(); }, 200);
+}
+
+function closeQuoteModal() {
+  const overlay = document.getElementById('quoteOverlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitQuoteForm() {
+  const name     = (document.getElementById('quoteName')?.value || '').trim();
+  const phone    = (document.getElementById('quotePhone')?.value || '').trim();
+  const company  = (document.getElementById('quoteCompany')?.value || '').trim();
+  const products = (document.getElementById('quoteProducts')?.value || '').trim();
+  const qty      = (document.getElementById('quoteQty')?.value || '').trim();
+  const message  = (document.getElementById('quoteMessage')?.value || '').trim();
+
+  if (!name || !phone || !products) {
+    alert('Please fill in your Name, Phone, and Products needed.');
+    return;
+  }
+
+  const parts = [
+    `*Quote Request — Jalandhar Pipe Store*`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `👤 Name: ${name}`,
+    `📞 Phone: ${phone}`,
+    company  ? `🏢 Company: ${company}` : null,
+    `📦 Products: ${products}`,
+    qty      ? `🔢 Quantity: ${qty}` : null,
+    message  ? `💬 Message: ${message}` : null,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Please share availability and pricing. Thank you!`,
+  ].filter(Boolean).join('\n');
+
+  const url = `https://wa.me/92412645043?text=${encodeURIComponent(parts)}`;
+  window.open(url, '_blank');
+  closeQuoteModal();
+}
+
+/* ═══════════════════════════════════════════
+   18. WHATSAPP CART SHARE
+   ═══════════════════════════════════════════ */
+function shareCartOnWhatsApp() {
+  const items = window.cartItems || [];
+  if (items.length === 0) { alert('Your cart is empty.'); return; }
+
+  const lines = items.map(c => `• ${c.name} × ${c.qty || 1}`).join('\n');
+  const totalItems = items.reduce((s, c) => s + (c.qty || 1), 0);
+
+  const msg = [
+    `🛒 *My Order from Jalandhar Pipe Store:*`,
+    lines,
+    `Total: ${totalItems} item${totalItems !== 1 ? 's' : ''}`,
+    ``,
+    `Please confirm availability and prices. Thank you!`,
+  ].join('\n');
+
+  window.open(`https://wa.me/92412645043?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ═══════════════════════════════════════════
+   19. PDF PRICE LIST DOWNLOAD
+   ═══════════════════════════════════════════ */
+function downloadPriceList() {
+  const products = window.PRODUCTS || [];
+  if (products.length === 0) { alert('No products loaded yet.'); return; }
+
+  // Group by category
+  const grouped = {};
+  products.forEach(p => {
+    if (!grouped[p.category]) grouped[p.category] = [];
+    grouped[p.category].push(p);
+  });
+
+  const dateStr = new Date().toLocaleDateString('en-PK', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  const catSections = Object.entries(grouped).map(([cat, prods]) => `
+    <div class="jps-pl-cat-section">
+      <div class="jps-pl-cat-heading">
+        ${cat} <span class="jps-pl-cat-cnt">${prods.length}</span>
+      </div>
+      <table class="jps-pl-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Sizes</th>
+            <th>Tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${prods.map((p, i) => `
+            <tr>
+              <td class="jps-pl-row-num">${i + 1}</td>
+              <td><strong>${p.name}</strong>${p.desc && p.desc !== p.name ? `<br><small style="color:#6b7280;font-size:.75em">${p.desc}</small>` : ''}</td>
+              <td>${p.brand || '—'}</td>
+              <td>${p.category}</td>
+              <td>${p.sizes && p.sizes[0] !== 'Standard' ? p.sizes.join(', ') : 'Standard'}</td>
+              <td>${p.tags && p.tags.length ? p.tags.join(', ') : '—'}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`).join('');
+
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <title>Price List — Jalandhar Pipe Store</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;padding:1.5rem;color:#111;font-size:12px}
+    .jps-pl-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #1a4fba;padding-bottom:.75rem;margin-bottom:1.25rem}
+    .jps-pl-store-name{font-size:1.2rem;font-weight:800;color:#1a4fba}
+    .jps-pl-store-sub{font-size:.75rem;color:#6b7280;margin-top:.2rem}
+    .jps-pl-meta{text-align:right;font-size:.75rem;color:#9ca3af}
+    .jps-pl-meta strong{display:block;font-size:.88rem;color:#1a4fba;margin-bottom:.2rem}
+    .jps-pl-cat-heading{font-size:.95rem;font-weight:800;color:#1a4fba;margin:1.25rem 0 .4rem;padding:.35rem .7rem;background:#f0f5ff;border-left:4px solid #1a4fba;border-radius:0 6px 6px 0;display:inline-flex;align-items:center;gap:.4rem}
+    .jps-pl-cat-cnt{background:#1a4fba;color:#fff;border-radius:99px;padding:.1rem .45rem;font-size:.7rem;font-weight:700}
+    .jps-pl-table{width:100%;border-collapse:collapse;margin-bottom:.5rem}
+    .jps-pl-table th{background:#1a4fba;color:#fff;padding:.38rem .55rem;text-align:left;font-size:.72rem}
+    .jps-pl-table td{padding:.3rem .55rem;border-bottom:1px solid #f1f5f9;font-size:.78rem;vertical-align:top}
+    .jps-pl-table tr:nth-child(even) td{background:#f8fafc}
+    .jps-pl-row-num{color:#9ca3af;width:24px;text-align:center}
+    .jps-pl-footer{margin-top:1.5rem;border-top:1px solid #e5e7eb;padding-top:.65rem;font-size:.68rem;color:#9ca3af;text-align:center}
+    @media print{body{padding:.5rem}.jps-pl-cat-section{break-inside:avoid}}
+  </style>
+  </head><body>
+  <div class="jps-pl-header">
+    <div>
+      <div class="jps-pl-store-name">Jalandhar Pipe Store</div>
+      <div class="jps-pl-store-sub">Plumbing Materials · Faisalabad, Pakistan · 041 2645043</div>
+    </div>
+    <div class="jps-pl-meta">
+      <strong>Price List</strong>
+      Contact us for current prices<br>
+      Generated: ${dateStr}<br>
+      Total Products: ${products.length}
+    </div>
+  </div>
+  ${catSections}
+  <div class="jps-pl-footer">
+    Jalandhar Pipe Store — Shop No. 13, Railway Rd, Tariqabad, Faisalabad — Prices available on request — This list is for reference only
+  </div>
+  <script>window.onload = () => { window.print(); };<\/script>
+  </body></html>`);
+  win.document.close();
 }
 
 /* ═══════════════════════════════════════════

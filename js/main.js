@@ -621,6 +621,9 @@ function injectGlobalUI() {
         <button class="btn-order-now" onclick="openOrderModal()">
           <i class="fa-solid fa-bag-shopping"></i> Place Order
         </button>
+        <button class="btn-wa-share-cart" onclick="shareCartOnWhatsApp()" title="Share cart on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i> Share Cart on WhatsApp
+        </button>
         <div class="cd-secondary-actions">
           <button class="btn-wa-cart" onclick="sendCartToWA()" title="Send as WhatsApp Inquiry">
             <i class="fa-brands fa-whatsapp"></i> Quick Inquiry
