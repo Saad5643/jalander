@@ -1,4 +1,4 @@
-const CACHE = 'jps-v3';
+const CACHE = 'jps-v4';
 const STATIC = [
   '/',
   '/index.html',
@@ -8,6 +8,8 @@ const STATIC = [
   '/contact.html',
   '/product.html',
   '/brands.html',
+  '/faq.html',
+  '/404.html',
   '/css/style.css',
   '/css/styles.css',
   '/js/main.js',

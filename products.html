@@ -250,11 +250,67 @@
   <span class="wa-tooltip">Chat on WhatsApp</span>
 </a>
 
+<!-- ══ Quote Request Floating Button ══ -->
+<button class="quote-float-btn" onclick="openQuoteModal()" aria-label="Request Quote" title="Request a Quote">
+  <i class="fa-solid fa-file-invoice"></i>
+  <span class="quote-float-tooltip">Request Quote</span>
+</button>
+
+<!-- ══ Quote Request Modal ══ -->
+<div class="quote-overlay" id="quoteOverlay" onclick="if(event.target===this)closeQuoteModal()">
+  <div class="quote-modal">
+    <div class="quote-modal-head">
+      <div class="quote-modal-icon"><i class="fa-solid fa-file-invoice"></i></div>
+      <div>
+        <h3>Request a Quote</h3>
+        <p>We'll get back to you on WhatsApp</p>
+      </div>
+      <button class="quote-modal-close" onclick="closeQuoteModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="quote-modal-body">
+      <div class="quote-form-row">
+        <div class="quote-field">
+          <label for="quoteName"><i class="fa-solid fa-user"></i> Name <span style="color:#dc2626">*</span></label>
+          <input type="text" id="quoteName" placeholder="e.g. Muhammad Ali" autocomplete="name">
+        </div>
+        <div class="quote-field">
+          <label for="quotePhone"><i class="fa-solid fa-phone"></i> Phone <span style="color:#dc2626">*</span></label>
+          <input type="tel" id="quotePhone" placeholder="e.g. 0300-1234567" autocomplete="tel">
+        </div>
+      </div>
+      <div class="quote-field">
+        <label for="quoteCompany"><i class="fa-solid fa-building"></i> Company / Shop <span class="opt">(optional)</span></label>
+        <input type="text" id="quoteCompany" placeholder="e.g. Ali Brothers Traders" autocomplete="organization">
+      </div>
+      <div class="quote-field">
+        <label for="quoteProducts"><i class="fa-solid fa-boxes-stacked"></i> Products Needed <span style="color:#dc2626">*</span></label>
+        <textarea id="quoteProducts" placeholder="e.g. 4-inch PVC pipes × 50, Ball valves × 20…"></textarea>
+      </div>
+      <div class="quote-form-row">
+        <div class="quote-field">
+          <label for="quoteQty"><i class="fa-solid fa-hashtag"></i> Quantity <span class="opt">(optional)</span></label>
+          <input type="text" id="quoteQty" placeholder="e.g. 100 pcs, bulk">
+        </div>
+        <div class="quote-field">
+          <label for="quoteMessage"><i class="fa-solid fa-comment"></i> Message <span class="opt">(optional)</span></label>
+          <input type="text" id="quoteMessage" placeholder="Any special requirements…">
+        </div>
+      </div>
+    </div>
+    <div class="quote-modal-foot">
+      <button class="btn-quote-cancel" onclick="closeQuoteModal()">Cancel</button>
+      <button class="btn-quote-submit" onclick="submitQuoteForm()">
+        <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- ══ Back to Top ══ -->
 <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
 
 <script src="js/products-data.js?v=3"></script>
 <script src="js/main.js?v=10"></script>
-<script src="js/features.js?v=3"></script>
+<script src="js/features.js?v=4"></script>
 </body>
 </html>

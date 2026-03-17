@@ -857,8 +857,9 @@ function showReceipt(customerName, shopName, phone) {
 
   _currentOrderData = { orderNo, orderDate, orderTime, customerName, shopName, phone, items: [...cartItems] };
 
-  // Save to history
+  // Save to local history + sync to portal dashboard
   saveOrderToHistory(_currentOrderData);
+  if (typeof syncOrderToPortal === 'function') syncOrderToPortal(_currentOrderData);
 
   const rows = cartItems.map((c, i) => `
     <tr>
@@ -1444,4 +1445,880 @@ document.addEventListener('DOMContentLoaded', () => {
     // Small delay ensures main.js product rendering is complete
     setTimeout(applyLanguage, 300);
   }
+
+  /* ── Feature 1: Mobile Bottom Bar ── */
+  initMobileBottomBar();
+
+  /* ── Feature 2: Cookie Consent Banner ── */
+  initCookieBar();
+
+  /* ── Feature 3: Keyboard Shortcuts ── */
+  initKeyboardShortcuts();
+
+  /* ── Feature 4: Product Share Buttons (MutationObserver) ── */
+  initProductShareButtons();
+
+  /* ── Feature 5 / 6 / 7: Pipe Tools floating button ── */
+  initCalculatorButtons();
 });
+
+/* ═══════════════════════════════════════════
+   20. MOBILE BOTTOM BAR
+   ═══════════════════════════════════════════ */
+function initMobileBottomBar() {
+  if (document.getElementById('mobileBottomBar')) return; // already injected
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="mobile-bottom-bar" id="mobileBottomBar">
+      <a href="tel:+92412645043" class="mbb-btn mbb-call">
+        <i class="fa-solid fa-phone"></i>
+        <span>Call</span>
+      </a>
+      <a href="https://wa.me/92412645043" class="mbb-btn mbb-whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+      <button class="mbb-btn mbb-cart" onclick="openCart()">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span>Cart</span>
+        <span class="mbb-badge" id="mbbBadge" style="display:none">0</span>
+      </button>
+      <a href="products.html" class="mbb-btn mbb-products">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span>Products</span>
+      </a>
+    </div>
+  `);
+  // Sync badge with current cart state
+  updateMbbBadge();
+}
+
+function updateMbbBadge() {
+  const badge = document.getElementById('mbbBadge');
+  if (!badge) return;
+  const n = (window.cartItems || []).length;
+  badge.textContent = n;
+  badge.style.display = n > 0 ? '' : 'none';
+}
+
+// Patch updateCartUI to also update the mobile bar badge
+(function() {
+  const _origUpdateCartUI = window.updateCartUI;
+  if (typeof _origUpdateCartUI === 'function') {
+    window.updateCartUI = function() {
+      _origUpdateCartUI.apply(this, arguments);
+      updateMbbBadge();
+    };
+  } else {
+    // main.js may not have loaded yet; use a polling fallback
+    const _pollPatch = setInterval(() => {
+      if (typeof window.updateCartUI === 'function' && window.updateCartUI !== window._mbbPatchedUpdateCartUI) {
+        const _base = window.updateCartUI;
+        window.updateCartUI = window._mbbPatchedUpdateCartUI = function() {
+          _base.apply(this, arguments);
+          updateMbbBadge();
+        };
+        clearInterval(_pollPatch);
+      }
+    }, 200);
+  }
+})();
+
+/* ═══════════════════════════════════════════
+   21. COOKIE CONSENT BANNER
+   ═══════════════════════════════════════════ */
+function initCookieBar() {
+  if (localStorage.getItem('jps_cookie_ok')) return; // already accepted
+  if (document.getElementById('cookieBar')) return;
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="cookie-bar" id="cookieBar">
+      <div class="cookie-text">
+        <i class="fa-solid fa-cookie-bite"></i>
+        <span>We use cookies to improve your experience. By continuing, you agree to our use of cookies.</span>
+      </div>
+      <div class="cookie-btns">
+        <button class="btn-cookie-accept" onclick="acceptCookies()">Accept</button>
+        <button class="btn-cookie-decline" onclick="declineCookies()">Decline</button>
+      </div>
+    </div>
+  `);
+
+  // Animate in after a short delay
+  setTimeout(() => {
+    const bar = document.getElementById('cookieBar');
+    if (bar) bar.classList.add('cookie-bar-visible');
+  }, 800);
+}
+
+function acceptCookies() {
+  localStorage.setItem('jps_cookie_ok', '1');
+  _hideCookieBar();
+}
+
+function declineCookies() {
+  _hideCookieBar();
+}
+
+function _hideCookieBar() {
+  const bar = document.getElementById('cookieBar');
+  if (!bar) return;
+  bar.classList.remove('cookie-bar-visible');
+  bar.classList.add('cookie-bar-hiding');
+  setTimeout(() => bar.remove(), 400);
+}
+
+/* ═══════════════════════════════════════════
+   22. KEYBOARD SHORTCUTS
+   ═══════════════════════════════════════════ */
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    // Ignore when typing in an input/textarea/select/contenteditable
+    const tag = document.activeElement && document.activeElement.tagName;
+    const editable = document.activeElement && document.activeElement.isContentEditable;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || editable) return;
+
+    // Don't fire if modifier keys are held (except shift for '?')
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+    switch (e.key) {
+      case 's':
+      case 'S':
+      case '/': {
+        e.preventDefault();
+        const inp = document.getElementById('navSearch');
+        if (inp) { inp.focus(); inp.select(); showKbToast('Search focused'); }
+        break;
+      }
+      case 'c':
+      case 'C': {
+        e.preventDefault();
+        if (typeof openCart === 'function') openCart();
+        showKbToast('Cart opened');
+        break;
+      }
+      case 'Escape': {
+        if (typeof closeCart === 'function') closeCart();
+        if (typeof closeProductModal === 'function') closeProductModal();
+        closeKbShortcutsModal();
+        break;
+      }
+      case 'h':
+      case 'H': {
+        e.preventDefault();
+        window.location.href = 'index.html';
+        break;
+      }
+      case 'p':
+      case 'P': {
+        e.preventDefault();
+        window.location.href = 'products.html';
+        break;
+      }
+      case '?': {
+        e.preventDefault();
+        openKbShortcutsModal();
+        break;
+      }
+    }
+  });
+
+  // Inject shortcuts modal (once)
+  if (!document.getElementById('kbShortcutsOverlay')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="kb-overlay" id="kbShortcutsOverlay" onclick="if(event.target===this)closeKbShortcutsModal()">
+        <div class="kb-modal" id="kbShortcutsModal">
+          <div class="kb-modal-head">
+            <div class="kb-modal-title"><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</div>
+            <button class="kb-modal-close" onclick="closeKbShortcutsModal()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="kb-grid">
+            <div class="kb-row"><span class="kb-key">S</span> <span class="kb-sep">or</span> <span class="kb-key">/</span><span class="kb-desc">Focus search</span></div>
+            <div class="kb-row"><span class="kb-key">C</span><span class="kb-desc">Open cart</span></div>
+            <div class="kb-row"><span class="kb-key">H</span><span class="kb-desc">Go to Home</span></div>
+            <div class="kb-row"><span class="kb-key">P</span><span class="kb-desc">Go to Products</span></div>
+            <div class="kb-row"><span class="kb-key">?</span><span class="kb-desc">Show this help</span></div>
+            <div class="kb-row"><span class="kb-key">Esc</span><span class="kb-desc">Close modal / drawer</span></div>
+          </div>
+          <p class="kb-hint">Shortcuts are disabled when typing in a text field.</p>
+        </div>
+      </div>
+    `);
+  }
+}
+
+function openKbShortcutsModal() {
+  const overlay = document.getElementById('kbShortcutsOverlay');
+  if (overlay) overlay.classList.add('open');
+}
+
+function closeKbShortcutsModal() {
+  const overlay = document.getElementById('kbShortcutsOverlay');
+  if (overlay) overlay.classList.remove('open');
+}
+
+let _kbToastTimer = null;
+function showKbToast(msg) {
+  let toast = document.getElementById('kbToast');
+  if (!toast) {
+    document.body.insertAdjacentHTML('beforeend', `<div class="kb-toast" id="kbToast"></div>`);
+    toast = document.getElementById('kbToast');
+  }
+  toast.textContent = msg;
+  toast.classList.remove('kb-toast-hide');
+  toast.classList.add('kb-toast-show');
+  clearTimeout(_kbToastTimer);
+  _kbToastTimer = setTimeout(() => {
+    toast.classList.remove('kb-toast-show');
+    toast.classList.add('kb-toast-hide');
+  }, 1800);
+}
+
+/* ═══════════════════════════════════════════
+   23. PRODUCT SHARE BUTTONS
+   ═══════════════════════════════════════════ */
+function initProductShareButtons() {
+  // Add share buttons to any existing prod-cards
+  _addShareBtnsToCards();
+
+  // Watch for newly rendered product cards
+  const observer = new MutationObserver((mutations) => {
+    let needsScan = false;
+    mutations.forEach(m => {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType === 1) {
+          if (node.classList && node.classList.contains('prod-card')) needsScan = true;
+          else if (node.querySelector && node.querySelector('.prod-card')) needsScan = true;
+        }
+      });
+    });
+    if (needsScan) _addShareBtnsToCards();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Event delegation for share button clicks
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-share-prod');
+    if (!btn) return;
+    e.stopPropagation();
+    const productId = btn.dataset.id;
+    _openSharePopover(btn, productId);
+  });
+
+  // Close share popover when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.share-popover') && !e.target.closest('.btn-share-prod')) {
+      _closeAllSharePopovers();
+    }
+  });
+}
+
+function _addShareBtnsToCards() {
+  document.querySelectorAll('.prod-card').forEach(card => {
+    // Avoid double-injection
+    if (card.querySelector('.btn-share-prod')) return;
+
+    // Extract product id from onclick attribute
+    const onclickAttr = card.getAttribute('onclick') || '';
+    const match = onclickAttr.match(/openProductModal\((\d+)\)/);
+    if (!match) return;
+    const productId = match[1];
+
+    // Inject share button into prod-img area
+    const imgArea = card.querySelector('.prod-img');
+    if (imgArea) {
+      imgArea.insertAdjacentHTML('beforeend', `
+        <button class="btn-share-prod" data-id="${productId}" onclick="event.stopPropagation()" title="Share product">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+      `);
+    }
+  });
+}
+
+function _getShareUrl(productId) {
+  return window.location.origin + '/products.html?id=' + productId;
+}
+
+function _openSharePopover(btn, productId) {
+  // Close any existing popover first
+  _closeAllSharePopovers();
+
+  const url = _getShareUrl(productId);
+  const waText = encodeURIComponent('Check out this product: ' + url);
+  const popover = document.createElement('div');
+  popover.className = 'share-popover';
+  popover.id = 'sharePopover';
+  popover.innerHTML = `
+    <div class="share-popover-arrow"></div>
+    <button class="share-pop-btn share-pop-copy" onclick="copyShareLink('${productId}', this)">
+      <i class="fa-solid fa-link"></i> Copy Link
+    </button>
+    <a class="share-pop-btn share-pop-wa" href="https://wa.me/?text=${waText}" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp
+    </a>
+  `;
+
+  document.body.appendChild(popover);
+
+  // Position the popover near the button
+  const rect = btn.getBoundingClientRect();
+  const pw = 180;
+  let left = rect.left + window.scrollX - pw / 2 + rect.width / 2;
+  let top  = rect.top  + window.scrollY - popover.offsetHeight - 10;
+
+  // Clamp to viewport
+  left = Math.max(8, Math.min(left, window.innerWidth - pw - 8));
+  if (top < window.scrollY + 8) top = rect.bottom + window.scrollY + 8;
+
+  popover.style.left = left + 'px';
+  popover.style.top  = top  + 'px';
+
+  // Reposition after paint (offsetHeight is 0 before first paint)
+  requestAnimationFrame(() => {
+    const ph = popover.offsetHeight;
+    let newTop = rect.top + window.scrollY - ph - 10;
+    if (newTop < window.scrollY + 8) newTop = rect.bottom + window.scrollY + 8;
+    popover.style.top = newTop + 'px';
+    popover.classList.add('share-popover-visible');
+  });
+}
+
+function _closeAllSharePopovers() {
+  document.querySelectorAll('.share-popover').forEach(p => p.remove());
+}
+
+function copyShareLink(productId, btn) {
+  const url = _getShareUrl(productId);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      _showShareToast('Link copied!');
+      _closeAllSharePopovers();
+    }).catch(() => _fallbackCopy(url));
+  } else {
+    _fallbackCopy(url);
+  }
+}
+
+function _fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); _showShareToast('Link copied!'); } catch(e) { _showShareToast('Copy failed'); }
+  document.body.removeChild(ta);
+  _closeAllSharePopovers();
+}
+
+let _shareToastTimer = null;
+function _showShareToast(msg) {
+  let toast = document.getElementById('shareToast');
+  if (!toast) {
+    document.body.insertAdjacentHTML('beforeend', `<div class="share-toast" id="shareToast"></div>`);
+    toast = document.getElementById('shareToast');
+  }
+  toast.textContent = msg;
+  toast.classList.remove('share-toast-hide');
+  toast.classList.add('share-toast-show');
+  clearTimeout(_shareToastTimer);
+  _shareToastTimer = setTimeout(() => {
+    toast.classList.remove('share-toast-show');
+    toast.classList.add('share-toast-hide');
+  }, 2000);
+}
+
+/* ═══════════════════════════════════════════
+   24. PIPE SIZE CALCULATOR
+   ═══════════════════════════════════════════ */
+function openPipeCalc() {
+  if (!document.getElementById('pipeCalcOverlay')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="tools-overlay" id="pipeCalcOverlay" onclick="if(event.target===this)closePipeCalc()">
+        <div class="tools-modal">
+          <div class="tools-modal-head">
+            <div class="tools-modal-title"><i class="fa-solid fa-ruler-combined"></i> Pipe Size Calculator</div>
+            <button class="tools-modal-close" onclick="closePipeCalc()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="tools-modal-body">
+            <div class="tools-field">
+              <label>Pipe Type</label>
+              <select id="pcPipeType">
+                <option value="PVC">PVC</option>
+                <option value="HDPE">HDPE</option>
+                <option value="GI">GI (Galvanized Iron)</option>
+                <option value="CPVC">CPVC</option>
+              </select>
+            </div>
+            <div class="tools-form-row">
+              <div class="tools-field">
+                <label>Flow Rate (litres/min)</label>
+                <input type="number" id="pcFlowRate" placeholder="e.g. 20" min="0" step="0.1">
+              </div>
+              <div class="tools-field">
+                <label>Pipe Length (metres)</label>
+                <input type="number" id="pcLength" placeholder="e.g. 50" min="0" step="0.1">
+              </div>
+            </div>
+            <div class="tools-result" id="pcResult"></div>
+          </div>
+          <div class="tools-modal-foot">
+            <button class="btn-tools-calc" onclick="calcPipeSize()"><i class="fa-solid fa-calculator"></i> Calculate</button>
+            <button class="btn-tools-cancel" onclick="closePipeCalc()">Close</button>
+          </div>
+        </div>
+      </div>
+    `);
+  }
+  document.getElementById('pipeCalcOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePipeCalc() {
+  const el = document.getElementById('pipeCalcOverlay');
+  if (el) el.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function calcPipeSize() {
+  const flowLPM  = parseFloat(document.getElementById('pcFlowRate').value);
+  const lengthM  = parseFloat(document.getElementById('pcLength').value);
+  const pipeType = document.getElementById('pcPipeType').value;
+  const result   = document.getElementById('pcResult');
+
+  if (!flowLPM || flowLPM <= 0 || !lengthM || lengthM <= 0) {
+    result.innerHTML = '<strong>Please enter valid flow rate and pipe length.</strong>';
+    result.classList.add('visible');
+    return;
+  }
+
+  // Diameter lookup table (mm) based on flow rate (L/min)
+  // Recommended max velocities: 1.5–3 m/s for water supply
+  const diameterTable = [
+    { maxFlow: 5,   dia: 15  },
+    { maxFlow: 12,  dia: 20  },
+    { maxFlow: 25,  dia: 25  },
+    { maxFlow: 50,  dia: 32  },
+    { maxFlow: 100, dia: 40  },
+    { maxFlow: 200, dia: 50  },
+    { maxFlow: 400, dia: 63  },
+    { maxFlow: 700, dia: 75  },
+    { maxFlow: Infinity, dia: 110 },
+  ];
+
+  const row = diameterTable.find(r => flowLPM <= r.maxFlow);
+  const diaMM = row.dia;
+  const diaM  = diaMM / 1000;
+  const radius = diaM / 2;
+
+  // Convert flow to m³/s
+  const flowM3s   = flowLPM / 60000;
+  const area      = Math.PI * radius * radius;
+  const velocityMs = flowM3s / area;
+
+  // Darcy-Weisbach simplified pressure drop (kPa)
+  // Using friction factor f ≈ 0.02 for typical smooth pipe
+  const f           = 0.02;
+  const density     = 1000; // kg/m³ water
+  const pressDropPa = f * (lengthM / diaM) * (density * velocityMs * velocityMs / 2);
+  const pressDropKPa = pressDropPa / 1000;
+
+  const velocityNote = velocityMs < 0.5
+    ? 'Low velocity — consider a smaller diameter to save cost.'
+    : velocityMs > 3
+    ? 'High velocity — consider a larger diameter to reduce pressure loss and noise.'
+    : 'Velocity is within the recommended 0.5–3 m/s range.';
+
+  result.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div><strong>Recommended Diameter:</strong> ${diaMM} mm (${pipeType})</div>
+      <div><strong>Flow Velocity:</strong> ${velocityMs.toFixed(2)} m/s</div>
+      <div><strong>Pressure Drop:</strong> ${pressDropKPa.toFixed(2)} kPa over ${lengthM} m</div>
+      <div style="font-size:.82rem;color:var(--text-medium)">${velocityNote}</div>
+    </div>`;
+  result.classList.add('visible');
+}
+
+/* ═══════════════════════════════════════════
+   25. PROJECT ESTIMATOR
+   ═══════════════════════════════════════════ */
+function openEstimator() {
+  if (!document.getElementById('estimatorOverlay')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="tools-overlay" id="estimatorOverlay" onclick="if(event.target===this)closeEstimator()">
+        <div class="tools-modal">
+          <div class="tools-modal-head">
+            <div class="tools-modal-title"><i class="fa-solid fa-file-invoice"></i> Project Estimator</div>
+            <button class="tools-modal-close" onclick="closeEstimator()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="tools-modal-body">
+            <div class="tools-field">
+              <label>Project Type</label>
+              <select id="estProjectType" onchange="updateEstimatorLabel()">
+                <option value="residential">Residential Plumbing</option>
+                <option value="commercial">Commercial Building</option>
+                <option value="agriculture">Agriculture Irrigation</option>
+                <option value="industrial">Industrial</option>
+              </select>
+            </div>
+            <div class="tools-form-row">
+              <div class="tools-field">
+                <label id="estSizeLabel">Number of Floors</label>
+                <input type="number" id="estSize" placeholder="e.g. 3" min="1" step="1">
+              </div>
+              <div class="tools-field">
+                <label>Pipe Type Preference</label>
+                <select id="estPipeType">
+                  <option value="PVC">PVC</option>
+                  <option value="PPRC">PPRC</option>
+                  <option value="HDPE">HDPE</option>
+                  <option value="CPVC">CPVC</option>
+                  <option value="GI">GI</option>
+                </select>
+              </div>
+            </div>
+            <div class="tools-result" id="estResult"></div>
+          </div>
+          <div class="tools-modal-foot">
+            <button class="btn-tools-calc" onclick="calcEstimate()"><i class="fa-solid fa-chart-bar"></i> Estimate</button>
+            <button class="btn-tools-cancel" onclick="closeEstimator()">Close</button>
+          </div>
+        </div>
+      </div>
+    `);
+  }
+  document.getElementById('estimatorOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEstimator() {
+  const el = document.getElementById('estimatorOverlay');
+  if (el) el.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateEstimatorLabel() {
+  const type = document.getElementById('estProjectType').value;
+  const label = document.getElementById('estSizeLabel');
+  if (!label) return;
+  label.textContent = (type === 'agriculture') ? 'Area (acres)' : 'Number of Floors';
+  document.getElementById('estSize').placeholder = (type === 'agriculture') ? 'e.g. 5' : 'e.g. 3';
+}
+
+function calcEstimate() {
+  const type     = document.getElementById('estProjectType').value;
+  const size     = parseFloat(document.getElementById('estSize').value);
+  const pipeType = document.getElementById('estPipeType').value;
+  const result   = document.getElementById('estResult');
+
+  if (!size || size <= 0) {
+    result.innerHTML = '<strong>Please enter a valid size / number of floors.</strong>';
+    result.classList.add('visible');
+    return;
+  }
+
+  // Estimation factors (per floor or per acre)
+  const factors = {
+    residential:  { pipePerUnit: 80,  fittingsPerUnit: 35,  costLowPerUnit: 18000,  costHighPerUnit: 35000 },
+    commercial:   { pipePerUnit: 150, fittingsPerUnit: 70,  costLowPerUnit: 40000,  costHighPerUnit: 80000 },
+    agriculture:  { pipePerUnit: 500, fittingsPerUnit: 25,  costLowPerUnit: 25000,  costHighPerUnit: 50000 },
+    industrial:   { pipePerUnit: 200, fittingsPerUnit: 100, costLowPerUnit: 60000,  costHighPerUnit: 120000 },
+  };
+
+  // Pipe type cost multipliers
+  const pipeMultiplier = { PVC: 1.0, PPRC: 1.4, HDPE: 1.3, CPVC: 1.6, GI: 1.8 };
+  const f   = factors[type];
+  const mul = pipeMultiplier[pipeType] || 1.0;
+
+  const totalPipe     = Math.round(f.pipePerUnit * size);
+  const totalFittings = Math.round(f.fittingsPerUnit * size);
+  const costLow       = Math.round(f.costLowPerUnit  * size * mul);
+  const costHigh      = Math.round(f.costHighPerUnit * size * mul);
+
+  const unitLabel = (type === 'agriculture') ? 'acre' : 'floor';
+  const fmt = n => n.toLocaleString('en-PK');
+
+  result.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div><strong>Estimated Pipe Required:</strong> ${fmt(totalPipe)} metres of ${pipeType}</div>
+      <div><strong>Estimated Fittings:</strong> ~${fmt(totalFittings)} pieces</div>
+      <div><strong>Estimated Cost Range:</strong> <span style="color:var(--primary)">PKR ${fmt(costLow)} – ${fmt(costHigh)}</span></div>
+      <div style="font-size:.82rem;color:var(--text-medium)">Based on ${size} ${unitLabel}${size !== 1 ? 's' : ''}. Actual costs vary — contact us for a precise quote.</div>
+    </div>`;
+  result.classList.add('visible');
+}
+
+/* ═══════════════════════════════════════════
+   26. BULK ORDER FORM
+   ═══════════════════════════════════════════ */
+let _bulkRowCount = 0;
+
+function openBulkOrder() {
+  if (!document.getElementById('bulkOrderOverlay')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="tools-overlay" id="bulkOrderOverlay" onclick="if(event.target===this)closeBulkOrder()">
+        <div class="tools-modal" style="max-width:640px">
+          <div class="tools-modal-head">
+            <div class="tools-modal-title"><i class="fa-solid fa-boxes-stacked"></i> Bulk Order Form</div>
+            <button class="tools-modal-close" onclick="closeBulkOrder()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="tools-modal-body">
+            <div class="tools-form-row">
+              <div class="tools-field">
+                <label>Your Name *</label>
+                <input type="text" id="boName" placeholder="Muhammad Ali">
+              </div>
+              <div class="tools-field">
+                <label>Phone Number *</label>
+                <input type="tel" id="boPhone" placeholder="03001234567">
+              </div>
+            </div>
+            <div class="tools-field">
+              <label>Company / Shop Name</label>
+              <input type="text" id="boCompany" placeholder="Ali Plumbing Contractors">
+            </div>
+            <div style="overflow-x:auto;margin-top:.25rem">
+              <table class="bulk-table" id="bulkTable">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Size</th>
+                    <th style="width:70px">Qty</th>
+                    <th style="width:80px">Unit</th>
+                    <th style="width:32px"></th>
+                  </tr>
+                </thead>
+                <tbody id="bulkTableBody"></tbody>
+              </table>
+            </div>
+            <button class="btn-bulk-add-row" onclick="addBulkRow()"><i class="fa-solid fa-plus"></i> Add Row</button>
+          </div>
+          <div class="tools-modal-foot">
+            <button class="btn-tools-calc" onclick="submitBulkOrder()"><i class="fa-brands fa-whatsapp"></i> Send via WhatsApp</button>
+            <button class="btn-tools-cancel" onclick="closeBulkOrder()">Close</button>
+          </div>
+        </div>
+      </div>
+    `);
+    // Add initial rows
+    addBulkRow();
+    addBulkRow();
+    addBulkRow();
+  }
+  document.getElementById('bulkOrderOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBulkOrder() {
+  const el = document.getElementById('bulkOrderOverlay');
+  if (el) el.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function addBulkRow() {
+  const tbody = document.getElementById('bulkTableBody');
+  if (!tbody) return;
+  const id = ++_bulkRowCount;
+  tbody.insertAdjacentHTML('beforeend', `
+    <tr id="bulkRow${id}">
+      <td><input type="text" placeholder="e.g. PVC Pipe 4 inch" id="boProduct${id}"></td>
+      <td><input type="text" placeholder='e.g. 4"' id="boSize${id}"></td>
+      <td><input type="number" placeholder="10" min="1" id="boQty${id}"></td>
+      <td><input type="text" placeholder="pcs/ft/m" id="boUnit${id}"></td>
+      <td><button class="btn-bulk-del" onclick="removeBulkRow(${id})" title="Remove row"><i class="fa-solid fa-trash"></i></button></td>
+    </tr>
+  `);
+}
+
+function removeBulkRow(id) {
+  const row = document.getElementById('bulkRow' + id);
+  if (row) row.remove();
+}
+
+function submitBulkOrder() {
+  const name    = (document.getElementById('boName')?.value    || '').trim();
+  const phone   = (document.getElementById('boPhone')?.value   || '').trim();
+  const company = (document.getElementById('boCompany')?.value || '').trim();
+
+  if (!name || !phone) {
+    alert('Please enter your Name and Phone Number.');
+    return;
+  }
+
+  // Collect all rows
+  const rows = [];
+  document.querySelectorAll('#bulkTableBody tr').forEach(row => {
+    const idAttr = row.id.replace('bulkRow', '');
+    const product = (document.getElementById('boProduct' + idAttr)?.value || '').trim();
+    const size    = (document.getElementById('boSize'    + idAttr)?.value || '').trim();
+    const qty     = (document.getElementById('boQty'     + idAttr)?.value || '').trim();
+    const unit    = (document.getElementById('boUnit'    + idAttr)?.value || '').trim();
+    if (product) rows.push({ product, size, qty, unit });
+  });
+
+  if (rows.length === 0) {
+    alert('Please add at least one product to the order.');
+    return;
+  }
+
+  const itemLines = rows.map((r, i) =>
+    `${i + 1}. ${r.product}${r.size ? ' | Size: ' + r.size : ''}${r.qty ? ' | Qty: ' + r.qty : ''}${r.unit ? ' ' + r.unit : ''}`
+  ).join('\n');
+
+  const msg = [
+    `*Bulk Order Request — Jalandhar Pipe Store*`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `👤 Name: ${name}`,
+    `📞 Phone: ${phone}`,
+    company ? `🏢 Company: ${company}` : null,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `*Order Items:*`,
+    itemLines,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Please confirm availability and pricing. Thank you!`,
+  ].filter(Boolean).join('\n');
+
+  window.open(`https://wa.me/92412645043?text=${encodeURIComponent(msg)}`, '_blank');
+  closeBulkOrder();
+}
+
+/* ═══════════════════════════════════════════
+   27. PIPE TOOLS FLOATING BUTTON
+   ═══════════════════════════════════════════ */
+function initCalculatorButtons() {
+  if (document.getElementById('toolsFab')) return; // guard against double-injection
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="tools-fab" id="toolsFab">
+      <button class="tools-fab-main" id="toolsFabMain" onclick="toggleToolsFab()" title="Pipe Tools">
+        <i class="fa-solid fa-wrench"></i>
+      </button>
+      <div class="tools-fab-menu" id="toolsFabMenu">
+        <button class="tools-fab-item" onclick="toggleToolsFab();openPipeCalc()">
+          <i class="fa-solid fa-ruler-combined"></i> Pipe Calculator
+        </button>
+        <button class="tools-fab-item" onclick="toggleToolsFab();openEstimator()">
+          <i class="fa-solid fa-file-invoice"></i> Project Estimator
+        </button>
+        <button class="tools-fab-item" onclick="toggleToolsFab();openBulkOrder()">
+          <i class="fa-solid fa-boxes-stacked"></i> Bulk Order
+        </button>
+      </div>
+    </div>
+  `);
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const fab = document.getElementById('toolsFab');
+    if (fab && !fab.contains(e.target)) {
+      fab.classList.remove('open');
+    }
+  });
+}
+
+function toggleToolsFab() {
+  const fab = document.getElementById('toolsFab');
+  if (fab) fab.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════
+   28. SUPABASE PORTAL SYNC
+   Auto-saves every confirmed order to the
+   JMS Manager portal (Supabase backend) so
+   the dashboard total-sales, recent orders,
+   and all reports stay in sync automatically.
+   ═══════════════════════════════════════════ */
+(function () {
+  const SB_URL = 'https://aybfhtlizetpzhtogvye.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5YmZodGxpemV0cHpodG9ndnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3ODIxMTQsImV4cCI6MjA4NTM1ODExNH0.W4l4flPCeh5x-cfLWU1R32L9EBpOLHANlA-rWm_X_9E';
+  const HDR = {
+    'apikey': SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY,
+    'Content-Type': 'application/json'
+  };
+
+  async function sbFetch(path, opts) {
+    const r = await fetch(SB_URL + path, { headers: HDR, ...opts });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }
+
+  // Exposed globally so main.js / receiptModal confirm button can call it
+  window.syncOrderToPortal = async function (orderData) {
+    if (!orderData || !orderData.items || orderData.items.length === 0) return;
+    try {
+      // 1. Get default warehouse
+      const whs = await sbFetch('/rest/v1/warehouses?select=id&order=name&limit=1');
+      const whId = whs[0]?.id;
+      if (!whId) return;
+
+      // 2. Match each cart item to a portal product by name (ilike)
+      const itemRows = await Promise.all(orderData.items.map(async (ci) => {
+        const encoded = encodeURIComponent('%' + ci.name + '%');
+        let prods = [];
+        try { prods = await sbFetch(`/rest/v1/products?select=id,sale_price&name=ilike.${encoded}&limit=1`); }
+        catch (_) { /* not found */ }
+        const p   = prods[0];
+        const qty  = Number(ci.qty) || 1;
+        const rate = Number(p?.sale_price) || 0;
+        const amt  = rate * qty;
+        return {
+          product_id:        p?.id || null,
+          warehouse_id:      whId,
+          quantity:          qty,
+          rate:              rate,
+          gross_amount:      amt,
+          discount_percent:  0,
+          discount_per_unit: 0,
+          discount_amount:   0,
+          net_rate:          rate,
+          amount:            amt
+        };
+      }));
+
+      // Only keep rows where we found a product (RPC requires non-null product_id)
+      const matched = itemRows.filter(r => r.product_id);
+
+      // 3. If nothing matched → still record as a pending enquiry via simple insert
+      if (matched.length === 0) {
+        const itemsText = orderData.items.map(i => `${i.name} x${i.qty || 1}`).join(', ');
+        await sbFetch('/rest/v1/rpc/log_website_enquiry', {
+          method: 'POST',
+          body: JSON.stringify({
+            p_guest_name:  (orderData.customerName || 'Website Visitor') +
+                           (orderData.shopName ? ' / ' + orderData.shopName : ''),
+            p_mobile:      orderData.phone || '',
+            p_reference:   orderData.orderNo,
+            p_items_text:  itemsText
+          })
+        }).catch(() => null); // ignore if RPC doesn't exist yet
+        return;
+      }
+
+      // 4. Create the cash-sale invoice in the portal
+      const netAmount = matched.reduce((s, r) => s + r.amount, 0);
+      const guestName = (orderData.customerName || 'Website Order') +
+                        (orderData.shopName ? ' / ' + orderData.shopName : '');
+
+      const result = await sbFetch('/rest/v1/rpc/create_cash_sale_invoice', {
+        method: 'POST',
+        body: JSON.stringify({
+          p_guest_name:      guestName,
+          p_mobile:          orderData.phone || '',
+          p_date:            new Date().toISOString().split('T')[0],
+          p_quotation_ref:   orderData.orderNo,
+          p_items:           matched,
+          p_discount_percent: 0,
+          p_discount_amount:  0,
+          p_expense_percent:  0,
+          p_expense_amount:   0,
+          p_net_amount:       netAmount
+        })
+      });
+      console.log('[JPS] Portal sync ✓ Bill #' + result);
+    } catch (err) {
+      // Non-blocking — order still completes even if sync fails
+      console.warn('[JPS] Portal sync skipped:', err.message);
+    }
+  };
+}());

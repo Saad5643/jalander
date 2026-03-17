@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Frequently Asked Questions — Jalandhar Pipe Store. Find answers about our products, ordering, pricing, delivery and more.">
+  <title>FAQ | Jalandhar Pipe Store — Faisalabad</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- SEO Open Graph -->
+  <meta property="og:title" content="FAQ | Jalandhar Pipe Store — Faisalabad">
+  <meta property="og:description" content="Frequently asked questions about Jalandhar Pipe Store products, ordering, pricing, delivery and services.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_PK">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="FAQ — Jalandhar Pipe Store">
+  <meta name="twitter:description" content="Got questions? We have answers. Find out everything about our pipes, fittings, ordering and delivery.">
+  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ── Page Hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary, #1a4fba) 0%, #0d3080 100%);
+      color: #fff;
+      padding: 4rem 0 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .page-hero .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 1.25rem;
+    }
+    .page-hero .breadcrumb a {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .page-hero .breadcrumb a:hover { color: #fff; }
+    .page-hero .breadcrumb i { font-size: .7rem; }
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 800;
+      margin: 0 0 .75rem;
+      line-height: 1.2;
+    }
+    .page-hero h1 span { color: var(--accent, #e67e22); }
+    .page-hero > .container > p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.82);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* ── FAQ Search ── */
+    .faq-search-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .faq-search-wrap i {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+      font-size: .95rem;
+      pointer-events: none;
+    }
+    .faq-search-wrap input {
+      width: 100%;
+      padding: .9rem 1rem .9rem 2.8rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      box-sizing: border-box;
+    }
+    .faq-search-wrap input:focus {
+      box-shadow: 0 4px 24px rgba(0,0,0,.3);
+    }
+
+    /* ── Main FAQ section ── */
+    .faq-section {
+      padding: 3.5rem 0 4rem;
+    }
+
+    /* ── Tab strip ── */
+    .faq-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+    .faq-tab {
+      background: none;
+      border: 2px solid #e0e7f3;
+      border-radius: 50px;
+      padding: .5rem 1.25rem;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      transition: all .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .faq-tab:hover {
+      border-color: var(--primary, #1a4fba);
+      color: var(--primary, #1a4fba);
+    }
+    .faq-tab.active {
+      background: var(--primary, #1a4fba);
+      border-color: var(--primary, #1a4fba);
+      color: #fff;
+    }
+    body.dark-mode .faq-tab {
+      border-color: #334;
+      color: #bbb;
+    }
+    body.dark-mode .faq-tab.active {
+      background: var(--primary, #1a4fba);
+      border-color: var(--primary, #1a4fba);
+      color: #fff;
+    }
+
+    /* ── No-results message ── */
+    .faq-no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #888;
+      display: none;
+    }
+    .faq-no-results i {
+      font-size: 2.5rem;
+      margin-bottom: .75rem;
+      display: block;
+      opacity: .4;
+    }
+
+    /* ── Category group ── */
+    .faq-group {
+      margin-bottom: 2.5rem;
+    }
+    .faq-group-title {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary, #1a4fba);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid #e0e7f3;
+    }
+    body.dark-mode .faq-group-title { border-color: #334; }
+    .faq-group-title i { color: var(--accent, #e67e22); }
+
+    /* ── Accordion item ── */
+    .faq-item {
+      background: #fff;
+      border: 1px solid #e0e7f3;
+      border-radius: 12px;
+      margin-bottom: .75rem;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .faq-item:hover {
+      box-shadow: 0 4px 16px rgba(26,79,186,.1);
+    }
+    body.dark-mode .faq-item {
+      background: #1a2236;
+      border-color: #2a3550;
+    }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .98rem;
+      color: #1a2340;
+      user-select: none;
+      transition: background .15s;
+    }
+    .faq-q:hover { background: #f0f5ff; }
+    body.dark-mode .faq-q { color: #e8eef8; }
+    body.dark-mode .faq-q:hover { background: #1f2d45; }
+    .faq-item.open .faq-q {
+      background: #f0f5ff;
+      color: var(--primary, #1a4fba);
+    }
+    body.dark-mode .faq-item.open .faq-q {
+      background: #1f2d45;
+      color: #7da8f0;
+    }
+    .faq-q-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e8f0fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary, #1a4fba);
+      font-size: .75rem;
+      transition: transform .3s, background .2s;
+    }
+    .faq-item.open .faq-q-icon {
+      transform: rotate(180deg);
+      background: var(--primary, #1a4fba);
+      color: #fff;
+    }
+    body.dark-mode .faq-q-icon { background: #243252; }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .25s ease;
+      padding: 0 1.4rem;
+    }
+    .faq-item.open .faq-a {
+      max-height: 600px;
+      padding: 0 1.4rem 1.25rem;
+    }
+    .faq-a-inner {
+      padding-top: .9rem;
+      font-size: .95rem;
+      line-height: 1.7;
+      color: #444;
+      border-top: 1px solid #e8f0fe;
+    }
+    body.dark-mode .faq-a-inner {
+      color: #aab8d4;
+      border-color: #2a3550;
+    }
+
+    /* ── Bottom CTA ── */
+    .faq-cta {
+      background: linear-gradient(135deg, var(--primary, #1a4fba) 0%, #0d3080 100%);
+      border-radius: 20px;
+      text-align: center;
+      padding: 3.5rem 2rem;
+      margin-top: 1rem;
+      color: #fff;
+    }
+    .faq-cta h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      margin: 0 0 .6rem;
+    }
+    .faq-cta p {
+      color: rgba(255,255,255,.82);
+      margin: 0 0 1.75rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .faq-cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Highlight for search ── */
+    mark {
+      background: #fff3cd;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+    body.dark-mode mark { background: #4a3a00; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 3rem 0 2.5rem; }
+      .faq-q { font-size: .92rem; }
+      .faq-tabs { gap: .35rem; }
+      .faq-tab { font-size: .82rem; padding: .4rem .9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="brands.html">Brands</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="faq.html" class="active"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Hero ══ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>FAQ</span>
+    </div>
+    <h1>Frequently Asked <span>Questions</span></h1>
+    <p>Everything you need to know about our products, ordering, delivery, pricing and technical advice</p>
+    <div class="faq-search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="faqSearch" placeholder="Search questions… e.g. HDPE, bulk order, delivery time…" autocomplete="off">
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ Body ══ -->
+<section class="faq-section">
+  <div class="container">
+
+    <!-- Tabs -->
+    <div class="faq-tabs" id="faqTabs">
+      <button class="faq-tab active" data-cat="all">All Questions</button>
+      <button class="faq-tab" data-cat="products"><i class="fa-solid fa-pipe-section"></i> Products</button>
+      <button class="faq-tab" data-cat="ordering"><i class="fa-solid fa-cart-shopping"></i> Ordering</button>
+      <button class="faq-tab" data-cat="delivery"><i class="fa-solid fa-truck"></i> Delivery</button>
+      <button class="faq-tab" data-cat="pricing"><i class="fa-solid fa-tag"></i> Pricing</button>
+      <button class="faq-tab" data-cat="technical"><i class="fa-solid fa-wrench"></i> Technical</button>
+    </div>
+
+    <!-- No results -->
+    <div class="faq-no-results" id="faqNoResults">
+      <i class="fa-solid fa-circle-question"></i>
+      <p>No questions match your search. Try a different keyword or <a href="https://wa.me/92412645043" target="_blank">ask us on WhatsApp</a>.</p>
+    </div>
+
+    <!-- ── Products Group ── -->
+    <div class="faq-group" data-group="products">
+      <div class="faq-group-title"><i class="fa-solid fa-pipe-section"></i> Products</div>
+
+      <div class="faq-item" data-cat="products">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What types of pipes do you stock?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We carry a comprehensive range of pipe types to suit every project: <strong>PVC</strong> (Polyvinyl Chloride for cold water supply), <strong>CPVC</strong> (Chlorinated PVC for hot water), <strong>uPVC</strong> (Unplasticised PVC for pressure lines and sewerage), <strong>HDPE</strong> (High-Density Polyethylene for underground, agricultural, and industrial use), and <strong>PPRC</strong> (Polypropylene Random Copolymer for hot and cold plumbing). We also stock GI (Galvanised Iron) pipes for specific applications. All available in a full range of sizes and pressure ratings.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="products">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What brands are available at your store?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We are authorised stockists for all major Pakistani plumbing brands: <strong>Adamjee</strong>, <strong>Faisal Pipes</strong>, <strong>Dura Max</strong>, <strong>Master Pipes</strong>, <strong>Pak Pipes</strong>, and <strong>A58</strong>. We also carry brass fittings and accessories from multiple quality manufacturers. Visit our <a href="brands.html">Brands page</a> for full details on each brand, the products they offer, and their specialisations.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="products">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you have HDPE pipes in stock?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes, we stock HDPE (High-Density Polyethylene) pipes in a wide range of sizes and pressure ratings (PN6, PN8, PN10, PN16). HDPE pipes are ideal for underground water supply, agricultural irrigation, sewerage, and industrial applications due to their flexibility, corrosion resistance, and long service life. Please contact us via WhatsApp or visit the store for current stock and pricing.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="products">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What sizes are available?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We carry pipes and fittings from <strong>½ inch all the way up to 12 inch</strong> diameter across our different product lines. Common residential sizes (½", ¾", 1", 1½", 2") are always in stock. Larger industrial diameters (3", 4", 6", 8", 10", 12") are available for bulk or project orders. If you need a specific uncommon size, contact us via WhatsApp and we will source it for you promptly.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="products">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Are pipes food-grade certified?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes — the PVC and HDPE water supply pipes we stock are food-grade certified and safe for potable (drinking) water applications. Our pipes comply with <strong>PSQCA (Pakistan Standards and Quality Control Authority)</strong> standards and meet the international requirements for water contact materials. Always look for the "WS" (Water Supply) marking on the pipe to confirm food-grade suitability. If you need pipes specifically for drinking water systems, let us know and we will guide you to the right product.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="products">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you sell fittings separately?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes, all fittings are available for individual purchase or in bulk quantities. We stock elbows, tees, reducers, couplings, end caps, unions, flanges, and more — for every pipe type and size we carry. Injection-moulded fittings, solvent cement fittings, and threaded fittings are all available. Contractors can order full boxes or bundles at discounted rates.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Ordering Group ── -->
+    <div class="faq-group" data-group="ordering">
+      <div class="faq-group-title"><i class="fa-solid fa-cart-shopping"></i> Ordering</div>
+
+      <div class="faq-item" data-cat="ordering">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I place a bulk order?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Bulk orders are very welcome! The easiest way is to <strong>send your bill of materials via WhatsApp</strong> to <a href="https://wa.me/92412645043" target="_blank">041 2645043</a>. List the product names, sizes, quantities, and your project timeline. We will confirm availability and send you a competitive quote within the hour. You can also call us directly or visit the store with your requirements for an immediate face-to-face consultation.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I request a custom quote?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Absolutely. We prepare custom quotations for contractors, builders, and engineers free of charge. Simply share your project's bill of materials (BOM) — either handwritten, typed, or from a drawing — via WhatsApp or in-store, and we will prepare a detailed itemised quote with the best available prices. Quotations are typically ready within a few hours for standard items.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What is the minimum order quantity?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">There is <strong>no minimum order quantity</strong> — you can buy a single fitting or a full truckload. We cater to homeowners, individual plumbers, and large construction projects equally. However, bulk orders of full boxes, bundles, or pallets attract better pricing. For very small quantities of specialised items, please call ahead to confirm availability.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you accept WhatsApp orders?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes! WhatsApp is one of our most popular ordering channels. Just message us at <a href="https://wa.me/92412645043" target="_blank">041 2645043</a> with your product list and delivery address. We will confirm stock, pricing, and delivery details via WhatsApp. It is fast, convenient, and you have a written record of your order. We respond during store hours (Mon–Sat, 8 AM–8 PM).</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I track my order?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Once your order is confirmed, we will keep you updated via <strong>WhatsApp</strong> at every stage — from order confirmation to dispatch and estimated delivery time. If you have any questions about your order status at any point, simply message or call us at <a href="tel:+92412645043">041 2645043</a> and we will give you an immediate update.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ordering">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What payment methods do you accept?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We currently accept <strong>cash</strong> (in-store and on delivery) and <strong>bank transfer</strong>. For bank transfer details, please contact us via WhatsApp. For established contractor accounts, we also offer credit terms — speak to our team for more information. We are working on adding more digital payment options in the near future.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Delivery Group ── -->
+    <div class="faq-group" data-group="delivery">
+      <div class="faq-group-title"><i class="fa-solid fa-truck"></i> Delivery</div>
+
+      <div class="faq-item" data-cat="delivery">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you deliver to all of Pakistan?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We primarily deliver within <strong>Faisalabad city and surrounding districts</strong>. For orders in other cities across Pakistan, we can arrange dispatch via reputable courier or transport services — especially for large bulk orders. Please contact us with your location and requirements, and we will work out the best and most cost-effective delivery option for you.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="delivery">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What is the delivery time?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">For in-stock items within Faisalabad, delivery is typically <strong>same day or next day</strong>, depending on order time and delivery schedule. Orders placed before noon generally qualify for same-day delivery. For bulk orders requiring loading and vehicle arrangement, delivery is usually within 24 hours. We will confirm your exact delivery time when you place the order.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="delivery">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is there free delivery?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes — <strong>free delivery is available on large bulk orders</strong> within Faisalabad. The exact threshold varies depending on the order value and delivery distance. For smaller orders, a nominal delivery fee applies based on quantity and distance. Contact us when placing your order and we will let you know whether your order qualifies for free delivery.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="delivery">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I pick up from the store?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Absolutely — <strong>store collection is always available</strong> during our opening hours (Mon–Sat, 8 AM–8 PM). Our store is at Shop No. 13, Railway Road, Tariqabad, Faisalabad — a well-known location easy to reach by car, motorcycle, or rickshaw. For large orders, we recommend calling ahead so your stock can be prepared and loaded quickly when you arrive.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="delivery">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you charge extra for delivery to rural areas?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">For rural areas and locations outside Faisalabad city limits, additional delivery charges may apply depending on the distance. However, for large bulk agricultural or construction orders, we often arrange competitive transport rates. Contact us with your exact location for a delivery quote. We always aim to make delivery as affordable and convenient as possible.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Pricing Group ── -->
+    <div class="faq-group" data-group="pricing">
+      <div class="faq-group-title"><i class="fa-solid fa-tag"></i> Pricing</div>
+
+      <div class="faq-item" data-cat="pricing">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Are prices negotiable for bulk orders?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">For large project orders, yes — prices are negotiable. We understand the budget pressures faced by contractors and builders, and we aim to provide the most competitive rates in Faisalabad. Bring your bill of materials to the store or send it via WhatsApp, and we will work out the best deal for your project requirements.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="pricing">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you offer contractor discounts?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes! We have special pricing for <strong>registered contractors, plumbers, and construction firms</strong>. Regular contractors benefit from preferential rates, priority stock reservations, and flexible payment terms. To set up a contractor account, visit us in-store or contact us via WhatsApp and our team will assist you.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="pricing">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I get a price list?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Prices vary based on material type, brand, size, and market fluctuations. We update pricing regularly to reflect current market rates. For the most accurate and up-to-date prices, <strong>please contact us via WhatsApp or phone</strong> with the specific products you need. Our staff will provide you with a full price list for any product range. You can also browse indicative pricing on our <a href="products.html">Products page</a>.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="pricing">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How often do prices change?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Pipe and fitting prices in Pakistan are linked to <strong>raw material costs (PVC resin, HDPE resin, polymer prices) and exchange rates</strong>, so they can change periodically — sometimes monthly, sometimes more frequently during volatile periods. We always aim to pass on cost reductions to our customers promptly, and we provide advance notice of upcoming price increases where possible. For time-sensitive projects, we recommend locking in your order early.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="pricing">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you offer credit terms?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes — credit terms are available for established contractors and regular business customers. Credit accounts are set up based on trading history and order volumes. To discuss credit terms, please visit us in-store or contact our team via phone. Our standard payment terms for account customers are agreed on a case-by-case basis to suit your project cash flow.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Technical Group ── -->
+    <div class="faq-group" data-group="technical">
+      <div class="faq-group-title"><i class="fa-solid fa-wrench"></i> Technical</div>
+
+      <div class="faq-item" data-cat="technical">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What is the difference between PVC and HDPE?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><strong>PVC (Polyvinyl Chloride)</strong> is a rigid pipe material best suited for above-ground water supply, drainage, and sewerage. It is easy to cut, join with solvent cement, and is cost-effective for most residential plumbing applications.<br><br><strong>HDPE (High-Density Polyethylene)</strong> is a flexible, highly durable pipe ideal for underground installations, agricultural irrigation, industrial pipelines, and areas with ground movement. HDPE is joined by butt fusion or electrofusion welding and offers superior chemical resistance and a longer service life — typically 50+ years underground. Choose HDPE for underground and agricultural use; PVC for above-ground and drainage applications.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="technical">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What pressure rating do I need?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Pressure ratings (PN — Nominal Pressure in bar) indicate the maximum continuous operating pressure a pipe can handle. As a general guide:<br><br>• <strong>PN6</strong> — Low pressure, suitable for drainage and gravity-fed systems<br>• <strong>PN10</strong> — Standard domestic water supply (most homes)<br>• <strong>PN16</strong> — Higher pressure applications, water mains, pumped systems<br>• <strong>PN20+</strong> — Industrial and commercial high-pressure systems<br><br>For typical household water supply in Pakistan, PN10 is usually sufficient. If you are unsure, share your project details with us and our team will advise the correct pressure rating.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="technical">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I calculate pipe sizing for my project?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Pipe sizing depends on the <strong>flow rate required, pipe length, number of outlets, and acceptable pressure drop</strong>. For a typical home:<br><br>• Main supply line: 1" or 1¼" diameter<br>• Branch lines to bathrooms/kitchen: ¾" or 1"<br>• Individual fixture connections: ½"<br><br>For larger buildings or commercial projects, a hydraulic calculation based on peak demand flow rates is recommended. Our experienced staff can help you estimate the right sizes for standard residential projects — just describe your layout to us in store or via WhatsApp.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="technical">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What fittings are compatible with my pipes?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Fittings must match both the <strong>pipe material and pipe size (outer diameter)</strong>. Key compatibility rules:<br><br>• <strong>PVC/uPVC pipes</strong>: Use solvent cement PVC fittings of the same pressure class<br>• <strong>CPVC pipes</strong>: Use CPVC-specific fittings — do not mix with standard PVC<br>• <strong>HDPE pipes</strong>: Use HDPE compression fittings or welded HDPE fittings<br>• <strong>PPRC pipes</strong>: Use PPRC fittings heat-fused with a polyfusion welding tool<br><br>Always match the brand and pressure rating of fittings to your pipes where possible. Our staff will help you select the correct compatible fittings when you purchase pipes from us.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="technical">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I join HDPE pipes?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">HDPE pipes can be joined using several methods depending on pipe size and application:<br><br><strong>1. Butt Fusion Welding</strong> — The most common method for larger diameter pipes. The pipe ends are heated on a flat plate and then pressed together to form a permanent leak-free joint. Requires a butt fusion machine.<br><br><strong>2. Electrofusion Welding</strong> — An electrofusion fitting with embedded heating elements is placed over the pipe ends and electrically heated to fuse the joint. Ideal for tight spaces.<br><br><strong>3. Compression Fittings</strong> — For smaller diameters (up to 63mm), mechanical compression fittings can be used without heat. Easy to install without special tools.<br><br>For most projects, we recommend butt fusion or compression fittings. Ask us for guidance on the right joining method for your specific application.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="technical">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What solvent cement should I use for PVC pipes?</span>
+          <span class="faq-q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Use a <strong>PVC solvent cement (also called PVC adhesive or PVC glue)</strong> that is matched to your pipe type. For uPVC/PVC cold water pipes, use standard PVC solvent cement. For CPVC hot water pipes, use CPVC-rated solvent cement which is formulated to withstand higher temperatures. Always clean and prime the pipe surface before applying cement, ensure the joint is pushed firmly and held for 30 seconds, and allow adequate curing time before pressure testing (at least 24 hours). We stock a range of PVC cements and primers in our store.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Bottom CTA ── -->
+    <div class="faq-cta">
+      <i class="fa-solid fa-headset" style="font-size:2.5rem;color:rgba(255,255,255,.7);margin-bottom:.75rem;display:block"></i>
+      <h2>Still Have Questions?</h2>
+      <p>Our experienced team is ready to help. Send us a message on WhatsApp or give us a call — we'll get back to you right away.</p>
+      <div class="faq-cta-btns">
+        <a href="https://wa.me/92412645043?text=Hi!%20I%20have%20a%20question%20about%20your%20products" class="btn btn-whatsapp btn-lg" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+        <a href="tel:+92412645043" class="btn btn-white btn-lg">
+          <i class="fa-solid fa-phone"></i> Call 041 2645043
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="brands.html"><i class="fa-solid fa-chevron-right"></i> Brands</a>
+          <a href="faq.html"><i class="fa-solid fa-chevron-right"></i> FAQ</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script>
+/* ── Accordion ── */
+function toggleFaq(qEl) {
+  var item = qEl.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  var group = item.closest('.faq-group');
+  if (group) {
+    group.querySelectorAll('.faq-item.open').forEach(function(el) {
+      el.classList.remove('open');
+    });
+  }
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── Tabs ── */
+document.getElementById('faqTabs').addEventListener('click', function(e) {
+  var btn = e.target.closest('.faq-tab');
+  if (!btn) return;
+  document.querySelectorAll('.faq-tab').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+  var cat = btn.dataset.cat;
+  filterFaq(cat, document.getElementById('faqSearch').value.trim());
+});
+
+/* ── Search ── */
+document.getElementById('faqSearch').addEventListener('input', function() {
+  var activeCat = document.querySelector('.faq-tab.active').dataset.cat;
+  filterFaq(activeCat, this.value.trim());
+});
+
+function filterFaq(cat, query) {
+  var q = query.toLowerCase();
+  var items = document.querySelectorAll('.faq-item');
+  var groups = document.querySelectorAll('.faq-group');
+  var anyVisible = false;
+
+  items.forEach(function(item) {
+    var itemCats = (item.dataset.cat || '').split(' ');
+    var catMatch = (cat === 'all') || itemCats.includes(cat);
+    var qEl = item.querySelector('.faq-q span:first-child');
+    var aEl = item.querySelector('.faq-a-inner');
+    var qText = qEl ? qEl.textContent.toLowerCase() : '';
+    var aText = aEl ? aEl.textContent.toLowerCase() : '';
+    var queryMatch = !q || qText.includes(q) || aText.includes(q);
+    var show = catMatch && queryMatch;
+    item.style.display = show ? '' : 'none';
+    if (show) anyVisible = true;
+  });
+
+  groups.forEach(function(group) {
+    var hasVisible = Array.from(group.querySelectorAll('.faq-item')).some(function(i) {
+      return i.style.display !== 'none';
+    });
+    group.style.display = hasVisible ? '' : 'none';
+  });
+
+  document.getElementById('faqNoResults').style.display = anyVisible ? 'none' : 'block';
+}
+</script>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=10"></script>
+<script src="js/features.js?v=4"></script>
+</body>
+</html>

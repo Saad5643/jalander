@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Page not found — Jalandhar Pipe Store, Faisalabad.">
+  <title>404 — Page Not Found | Jalandhar Pipe Store</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1a4fba;
+      --accent: #e67e22;
+    }
+
+    /* ── 404 page wrapper ── */
+    .err-page {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(160deg, #f0f5ff 0%, #fff 60%, #fff8f0 100%);
+    }
+    body.dark-mode .err-page {
+      background: linear-gradient(160deg, #0d1a35 0%, #111827 60%, #1a1008 100%);
+    }
+
+    .err-inner {
+      text-align: center;
+      max-width: 640px;
+      width: 100%;
+    }
+
+    /* ── Big 404 ── */
+    .err-code-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .err-code {
+      font-size: clamp(7rem, 22vw, 11rem);
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+      letter-spacing: -.04em;
+      opacity: .12;
+      user-select: none;
+    }
+    body.dark-mode .err-code {
+      opacity: .1;
+    }
+    .err-icon-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .err-pipe-icon {
+      font-size: clamp(3.5rem, 10vw, 5.5rem);
+      color: var(--primary);
+      filter: drop-shadow(0 4px 16px rgba(26,79,186,.25));
+      animation: pipebob 3s ease-in-out infinite;
+    }
+    @keyframes pipebob {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50%       { transform: translateY(-10px) rotate(8deg); }
+    }
+
+    /* ── Drip drops decoration ── */
+    .err-drips {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .drip {
+      width: 8px;
+      border-radius: 0 0 50% 50%;
+      background: var(--primary);
+      opacity: .18;
+      animation: drip 2s ease-in-out infinite;
+    }
+    .drip:nth-child(1) { height: 28px; animation-delay: 0s; }
+    .drip:nth-child(2) { height: 44px; animation-delay: .4s; opacity: .28; }
+    .drip:nth-child(3) { height: 22px; animation-delay: .8s; }
+    .drip:nth-child(4) { height: 38px; animation-delay: 1.2s; opacity: .22; }
+    .drip:nth-child(5) { height: 18px; animation-delay: 1.6s; }
+    @keyframes drip {
+      0%, 100% { transform: scaleY(1); }
+      50%       { transform: scaleY(1.15); opacity: .35; }
+    }
+
+    .err-heading {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: #1a2340;
+      margin: 0 0 .6rem;
+      line-height: 1.25;
+    }
+    body.dark-mode .err-heading { color: #e8eef8; }
+
+    .err-sub {
+      font-size: 1.05rem;
+      color: #666;
+      margin: 0 0 2rem;
+      line-height: 1.6;
+    }
+    body.dark-mode .err-sub { color: #8899bb; }
+
+    .err-sub .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── Search bar ── */
+    .err-search {
+      display: flex;
+      gap: .5rem;
+      max-width: 440px;
+      margin: 0 auto 2.5rem;
+    }
+    .err-search input {
+      flex: 1;
+      padding: .75rem 1.1rem;
+      border: 2px solid #d0daf0;
+      border-radius: 10px;
+      font-size: .97rem;
+      outline: none;
+      transition: border-color .2s;
+      background: #fff;
+      color: #222;
+    }
+    .err-search input:focus { border-color: var(--primary); }
+    body.dark-mode .err-search input {
+      background: #1a2236;
+      border-color: #2a3550;
+      color: #e0e8f8;
+    }
+    .err-search button {
+      padding: .75rem 1.3rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .err-search button:hover { background: #163fa0; transform: translateY(-1px); }
+
+    /* ── Quick links ── */
+    .err-section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #999;
+      margin-bottom: .9rem;
+    }
+    body.dark-mode .err-section-label { color: #556; }
+
+    .err-quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .err-qlink {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .6rem 1.1rem;
+      background: #fff;
+      border: 2px solid #dce6f5;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #1a2340;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .err-qlink:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(26,79,186,.2);
+    }
+    .err-qlink i { font-size: .85rem; color: var(--primary); transition: color .2s; }
+    .err-qlink:hover i { color: #fff; }
+    body.dark-mode .err-qlink {
+      background: #1a2236;
+      border-color: #2a3550;
+      color: #d0dcf0;
+    }
+    body.dark-mode .err-qlink i { color: #7da8f0; }
+    body.dark-mode .err-qlink:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+    body.dark-mode .err-qlink:hover i { color: #fff; }
+
+    /* ── Category pills ── */
+    .err-cats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+      margin-bottom: .5rem;
+    }
+    .err-cat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem 1rem;
+      background: #f0f5ff;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      border: 1px solid #dce6f5;
+      transition: all .2s;
+    }
+    .err-cat-pill:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    body.dark-mode .err-cat-pill {
+      background: #1a2236;
+      border-color: #2a3550;
+      color: #7da8f0;
+    }
+    body.dark-mode .err-cat-pill:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* ── Divider ── */
+    .err-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      margin: 0 auto 2rem;
+    }
+
+    @media (max-width: 500px) {
+      .err-search { flex-direction: column; }
+      .err-search button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ 404 Content ══ -->
+<div class="err-page">
+  <div class="err-inner">
+
+    <!-- Big 404 with pipe icon overlay -->
+    <div class="err-code-wrap">
+      <div class="err-code">404</div>
+      <div class="err-icon-center">
+        <i class="fa-solid fa-pipe-section err-pipe-icon"></i>
+      </div>
+    </div>
+
+    <!-- Decorative drips -->
+    <div class="err-drips">
+      <div class="drip"></div>
+      <div class="drip"></div>
+      <div class="drip"></div>
+      <div class="drip"></div>
+      <div class="drip"></div>
+    </div>
+
+    <h1 class="err-heading">Oops! Page Not Found</h1>
+    <p class="err-sub">
+      Looks like <span class="highlight">this pipe is broken.</span><br>
+      Let's get you back on track.
+    </p>
+
+    <div class="err-divider"></div>
+
+    <!-- Search -->
+    <div class="err-section-label">Search for products</div>
+    <div class="err-search">
+      <input type="text" id="errSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <button onclick="errSearchGo()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="err-section-label">Quick links</div>
+    <div class="err-quick-links">
+      <a href="index.html" class="err-qlink"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="products.html" class="err-qlink"><i class="fa-solid fa-boxes-stacked"></i> All Products</a>
+      <a href="categories.html" class="err-qlink"><i class="fa-solid fa-th-large"></i> Categories</a>
+      <a href="brands.html" class="err-qlink"><i class="fa-solid fa-award"></i> Brands</a>
+      <a href="contact.html" class="err-qlink"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+      <a href="faq.html" class="err-qlink"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+    </div>
+
+    <!-- Popular Categories -->
+    <div class="err-section-label">Popular categories</div>
+    <div class="err-cats">
+      <a href="products.html?cat=Pipes" class="err-cat-pill"><i class="fa-solid fa-pipe-section"></i> Pipes</a>
+      <a href="products.html?cat=Valves" class="err-cat-pill"><i class="fa-solid fa-faucet"></i> Valves</a>
+      <a href="products.html?cat=Pipe Fittings" class="err-cat-pill"><i class="fa-solid fa-screwdriver-wrench"></i> Fittings</a>
+      <a href="products.html?cat=Water Tanks" class="err-cat-pill"><i class="fa-solid fa-fill-drip"></i> Water Tanks</a>
+      <a href="products.html?cat=Pumps" class="err-cat-pill"><i class="fa-solid fa-pump-medical"></i> Pumps</a>
+      <a href="products.html?cat=Bathroom Accessories" class="err-cat-pill"><i class="fa-solid fa-shower"></i> Bathroom</a>
+      <a href="products.html?cat=Sanitary Ware" class="err-cat-pill"><i class="fa-solid fa-toilet"></i> Sanitary Ware</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+          <a href="faq.html"><i class="fa-solid fa-chevron-right"></i> FAQ</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script>
+function errSearchGo() {
+  var q = document.getElementById('errSearch').value.trim();
+  if (q) window.location.href = 'products.html?search=' + encodeURIComponent(q);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var inp = document.getElementById('errSearch');
+  if (inp) inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') errSearchGo();
+  });
+});
+</script>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=10"></script>
+<script src="js/features.js?v=4"></script>
+</body>
+</html>
