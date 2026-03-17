@@ -608,11 +608,6 @@ function injectGlobalUI() {
       <button class="ann-close" onclick="dismissBanner()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- Cart FAB -->
-    <button class="cart-fab hidden" id="cartFab" onclick="openCart()" aria-label="Open cart">
-      <i class="fa-solid fa-basket-shopping"></i>
-    </button>
-
     <!-- Cart Overlay + Drawer -->
     <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
     <div class="cart-drawer" id="cartDrawer">
@@ -759,10 +754,18 @@ function updateCartUI() {
   const cnt  = document.getElementById('cdCount');
   const n    = cartItems.length;
   if (fab) {
-    fab.classList.toggle('hidden', n === 0);
-    const badge = fab.querySelector('.cart-badge');
-    if (badge) badge.textContent = n;
-    else if (n > 0) fab.insertAdjacentHTML('beforeend', `<span class="cart-badge">${n}</span>`);
+    // Cart is always visible in header; badge shows count
+    let badge = fab.querySelector('.nav-icon-badge');
+    if (n > 0) {
+      if (badge) { badge.textContent = n; badge.style.display = ''; }
+      else fab.insertAdjacentHTML('beforeend', `<span class="nav-icon-badge" id="cartNavBadge">${n}</span>`);
+      fab.style.color = 'var(--accent)';
+      fab.style.borderColor = 'var(--accent)';
+    } else {
+      if (badge) badge.style.display = 'none';
+      fab.style.color = '';
+      fab.style.borderColor = '';
+    }
   }
   if (foot) foot.style.display = n ? '' : 'none';
   const totalQtyCount = cartItems.reduce((s, c) => s + (c.qty || 1), 0);
@@ -1210,6 +1213,16 @@ function initSmoothScroll() {
 /* ── Init on DOM ready ── */
 document.addEventListener('DOMContentLoaded', () => {
   injectGlobalUI();
+
+  // Inject cart button into navbar header
+  const navIconBtns = document.querySelector('.nav-icon-btns');
+  if (navIconBtns) {
+    navIconBtns.insertAdjacentHTML('afterbegin', `
+      <button class="nav-icon-btn nav-cart-btn" id="cartFab" onclick="openCart()" aria-label="Open cart" title="My Inquiry List">
+        <i class="fa-solid fa-basket-shopping"></i>
+      </button>`);
+  }
+
   initAnnBanner();
   initCart();
 
