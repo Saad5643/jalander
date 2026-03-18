@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request a quote from Jalandhar Pipe Store — Fill in your requirements and we'll WhatsApp you a price quote within 2 hours.">
+  <title>Request a Quote | Jalandhar Pipe Store — Faisalabad</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .enquiry-section { padding: 60px 0 80px; }
+    .enquiry-grid { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+    @media (max-width: 900px) { .enquiry-grid { grid-template-columns: 1fr; } }
+    .enq-card { background: var(--card-bg, #fff); border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px; }
+    .enq-form-group { margin-bottom: 20px; }
+    .enq-label { display: block; font-weight: 600; font-size: 0.85rem; color: #475569; margin-bottom: 6px; }
+    .enq-label .req { color: #ef4444; }
+    .enq-input, .enq-textarea { width: 100%; padding: 12px 16px; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 0.9rem; outline: none; background: transparent; color: inherit; font-family: inherit; transition: border-color .2s; box-sizing: border-box; }
+    .enq-input:focus, .enq-textarea:focus { border-color: var(--primary, #1a4fba); }
+    .enq-textarea { resize: vertical; min-height: 120px; }
+    .enq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .enq-row { grid-template-columns: 1fr; } }
+    .enq-submit { width: 100%; padding: 14px; background: #25D366; color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity .2s, transform .1s; }
+    .enq-submit:hover { opacity: .9; }
+    .enq-submit:active { transform: scale(.98); }
+    .enq-success { display: none; background: #dcfce7; border: 1px solid #86efac; border-radius: 12px; padding: 20px 24px; color: #166534; font-weight: 600; margin-top: 16px; text-align: center; }
+    .enq-success i { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+    .enq-note { font-size: 0.8rem; color: #94a3b8; margin-top: 12px; text-align: center; }
+    .info-card { background: var(--card-bg, #fff); border: 1px solid #e2e8f0; border-radius: 20px; padding: 24px; }
+    .info-card + .info-card { margin-top: 16px; }
+    .info-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .info-icon.green { background: #dcfce7; color: #16a34a; }
+    .info-icon.blue { background: #dbeafe; color: #2563eb; }
+    .info-icon.orange { background: #ffedd5; color: #ea580c; }
+    .info-icon.purple { background: #ede9fe; color: #7c3aed; }
+    .info-label { font-size: 0.75rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; margin-bottom: 2px; }
+    .info-val { font-size: 0.9rem; font-weight: 600; color: #0f172a; }
+    .dark .info-val { color: #e2e8f0; }
+    .dark .enq-card, .dark .info-card { border-color: #334155; }
+    .dark .enq-input, .dark .enq-textarea { border-color: #334155; }
+    .promise-list { list-style: none; padding: 0; margin: 0; }
+    .promise-list li { display: flex; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.875rem; }
+    .promise-list li:last-child { border-bottom: none; }
+    .promise-list li i { color: #16a34a; width: 16px; }
+    .dark .promise-list li { border-color: #1e293b; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Content ══ -->
+<section class="enquiry-section">
+  <div class="container">
+
+    <div style="text-align:center;margin-bottom:40px">
+      <h1 class="section-title" style="margin-bottom:8px">Request a Quote</h1>
+      <p class="section-subtitle">Fill in your requirements and we'll WhatsApp you a price quote within 2 hours</p>
+    </div>
+
+    <div class="enquiry-grid">
+
+      <!-- Form -->
+      <div class="enq-card">
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:24px;color:#0f172a"><i class="fa-solid fa-clipboard-list" style="color:var(--primary);margin-right:8px"></i>Your Enquiry Details</h3>
+        <form id="enqForm" onsubmit="submitEnquiry(event)">
+          <div class="enq-row">
+            <div class="enq-form-group">
+              <label class="enq-label" for="enqName">Your Name <span class="req">*</span></label>
+              <input type="text" id="enqName" class="enq-input" placeholder="Ahmed Khan" required>
+            </div>
+            <div class="enq-form-group">
+              <label class="enq-label" for="enqPhone">Phone / WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="enqPhone" class="enq-input" placeholder="0300-1234567" required>
+            </div>
+          </div>
+          <div class="enq-form-group">
+            <label class="enq-label" for="enqShop">Shop / Business Name <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
+            <input type="text" id="enqShop" class="enq-input" placeholder="Al-Madina Plumbers">
+          </div>
+          <div class="enq-form-group">
+            <label class="enq-label" for="enqProducts">Products Needed <span class="req">*</span></label>
+            <textarea id="enqProducts" class="enq-textarea" placeholder="e.g.&#10;• 3 inch PVC pipe × 100 pcs&#10;• ½ inch gate valve × 50 pcs&#10;• 500L water tank × 2&#10;(Be as specific as possible for accurate pricing)" required></textarea>
+          </div>
+          <div class="enq-form-group">
+            <label class="enq-label" for="enqCity">City / Area <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
+            <input type="text" id="enqCity" class="enq-input" placeholder="Faisalabad — Gulberg">
+          </div>
+          <div class="enq-form-group">
+            <label class="enq-label" for="enqNotes">Additional Notes <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
+            <textarea id="enqNotes" class="enq-textarea" style="min-height:80px" placeholder="Delivery needed? Specific brand? Budget range?"></textarea>
+          </div>
+          <button type="submit" class="enq-submit">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.2rem"></i>
+            Send via WhatsApp
+          </button>
+          <p class="enq-note">This will open WhatsApp with your enquiry pre-filled. We reply within 2 hours during business hours.</p>
+        </form>
+        <div id="enqSuccess" class="enq-success">
+          <i class="fa-solid fa-circle-check"></i>
+          WhatsApp opened! Your enquiry has been sent.<br>
+          <span style="font-weight:400;font-size:0.875rem">We'll reply within 2 hours (Mon–Sat, 8AM–8PM).</span><br>
+          <a href="pricelist.html" style="color:#16a34a;margin-top:8px;display:inline-block;font-size:0.875rem">← Browse Price List</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Info -->
+      <div>
+        <div class="info-card">
+          <h4 style="font-size:0.95rem;font-weight:700;margin-bottom:20px">Contact Us Directly</h4>
+          <div class="info-item">
+            <div class="info-icon green"><i class="fa-brands fa-whatsapp"></i></div>
+            <div>
+              <div class="info-label">WhatsApp</div>
+              <a href="https://wa.me/92412645043" target="_blank" class="info-val" style="color:var(--primary)">041 2645043</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon blue"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="info-label">Phone</div>
+              <a href="tel:+92412645043" class="info-val" style="color:var(--primary)">041 2645043</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon orange"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <div class="info-label">Business Hours</div>
+              <div class="info-val">Mon–Sat: 8 AM – 8 PM</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon purple"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="info-label">Visit Us</div>
+              <a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" class="info-val" style="font-size:0.82rem;color:var(--primary)">Shop No. 13, Railway Rd, Tariqabad, Faisalabad</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:16px">
+          <h4 style="font-size:0.95rem;font-weight:700;margin-bottom:16px">Why Choose JPS?</h4>
+          <ul class="promise-list">
+            <li><i class="fa-solid fa-check-circle"></i> Price quote within 2 hours</li>
+            <li><i class="fa-solid fa-check-circle"></i> 2,600+ products in stock</li>
+            <li><i class="fa-solid fa-check-circle"></i> 20+ years of experience</li>
+            <li><i class="fa-solid fa-check-circle"></i> Bulk discounts available</li>
+            <li><i class="fa-solid fa-check-circle"></i> Trusted by 10,000+ customers</li>
+            <li><i class="fa-solid fa-check-circle"></i> All major brands available</li>
+          </ul>
+        </div>
+
+        <div style="text-align:center;margin-top:16px">
+          <a href="pricelist.html" class="btn btn-outline" style="width:100%;justify-content:center"><i class="fa-solid fa-list"></i> View Price List</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="pricelist.html"><i class="fa-solid fa-chevron-right"></i> Price List</a>
+          <a href="enquiry.html"><i class="fa-solid fa-chevron-right"></i> Request Quote</a>
+          <a href="tracking.html"><i class="fa-solid fa-chevron-right"></i> Track Order</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/main.js?v=11"></script>
+<script>
+function submitEnquiry(e) {
+  e.preventDefault();
+  const name = document.getElementById('enqName').value.trim();
+  const phone = document.getElementById('enqPhone').value.trim();
+  const shop = document.getElementById('enqShop').value.trim();
+  const products = document.getElementById('enqProducts').value.trim();
+  const city = document.getElementById('enqCity').value.trim();
+  const notes = document.getElementById('enqNotes').value.trim();
+
+  let msg = `*New Enquiry — Jalandhar Pipe Store*\n\n`;
+  msg += `👤 *Name:* ${name}\n`;
+  msg += `📞 *Phone:* ${phone}\n`;
+  if (shop) msg += `🏪 *Shop/Business:* ${shop}\n`;
+  if (city) msg += `📍 *City/Area:* ${city}\n`;
+  msg += `\n📦 *Products Needed:*\n${products}`;
+  if (notes) msg += `\n\n📝 *Notes:* ${notes}`;
+  msg += `\n\n_Sent from JPS Website — jps.com.pk_`;
+
+  window.open(`https://wa.me/92412645043?text=${encodeURIComponent(msg)}`, '_blank');
+  document.getElementById('enqSuccess').style.display = 'block';
+  document.getElementById('enqForm').reset();
+  document.getElementById('enqSuccess').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>

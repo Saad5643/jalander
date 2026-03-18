@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your order from Jalandhar Pipe Store — Enter your phone number to check order status.">
+  <title>Track Order | Jalandhar Pipe Store — Faisalabad</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .tracking-section { padding: 60px 0 80px; }
+    .track-hero { text-align: center; margin-bottom: 40px; }
+    .track-form-box { max-width: 600px; margin: 0 auto 40px; }
+    .track-input-row { display: flex; gap: 12px; }
+    .track-input { flex: 1; padding: 14px 20px; border: 1.5px solid #e2e8f0; border-radius: 50px; font-size: 1rem; outline: none; background: transparent; color: inherit; font-family: inherit; transition: border-color .2s; }
+    .track-input:focus { border-color: var(--primary, #1a4fba); }
+    .track-btn { padding: 14px 28px; background: var(--primary, #1a4fba); color: white; border: none; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: opacity .2s; display: flex; align-items: center; gap: 8px; }
+    .track-btn:hover { opacity: .9; }
+    .track-hint { text-align: center; font-size: 0.82rem; color: #94a3b8; margin-top: 12px; }
+    .track-results-box { max-width: 600px; margin: 0 auto; display: none; }
+    .track-results-title { font-weight: 700; font-size: 1rem; color: #0f172a; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; }
+    .dark .track-results-title { color: #e2e8f0; border-color: #334155; }
+    .track-order-card { background: var(--card-bg, #fff); border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px 24px; margin-bottom: 12px; transition: box-shadow .2s; }
+    .track-order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+    .dark .track-order-card { border-color: #334155; }
+    .track-order-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .track-bill { font-weight: 800; font-size: 1rem; color: #0f172a; display: block; }
+    .dark .track-bill { color: #e2e8f0; }
+    .track-date { font-size: 0.8rem; color: #94a3b8; margin-top: 2px; display: block; }
+    .track-status { font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+    .track-status.completed { background: #dcfce7; color: #166534; }
+    .track-status.pending { background: #fef9c3; color: #854d0e; }
+    .track-divider { height: 1px; background: #f1f5f9; margin: 12px 0; }
+    .dark .track-divider { background: #1e293b; }
+    .track-amount-row { display: flex; justify-content: space-between; align-items: center; }
+    .track-amount-label { font-size: 0.82rem; color: #64748b; }
+    .track-amount { font-weight: 800; font-size: 1.1rem; color: #059669; }
+    .track-wa-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; padding: 6px 14px; background: #25D366; color: white; border: none; border-radius: 20px; cursor: pointer; text-decoration: none; font-weight: 600; transition: opacity .2s; }
+    .track-wa-btn:hover { opacity: .85; color: white; }
+    .track-empty { text-align: center; padding: 60px 20px; }
+    .track-empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: .3; }
+    .track-empty-title { font-weight: 700; font-size: 1rem; color: #475569; margin-bottom: 8px; }
+    .track-empty-sub { font-size: 0.875rem; color: #94a3b8; }
+    .track-tips { max-width: 600px; margin: 40px auto 0; background: var(--card-bg, #fff); border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; }
+    .dark .track-tips { border-color: #334155; }
+    .tips-list { list-style: none; padding: 0; margin: 0; }
+    .tips-list li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.875rem; }
+    .tips-list li:last-child { border-bottom: none; }
+    .tips-list li i { color: var(--primary); margin-top: 2px; flex-shrink: 0; }
+    .dark .tips-list li { border-color: #1e293b; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Content ══ -->
+<section class="tracking-section">
+  <div class="container">
+
+    <div class="track-hero">
+      <h1 class="section-title" style="margin-bottom:8px">Track Your Order</h1>
+      <p class="section-subtitle">Enter your phone number to check the status of your recent orders</p>
+    </div>
+
+    <div class="track-form-box">
+      <div class="track-input-row">
+        <input type="tel" id="trackPhone" class="track-input" placeholder="Enter your phone number (e.g. 03001234567)"
+          onkeydown="if(event.key==='Enter') trackOrder()">
+        <button class="track-btn" onclick="trackOrder()" id="trackBtn">
+          <i class="fa-solid fa-magnifying-glass"></i> Track
+        </button>
+      </div>
+      <p class="track-hint">Use the same phone number you gave when placing your order</p>
+    </div>
+
+    <!-- Results -->
+    <div id="trackResultsBox" class="track-results-box">
+      <div class="track-results-title" id="trackResultsTitle">Results</div>
+      <div id="trackResults"></div>
+    </div>
+
+    <!-- Tips -->
+    <div class="track-tips">
+      <h4 style="font-weight:700;font-size:0.95rem;margin-bottom:16px"><i class="fa-solid fa-circle-info" style="color:var(--primary);margin-right:8px"></i>How to Track Your Order</h4>
+      <ul class="tips-list">
+        <li><i class="fa-solid fa-1"></i><span>Enter the phone number you provided when placing your order</span></li>
+        <li><i class="fa-solid fa-2"></i><span>Your recent orders from Jalandhar Pipe Store will appear</span></li>
+        <li><i class="fa-solid fa-3"></i><span>Click <strong>WhatsApp</strong> on any order to ask for a status update</span></li>
+        <li><i class="fa-solid fa-phone"></i><span>For urgent queries, call us directly: <a href="tel:+92412645043" style="color:var(--primary);font-weight:600">041 2645043</a></span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="pricelist.html"><i class="fa-solid fa-chevron-right"></i> Price List</a>
+          <a href="enquiry.html"><i class="fa-solid fa-chevron-right"></i> Request Quote</a>
+          <a href="tracking.html"><i class="fa-solid fa-chevron-right"></i> Track Order</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/main.js?v=11"></script>
+<script>
+const SB_URL = 'https://aybfhtlizetpzhtogvye.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5YmZodGxpemV0cHpodG9ndnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1NzY5MTMsImV4cCI6MjA2MzE1MjkxM30.dafPp68D6fFKkc8qxPGJgcsVHizPBiMETAuFp2tagFg';
+
+async function trackOrder() {
+  const raw = document.getElementById('trackPhone').value.trim();
+  const phone = raw.replace(/\D/g, '');
+  if (!phone || phone.length < 7) {
+    alert('Please enter a valid phone number.');
+    return;
+  }
+
+  const btn = document.getElementById('trackBtn');
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Searching…';
+  btn.disabled = true;
+
+  const box = document.getElementById('trackResultsBox');
+  const res = document.getElementById('trackResults');
+  const title = document.getElementById('trackResultsTitle');
+  box.style.display = 'block';
+  res.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem"></i></div>';
+
+  try {
+    // Find matching parties by phone
+    const partiesResp = await fetch(
+      `${SB_URL}/rest/v1/parties?or=(phone.ilike.%25${phone}%25,mobile.ilike.%25${phone}%25)&select=id,name`,
+      { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+    );
+    const parties = await partiesResp.json();
+    let txns = [];
+
+    if (Array.isArray(parties) && parties.length > 0) {
+      const ids = parties.map(p => `party_id.eq.${p.id}`).join(',');
+      const txResp = await fetch(
+        `${SB_URL}/rest/v1/transactions?or=(${ids})&select=id,bill_no,reference_no,date,total_amount,type&type=in.(sale,cash_sale)&order=date.desc&limit=15`,
+        { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+      );
+      txns = await txResp.json() || [];
+    }
+
+    // Also search transactions directly by guest phone (if stored)
+    if (!txns || txns.length === 0) {
+      // Try searching by phone in transactions guest_name or mobile field
+      const guestResp = await fetch(
+        `${SB_URL}/rest/v1/transactions?mobile=ilike.%25${phone}%25&select=id,bill_no,reference_no,date,total_amount,type&in=type.(sale,cash_sale)&order=date.desc&limit=15`,
+        { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+      );
+      const guestData = await guestResp.json();
+      if (Array.isArray(guestData)) txns = guestData;
+    }
+
+    if (!Array.isArray(txns) || txns.length === 0) {
+      title.textContent = 'No orders found';
+      res.innerHTML = `
+        <div class="track-empty">
+          <div class="track-empty-icon"><i class="fa-solid fa-box-open"></i></div>
+          <div class="track-empty-title">No orders found for this number</div>
+          <div class="track-empty-sub">Make sure you entered the correct phone number used when placing your order.</div>
+          <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a href="tel:+92412645043" class="btn btn-outline" style="font-size:0.875rem"><i class="fa-solid fa-phone"></i> Call Us</a>
+            <a href="https://wa.me/92412645043?text=Hi!%20I%20want%20to%20track%20my%20order.%20Phone:%20${encodeURIComponent(raw)}" target="_blank" class="btn" style="background:#25D366;color:white;font-size:0.875rem"><i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp</a>
+          </div>
+        </div>`;
+    } else {
+      title.textContent = `Found ${txns.length} order${txns.length > 1 ? 's' : ''}`;
+      res.innerHTML = txns.map(t => {
+        const billNo = t.bill_no || t.reference_no || t.id.substring(0, 8).toUpperCase();
+        const amount = Number(t.total_amount || 0).toLocaleString();
+        const waMsg = encodeURIComponent(`Hi! I want to check status of my order Bill #${billNo} dated ${t.date}`);
+        return `
+          <div class="track-order-card">
+            <div class="track-order-header">
+              <div>
+                <span class="track-bill">Bill #${billNo}</span>
+                <span class="track-date"><i class="fa-solid fa-calendar-day" style="margin-right:4px;opacity:.5"></i>${t.date}</span>
+              </div>
+              <span class="track-status completed"><i class="fa-solid fa-circle-check"></i> Completed</span>
+            </div>
+            <div class="track-divider"></div>
+            <div class="track-amount-row">
+              <span class="track-amount-label">Order Total</span>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span class="track-amount">PKR ${amount}</span>
+                <a class="track-wa-btn" href="https://wa.me/92412645043?text=${waMsg}" target="_blank">
+                  <i class="fa-brands fa-whatsapp"></i> Ask Status
+                </a>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+  } catch(e) {
+    res.innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444"><i class="fa-solid fa-circle-exclamation"></i> Error loading orders. Please try again or <a href="contact.html" style="color:var(--primary)">contact us</a>.</div>';
+  } finally {
+    btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Track';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>

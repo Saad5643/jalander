@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jalandhar Pipe Store Price List — Current prices for PVC pipes, valves, fittings, water tanks, pumps and bathroom accessories in Faisalabad.">
+  <title>Price List | Jalandhar Pipe Store — Faisalabad</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .pricelist-section { padding: 60px 0 80px; }
+    .pricelist-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+    .pricelist-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .pricelist-filters { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; padding: 16px 20px; background: var(--card-bg, #fff); border: 1px solid #e2e8f0; border-radius: 16px; }
+    .pl-search-input { flex: 1; min-width: 200px; padding: 10px 16px; border: 1.5px solid #e2e8f0; border-radius: 50px; font-size: 0.9rem; outline: none; background: transparent; color: inherit; transition: border-color .2s; }
+    .pl-search-input:focus { border-color: var(--primary, #1a4fba); }
+    .pl-cat-select { padding: 10px 16px; border: 1.5px solid #e2e8f0; border-radius: 50px; font-size: 0.9rem; outline: none; background: transparent; color: inherit; cursor: pointer; }
+    .pl-count { font-size: 0.8rem; color: #94a3b8; font-weight: 600; white-space: nowrap; margin-left: auto; }
+    .pricelist-table-wrap { background: var(--card-bg, #fff); border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; }
+    .pricelist-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .pricelist-table thead th { background: #f8fafc; padding: 12px 16px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; color: #64748b; border-bottom: 2px solid #e2e8f0; text-align: left; }
+    .pricelist-table thead th.sortable { cursor: pointer; user-select: none; }
+    .pricelist-table thead th.sortable:hover { color: var(--primary, #1a4fba); }
+    .pricelist-table tbody tr:hover { background: #f8fafc; }
+    .pricelist-table tbody td { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; }
+    .pricelist-table tbody tr:last-child td { border-bottom: none; }
+    .pl-price { font-weight: 700; color: #059669; }
+    .pl-cat-badge { background: #f1f5f9; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: #475569; }
+    .pl-wa-btn { display: inline-block; font-size: 0.75rem; padding: 5px 12px; background: #25D366; color: white !important; border: none; border-radius: 20px; cursor: pointer; text-decoration: none; white-space: nowrap; font-weight: 600; transition: opacity .2s; }
+    .pl-wa-btn:hover { opacity: .85; }
+    .pl-empty { text-align: center; padding: 60px 16px; color: #94a3b8; }
+    @media (max-width: 768px) {
+      .pricelist-table thead th:nth-child(3),
+      .pricelist-table tbody td:nth-child(3),
+      .pricelist-table thead th:nth-child(4),
+      .pricelist-table tbody td:nth-child(4) { display: none; }
+    }
+    @media print {
+      .navbar, footer, .pricelist-filters, .pricelist-actions, .pl-wa-btn, .topbar, .whatsapp-float, #backToTop { display: none !important; }
+      .pricelist-section { padding: 20px 0; }
+    }
+    .dark .pricelist-table thead th { background: #1e293b; }
+    .dark .pricelist-table tbody tr:hover { background: #1e293b; }
+    .dark .pl-search-input, .dark .pl-cat-select { border-color: #334155; background: #1e293b; }
+    .dark .pl-cat-badge { background: #1e293b; color: #94a3b8; }
+    .dark .pricelist-table-wrap { border-color: #334155; }
+    .dark .pricelist-filters { border-color: #334155; background: #1e293b; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="enquiry.html" class="btn btn-whatsapp btn-sm nav-cta">
+      <i class="fa-solid fa-file-invoice"></i> Get Quote
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Page Content ══ -->
+<section class="pricelist-section">
+  <div class="container">
+
+    <div class="pricelist-header">
+      <div>
+        <h1 class="section-title" style="margin-bottom:6px">Price List</h1>
+        <p class="section-subtitle" style="margin-bottom:0">Current prices for all products — updated regularly</p>
+      </div>
+      <div class="pricelist-actions">
+        <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / PDF</button>
+        <a href="enquiry.html" class="btn btn-primary"><i class="fa-solid fa-file-invoice"></i> Request Quote</a>
+        <a href="https://wa.me/92412645043?text=Hi!%20I%20need%20a%20price%20quote" class="btn btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Order</a>
+      </div>
+    </div>
+
+    <div class="pricelist-filters">
+      <i class="fa-solid fa-magnifying-glass" style="color:#94a3b8"></i>
+      <input type="text" id="plSearch" class="pl-search-input" placeholder="Search products by name…" oninput="filterPriceList()">
+      <select id="plCategory" class="pl-cat-select" onchange="filterPriceList()">
+        <option value="">All Categories</option>
+      </select>
+      <span id="plCount" class="pl-count">Loading…</span>
+    </div>
+
+    <div class="pricelist-table-wrap">
+      <table class="pricelist-table">
+        <thead>
+          <tr>
+            <th style="width:50px">Sr#</th>
+            <th class="sortable" onclick="sortPriceList('name')">Product Name <i class="fa-solid fa-sort" style="opacity:.4;font-size:.7rem"></i></th>
+            <th class="sortable" onclick="sortPriceList('category')">Category <i class="fa-solid fa-sort" style="opacity:.4;font-size:.7rem"></i></th>
+            <th>Unit</th>
+            <th class="sortable" onclick="sortPriceList('price')" style="text-align:right">Price (PKR) <i class="fa-solid fa-sort" style="opacity:.4;font-size:.7rem"></i></th>
+            <th style="text-align:center">Order</th>
+          </tr>
+        </thead>
+        <tbody id="plTableBody">
+          <tr><td colspan="6" class="pl-empty"><i class="fa-solid fa-spinner fa-spin"></i> Loading products…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="text-align:center;margin-top:24px;color:#94a3b8;font-size:0.85rem">
+      Prices may vary. <a href="https://wa.me/92412645043" target="_blank" style="color:var(--primary)">Contact us</a> for bulk pricing or latest rates. | <a href="tracking.html" style="color:var(--primary)">Track your order</a>
+    </p>
+
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="pricelist.html"><i class="fa-solid fa-chevron-right"></i> Price List</a>
+          <a href="enquiry.html"><i class="fa-solid fa-chevron-right"></i> Request Quote</a>
+          <a href="tracking.html"><i class="fa-solid fa-chevron-right"></i> Track Order</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/main.js?v=11"></script>
+<script>
+const SB_URL = 'https://aybfhtlizetpzhtogvye.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5YmZodGxpemV0cHpodG9ndnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1NzY5MTMsImV4cCI6MjA2MzE1MjkxM30.dafPp68D6fFKkc8qxPGJgcsVHizPBiMETAuFp2tagFg';
+let _allProducts = [], _sortCol = 'name', _sortDir = 1;
+
+async function loadPriceList() {
+  try {
+    const resp = await fetch(`${SB_URL}/rest/v1/products?select=name,unit,sale_price,categories(name)&order=name&limit=2000`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    const data = await resp.json();
+    _allProducts = (Array.isArray(data) ? data : []).map(p => ({
+      name: p.name || '',
+      category: (p.categories && p.categories.name) ? p.categories.name : 'General',
+      unit: p.unit || 'Piece',
+      price: Number(p.sale_price) || 0
+    }));
+    const cats = [...new Set(_allProducts.map(p => p.category))].sort();
+    const sel = document.getElementById('plCategory');
+    cats.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c; o.textContent = c;
+      sel.appendChild(o);
+    });
+    filterPriceList();
+  } catch(e) {
+    document.getElementById('plTableBody').innerHTML = '<tr><td colspan="6" class="pl-empty" style="color:#ef4444"><i class="fa-solid fa-circle-exclamation"></i> Error loading products. Please refresh or <a href="contact.html">contact us</a>.</td></tr>';
+  }
+}
+
+function filterPriceList() {
+  const q = document.getElementById('plSearch').value.toLowerCase().trim();
+  const cat = document.getElementById('plCategory').value;
+  let filtered = _allProducts.filter(p =>
+    (!q || p.name.toLowerCase().includes(q)) &&
+    (!cat || p.category === cat)
+  );
+  filtered.sort((a, b) => {
+    const va = _sortCol === 'price' ? a.price : a[_sortCol] || '';
+    const vb = _sortCol === 'price' ? b.price : b[_sortCol] || '';
+    return typeof va === 'string' ? va.localeCompare(vb) * _sortDir : (va - vb) * _sortDir;
+  });
+  renderPriceList(filtered);
+}
+
+function sortPriceList(col) {
+  _sortDir = _sortCol === col ? _sortDir * -1 : 1;
+  _sortCol = col;
+  filterPriceList();
+}
+
+function renderPriceList(products) {
+  document.getElementById('plCount').textContent = products.length + ' products';
+  const tbody = document.getElementById('plTableBody');
+  if (products.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="pl-empty"><i class="fa-solid fa-box-open"></i><br>No products found</td></tr>';
+    return;
+  }
+  tbody.innerHTML = products.map((p, i) => `
+    <tr>
+      <td style="color:#94a3b8;font-size:0.8rem">${i + 1}</td>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="pl-cat-badge">${p.category}</span></td>
+      <td style="color:#64748b;font-size:0.85rem">${p.unit}</td>
+      <td class="pl-price" style="text-align:right">${p.price > 0 ? 'PKR ' + p.price.toLocaleString() : '<span style="color:#94a3b8;font-weight:400">Call for price</span>'}</td>
+      <td style="text-align:center"><a class="pl-wa-btn" href="https://wa.me/92412645043?text=${encodeURIComponent('Hi! I want to order: ' + p.name)}" target="_blank"><i class="fa-brands fa-whatsapp"></i> Order</a></td>
+    </tr>
+  `).join('');
+}
+
+document.addEventListener('DOMContentLoaded', loadPriceList);
+</script>
+</body>
+</html>
