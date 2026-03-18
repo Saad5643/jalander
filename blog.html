@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plumbing tips, guides and expert advice from Jalandhar Pipe Store — Faisalabad's trusted plumbing material supplier.">
+  <title>Plumbing Tips & Guides | Jalandhar Pipe Store</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .blog-hero {
+      background: linear-gradient(135deg, #1a4fba 0%, #0d2d6e 100%);
+      color: white;
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .blog-hero h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .blog-hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .blog-section {
+      padding: 3.5rem 0 4rem;
+      background: #f4f7fc;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.75rem;
+    }
+    .blog-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(26,79,186,.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(26,79,186,.15);
+    }
+    .blog-card-icon {
+      background: linear-gradient(135deg, #1a4fba 0%, #2563eb 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 120px;
+      font-size: 2.8rem;
+    }
+    .blog-card-body {
+      padding: 1.25rem 1.4rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card-date {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .blog-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+    .blog-card-excerpt {
+      font-size: 0.88rem;
+      color: #4b5563;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1.2rem;
+    }
+    .btn-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #1a4fba;
+      color: white;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .18s;
+      align-self: flex-start;
+    }
+    .btn-read-more:hover { background: #0d2d6e; color: white; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Hero ══ -->
+<section class="blog-hero">
+  <div class="container">
+    <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);padding:.35rem .9rem;border-radius:20px;font-size:.82rem;font-weight:600;margin-bottom:1rem;">
+      <i class="fa-solid fa-book-open"></i> Plumbing Knowledge Base
+    </div>
+    <h1>Plumbing Tips &amp; Guides</h1>
+    <p>Expert advice, how-to guides and product insights from the team at Jalandhar Pipe Store</p>
+  </div>
+</section>
+
+<!-- ══ Blog Cards ══ -->
+<section class="blog-section">
+  <div class="container">
+    <div class="blog-grid">
+
+      <!-- Card 1 -->
+      <div class="blog-card">
+        <div class="blog-card-icon">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date"><i class="fa-regular fa-calendar"></i> March 5, 2025</div>
+          <div class="blog-card-title">How to Choose the Right Pipe Fittings</div>
+          <p class="blog-card-excerpt">Choosing the wrong fittings can lead to leaks, pressure loss and costly repairs. Learn how to match fittings to your pipe material, size and application with this practical guide.</p>
+          <a href="#" class="btn-read-more"><i class="fa-solid fa-arrow-right"></i> Read More</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="blog-card">
+        <div class="blog-card-icon" style="background:linear-gradient(135deg,#0891b2 0%,#0e7490 100%)">
+          <i class="fa-solid fa-pipe-section"></i>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date"><i class="fa-regular fa-calendar"></i> March 8, 2025</div>
+          <div class="blog-card-title">CPVC vs uPVC: Which is Better?</div>
+          <p class="blog-card-excerpt">Both CPVC and uPVC are popular pipe materials in Pakistan, but they serve different purposes. Discover the key differences in temperature rating, pressure tolerance and cost so you can make the right choice.</p>
+          <a href="#" class="btn-read-more"><i class="fa-solid fa-arrow-right"></i> Read More</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="blog-card">
+        <div class="blog-card-icon" style="background:linear-gradient(135deg,#dc2626 0%,#b91c1c 100%)">
+          <i class="fa-solid fa-droplet-slash"></i>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date"><i class="fa-regular fa-calendar"></i> March 11, 2025</div>
+          <div class="blog-card-title">Common Causes of Pipe Leaks &amp; How to Fix Them</div>
+          <p class="blog-card-excerpt">Pipe leaks waste water and cause property damage. This guide covers the most common causes — from poor joint sealing to pressure surges — and how to diagnose and fix them quickly.</p>
+          <a href="#" class="btn-read-more"><i class="fa-solid fa-arrow-right"></i> Read More</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="blog-card">
+        <div class="blog-card-icon" style="background:linear-gradient(135deg,#16a34a 0%,#15803d 100%)">
+          <i class="fa-solid fa-faucet-drip"></i>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date"><i class="fa-regular fa-calendar"></i> March 14, 2025</div>
+          <div class="blog-card-title">How to Install a Ball Valve</div>
+          <p class="blog-card-excerpt">Ball valves are one of the most reliable shut-off solutions in any plumbing system. Follow our step-by-step installation guide to fit a ball valve correctly and avoid leaks from day one.</p>
+          <a href="#" class="btn-read-more"><i class="fa-solid fa-arrow-right"></i> Read More</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="blog-card">
+        <div class="blog-card-icon" style="background:linear-gradient(135deg,#7c3aed 0%,#6d28d9 100%)">
+          <i class="fa-solid fa-gauge-high"></i>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date"><i class="fa-regular fa-calendar"></i> March 18, 2025</div>
+          <div class="blog-card-title">Water Pressure Problems: Causes &amp; Solutions</div>
+          <p class="blog-card-excerpt">Low or inconsistent water pressure is a frustrating problem in many Pakistani homes. We break down the most common causes — blockages, pump issues, pipe sizing — and the fixes that actually work.</p>
+          <a href="#" class="btn-read-more"><i class="fa-solid fa-arrow-right"></i> Read More</a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="blog-card">
+        <div class="blog-card-icon" style="background:linear-gradient(135deg,#d97706 0%,#b45309 100%)">
+          <i class="fa-solid fa-toolbox"></i>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date"><i class="fa-regular fa-calendar"></i> March 22, 2025</div>
+          <div class="blog-card-title">Maintenance Guide for Plumbing Fittings</div>
+          <p class="blog-card-excerpt">Proper maintenance extends the life of your plumbing fittings and prevents unexpected failures. This guide covers routine inspection tips, cleaning methods and when to replace worn components.</p>
+          <a href="#" class="btn-read-more"><i class="fa-solid fa-arrow-right"></i> Read More</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA Banner ══ -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Have a Plumbing Question?</h2>
+    <p>Our expert team is ready to help. Reach out on WhatsApp or visit us in Faisalabad.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/92412645043?text=Hi!%20I%20have%20a%20plumbing%20question" class="btn btn-whatsapp btn-lg" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp
+      </a>
+      <a href="contact.html" class="btn btn-white btn-lg">
+        <i class="fa-solid fa-envelope"></i> Contact Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+          <a href="pricelist.html"><i class="fa-solid fa-chevron-right"></i> Price List</a>
+          <a href="enquiry.html"><i class="fa-solid fa-chevron-right"></i> Request Quote</a>
+          <a href="tracking.html"><i class="fa-solid fa-chevron-right"></i> Track Order</a>
+          <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a>
+          <a href="reviews.html"><i class="fa-solid fa-chevron-right"></i> Reviews</a>
+          <a href="newsletter.html"><i class="fa-solid fa-chevron-right"></i> Newsletter</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=11"></script>
+<script src="js/features.js?v=5"></script>
+</body>
+</html>

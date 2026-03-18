@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Customer reviews and testimonials for Jalandhar Pipe Store — Faisalabad's trusted plumbing material supplier since 2003.">
+  <title>Customer Reviews | Jalandhar Pipe Store</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .reviews-hero {
+      background: linear-gradient(135deg, #1a4fba 0%, #0d2d6e 100%);
+      color: white;
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .reviews-hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: .75rem; }
+    .reviews-hero p { font-size: 1.1rem; opacity: .85; max-width: 540px; margin: 0 auto; }
+
+    .stats-bar {
+      background: #1a4fba;
+      color: white;
+      padding: 1.1rem 0;
+      text-align: center;
+    }
+    .stats-bar-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .stats-bar-item {
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.4rem 1.5rem;
+    }
+    .stats-bar-divider {
+      width: 1px;
+      height: 1.5rem;
+      background: rgba(255,255,255,.4);
+    }
+
+    .reviews-section {
+      padding: 3.5rem 0;
+      background: #f4f7fc;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .review-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(26,79,186,.08);
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .review-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(26,79,186,.13);
+    }
+    .review-stars { color: #f59e0b; font-size: 1rem; letter-spacing: .05em; }
+    .review-text {
+      font-size: .9rem;
+      color: #374151;
+      line-height: 1.65;
+      font-style: italic;
+      flex: 1;
+    }
+    .review-author { display: flex; align-items: center; gap: .75rem; margin-top: .25rem; }
+    .review-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, #1a4fba, #2563eb);
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem; flex-shrink: 0;
+    }
+    .review-name { font-weight: 700; font-size: .9rem; color: #1a237e; }
+    .review-meta { font-size: .78rem; color: #6b7280; }
+
+    /* Submit Form */
+    .submit-section {
+      background: white;
+      padding: 3rem 0 4rem;
+    }
+    .submit-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #f4f7fc;
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 2px 16px rgba(26,79,186,.09);
+    }
+    .submit-card h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1a237e;
+      margin-bottom: .4rem;
+    }
+    .submit-card p { font-size: .92rem; color: #6b7280; margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: .3rem; }
+    .form-group label { font-size: .82rem; font-weight: 600; color: #374151; }
+    .form-group input, .form-group textarea {
+      padding: .6rem .85rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 7px;
+      font-size: .9rem;
+      color: #1f2937;
+      transition: border-color .18s;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #1a4fba;
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit-review {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #25d366;
+      color: white;
+      border: none;
+      padding: .75rem 1.8rem;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: .75rem;
+      transition: background .18s;
+      text-decoration: none;
+    }
+    .btn-submit-review:hover { background: #1faf54; color: white; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Hero ══ -->
+<section class="reviews-hero">
+  <div class="container">
+    <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);padding:.35rem .9rem;border-radius:20px;font-size:.82rem;font-weight:600;margin-bottom:1rem;">
+      <i class="fa-solid fa-star"></i> Customer Testimonials
+    </div>
+    <h1>What Our Customers Say</h1>
+    <p>Trusted by thousands of plumbers, contractors and homeowners across Punjab</p>
+  </div>
+</section>
+
+<!-- ══ Stats Bar ══ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <span class="stats-bar-item"><i class="fa-solid fa-users"></i> 500+ Happy Customers</span>
+      <div class="stats-bar-divider"></div>
+      <span class="stats-bar-item"><i class="fa-solid fa-calendar-check"></i> 15+ Years Experience</span>
+      <div class="stats-bar-divider"></div>
+      <span class="stats-bar-item"><i class="fa-solid fa-boxes-stacked"></i> 1000+ Products</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Reviews Grid ══ -->
+<section class="reviews-section">
+  <div class="container">
+    <h2 class="section-title">Customer Reviews</h2>
+    <p class="section-subtitle" style="margin-bottom:2rem">Real feedback from our valued customers across Pakistan</p>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Been buying Adamjee pipes from JPS for 8 years. Their stock is always fresh, prices are honest and the staff know their stuff. Best pipe supplier in Faisalabad without question."</p>
+        <div class="review-author">
+          <div class="review-avatar">AK</div>
+          <div>
+            <div class="review-name">Ahmad Khan</div>
+            <div class="review-meta">Khan Plumbing Works &bull; Faisalabad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Ordered 500 feet of uPVC pipe and fittings for a housing project in Lahore. Got bulk discount, genuine material and on-time delivery. Will definitely order again."</p>
+        <div class="review-author">
+          <div class="review-avatar">MR</div>
+          <div>
+            <div class="review-name">Muhammad Raza</div>
+            <div class="review-meta">Raza Construction &bull; Lahore</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"I recommend Jalandhar Pipe Store to all my contractor friends. Their brass fittings are genuine and the ball valves they stock have never failed on any of my projects."</p>
+        <div class="review-author">
+          <div class="review-avatar">SB</div>
+          <div>
+            <div class="review-name">Shahzad Butt</div>
+            <div class="review-meta">SB Plumbing Services &bull; Faisalabad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Very happy with the Dura Max water tanks I purchased. Great quality at a fair price. The owner personally helped me choose the right size for my commercial building."</p>
+        <div class="review-author">
+          <div class="review-avatar">TH</div>
+          <div>
+            <div class="review-name">Tariq Hassan</div>
+            <div class="review-meta">Hassan Properties &bull; Faisalabad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Bought a submersible pump and complete pipe fittings package. Everything was genuine, priced right and the after-sale support was excellent. JPS is a trustworthy name."</p>
+        <div class="review-author">
+          <div class="review-avatar">NQ</div>
+          <div>
+            <div class="review-name">Naveed Qureshi</div>
+            <div class="review-meta">Qureshi Hardware &bull; Gujranwala</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"As a dealer in Faisalabad I source all my PVC pipes and fittings from JPS. Best wholesale prices in the city, always have stock and never any quality issues. Highly trusted."</p>
+        <div class="review-author">
+          <div class="review-avatar">ZA</div>
+          <div>
+            <div class="review-name">Zahid Ali</div>
+            <div class="review-meta">Ali Brothers Hardware &bull; Faisalabad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"I travelled from Jhang specially to buy Pak Pipes and fittings from JPS. Worth every km — the selection is unmatched and the prices beat everything in our local market."</p>
+        <div class="review-author">
+          <div class="review-avatar">IM</div>
+          <div>
+            <div class="review-name">Imran Malik</div>
+            <div class="review-meta">Malik Plumbing &bull; Jhang</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Renovated my entire house plumbing using material from Jalandhar Pipe Store. Zero leaks after one year. The staff gave expert advice at no extra charge. Fantastic service."</p>
+        <div class="review-author">
+          <div class="review-avatar">FA</div>
+          <div>
+            <div class="review-name">Farhan Ahmed</div>
+            <div class="review-meta">Homeowner &bull; Faisalabad</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ Submit Review Form ══ -->
+<section class="submit-section">
+  <div class="container">
+    <div class="submit-card">
+      <h2><i class="fa-solid fa-pen-to-square" style="color:#1a4fba;margin-right:.4rem"></i>Submit Your Review</h2>
+      <p>Share your experience with JPS Fittings. Your feedback will be sent via WhatsApp.</p>
+      <form id="reviewForm" onsubmit="submitReview(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rName">Your Name *</label>
+            <input type="text" id="rName" placeholder="Muhammad Ali" required>
+          </div>
+          <div class="form-group">
+            <label for="rShop">Shop / Company</label>
+            <input type="text" id="rShop" placeholder="Ali Hardware Store">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rCity">City *</label>
+            <input type="text" id="rCity" placeholder="Faisalabad" required>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem">
+          <label for="rText">Your Review *</label>
+          <textarea id="rText" placeholder="Tell us about your experience with JPS Fittings…" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit-review">
+          <i class="fa-brands fa-whatsapp"></i> Submit via WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+          <a href="pricelist.html"><i class="fa-solid fa-chevron-right"></i> Price List</a>
+          <a href="enquiry.html"><i class="fa-solid fa-chevron-right"></i> Request Quote</a>
+          <a href="tracking.html"><i class="fa-solid fa-chevron-right"></i> Track Order</a>
+          <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a>
+          <a href="reviews.html"><i class="fa-solid fa-chevron-right"></i> Reviews</a>
+          <a href="newsletter.html"><i class="fa-solid fa-chevron-right"></i> Newsletter</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=11"></script>
+<script src="js/features.js?v=5"></script>
+<script>
+function submitReview(e) {
+  e.preventDefault();
+  const name = document.getElementById('rName').value.trim();
+  const shop = document.getElementById('rShop').value.trim();
+  const city = document.getElementById('rCity').value.trim();
+  const text = document.getElementById('rText').value.trim();
+  const msg = 'Customer Review from JPS Website\n\nName: ' + name
+    + (shop ? '\nShop/Company: ' + shop : '')
+    + '\nCity: ' + city
+    + '\n\nReview:\n' + text;
+  window.open('https://wa.me/923126450430?text=' + encodeURIComponent(msg), '_blank');
+}
+</script>
+</body>
+</html>

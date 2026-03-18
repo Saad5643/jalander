@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stay updated with JPS — get notified about new products, price updates and plumbing tips from Jalandhar Pipe Store, Faisalabad.">
+  <title>Newsletter Signup | Jalandhar Pipe Store</title>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a4fba">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JPS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .nl-hero {
+      background: linear-gradient(135deg, #1a4fba 0%, #0d2d6e 100%);
+      color: white;
+      padding: 4.5rem 0 3.5rem;
+      text-align: center;
+    }
+    .nl-hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: .75rem; }
+    .nl-hero p { font-size: 1.1rem; opacity: .88; max-width: 580px; margin: 0 auto; }
+
+    .nl-section {
+      background: #f4f7fc;
+      padding: 3.5rem 0 4.5rem;
+    }
+    .nl-benefits {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .nl-benefit-item {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(26,79,186,.08);
+      min-width: 180px;
+      max-width: 210px;
+      flex: 1;
+    }
+    .nl-benefit-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, #1a4fba, #2563eb);
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin: 0 auto .9rem;
+    }
+    .nl-benefit-title { font-weight: 700; color: #1a237e; font-size: .95rem; margin-bottom: .35rem; }
+    .nl-benefit-desc { font-size: .82rem; color: #6b7280; line-height: 1.5; }
+
+    .nl-card {
+      max-width: 620px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 2.25rem 2.5rem 2.5rem;
+      box-shadow: 0 4px 24px rgba(26,79,186,.10);
+    }
+    .nl-card h2 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #1a237e;
+      margin-bottom: .3rem;
+    }
+    .nl-card .nl-sub { font-size: .9rem; color: #6b7280; margin-bottom: 1.75rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: .3rem; }
+    .form-group label { font-size: .82rem; font-weight: 600; color: #374151; }
+    .form-group input {
+      padding: .65rem .9rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 7px;
+      font-size: .9rem;
+      color: #1f2937;
+      transition: border-color .18s;
+      font-family: inherit;
+    }
+    .form-group input:focus { outline: none; border-color: #1a4fba; }
+
+    .interests-group { margin-bottom: 1.5rem; }
+    .interests-group label.section-label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: .6rem;
+    }
+    .interest-checks { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .interest-check {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      background: #f0f4ff;
+      border: 1.5px solid #c7d2fe;
+      border-radius: 7px;
+      padding: .45rem .85rem;
+      cursor: pointer;
+      font-size: .87rem;
+      font-weight: 500;
+      color: #374151;
+      transition: background .15s, border-color .15s;
+      user-select: none;
+    }
+    .interest-check input[type="checkbox"] { accent-color: #1a4fba; width: 15px; height: 15px; cursor: pointer; }
+    .interest-check:has(input:checked) { background: #dbeafe; border-color: #1a4fba; color: #1a237e; }
+
+    .btn-nl-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #1a4fba;
+      color: white;
+      border: none;
+      padding: .8rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s;
+      width: 100%;
+      justify-content: center;
+      margin-top: .5rem;
+    }
+    .btn-nl-submit:hover { background: #0d2d6e; }
+
+    /* Thank you state */
+    .nl-thankyou {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+    .nl-thankyou .ty-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 1.25rem;
+    }
+    .nl-thankyou h3 { font-size: 1.5rem; font-weight: 800; color: #1a237e; margin-bottom: .5rem; }
+    .nl-thankyou p { font-size: .95rem; color: #4b5563; max-width: 380px; margin: 0 auto 1.5rem; line-height: 1.6; }
+    .btn-back-home {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: #1a4fba; color: white; padding: .65rem 1.5rem;
+      border-radius: 7px; font-weight: 600; font-size: .9rem;
+      text-decoration: none; transition: background .18s;
+    }
+    .btn-back-home:hover { background: #0d2d6e; color: white; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Top Bar ══ -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-side">
+      <span class="tb-item"><i class="fa-solid fa-location-dot"></i> Faisalabad, Pakistan</span>
+      <span class="tb-item"><i class="fa-solid fa-clock"></i> Mon–Sat: 8 AM – 8 PM</span>
+    </div>
+    <div class="tb-side tb-right">
+      <span id="openStatus"></span>
+      <a href="tel:+92412645043" class="tb-item"><i class="fa-solid fa-phone"></i> 041 2645043</a>
+      <a href="https://wa.me/92412645043" class="tb-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Navbar ══ -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="/images/logo.svg" alt="JPS" class="nav-logo-img" width="42" height="42" style="width:42px;height:42px;flex-shrink:0;border-radius:10px;box-shadow:0 2px 8px rgba(26,79,186,.3)">
+      <div class="nav-logo-text">
+        <span class="store-name">Jalandhar Pipe Store</span>
+        <span class="store-tag">Plumbing Materials · Faisalabad</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass s-icon"></i>
+      <input type="text" id="navSearch" placeholder="Search pipes, valves, fittings…" autocomplete="off">
+      <div class="search-drop" id="searchDrop"></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About Us</a>
+      <a href="brands.html">Brands</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-icon-btns">
+      <button class="nav-icon-btn" id="darkToggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn" id="wishlistNavBtn" onclick="openWishlist()" title="My Wishlist">
+        <i class="fa-solid fa-heart"></i>
+        <span class="nav-icon-badge" id="wishlistBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" id="ordersNavBtn" onclick="openOrderHistory()" title="Order History">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="nav-icon-badge" id="orderHistoryBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn catalogue-btn" onclick="openCatalogueModal()" title="Print Catalogue"><i class="fa-solid fa-book-open"></i></button>
+      <button class="nav-icon-btn urdu-btn" id="urduToggle" onclick="toggleUrdu()" title="اردو"><i class="fa-solid fa-language"></i> اردو</button>
+    </div>
+    <a href="/portal/" class="btn btn-staff nav-cta" target="_blank" title="JMS Manager"><i class="fa-solid fa-lock"></i> JMS Manager</a>
+    <a href="https://wa.me/92412645043" class="btn btn-whatsapp btn-sm nav-cta" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="products.html"><i class="fa-solid fa-box"></i> Products</a>
+    <a href="categories.html"><i class="fa-solid fa-th-large"></i> Categories</a>
+    <a href="about.html"><i class="fa-solid fa-store"></i> About Us</a>
+    <a href="brands.html"><i class="fa-solid fa-star"></i> Brands</a>
+    <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/92412645043" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+  </div>
+</header>
+
+<!-- ══ Hero ══ -->
+<section class="nl-hero">
+  <div class="container">
+    <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);padding:.35rem .9rem;border-radius:20px;font-size:.82rem;font-weight:600;margin-bottom:1rem;">
+      <i class="fa-solid fa-bell"></i> Stay Connected
+    </div>
+    <h1>Stay Updated with JPS</h1>
+    <p>Get notified about new products, price updates and expert plumbing tips — directly on your WhatsApp.</p>
+  </div>
+</section>
+
+<!-- ══ Main Section ══ -->
+<section class="nl-section">
+  <div class="container">
+
+    <!-- Benefits -->
+    <div class="nl-benefits">
+      <div class="nl-benefit-item">
+        <div class="nl-benefit-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+        <div class="nl-benefit-title">New Products</div>
+        <div class="nl-benefit-desc">Be the first to know when new pipes, fittings and accessories arrive in stock.</div>
+      </div>
+      <div class="nl-benefit-item">
+        <div class="nl-benefit-icon"><i class="fa-solid fa-tags"></i></div>
+        <div class="nl-benefit-title">Price Updates</div>
+        <div class="nl-benefit-desc">Get instant alerts on price changes and special bulk deals before anyone else.</div>
+      </div>
+      <div class="nl-benefit-item">
+        <div class="nl-benefit-icon"><i class="fa-solid fa-book-open"></i></div>
+        <div class="nl-benefit-title">Plumbing Tips</div>
+        <div class="nl-benefit-desc">Receive practical guides and expert plumbing advice from our experienced team.</div>
+      </div>
+    </div>
+
+    <!-- Signup Card -->
+    <div class="nl-card">
+      <div id="nlForm">
+        <h2><i class="fa-solid fa-envelope-open-text" style="color:#1a4fba;margin-right:.4rem"></i>Sign Up for Updates</h2>
+        <p class="nl-sub">Fill in your details below. We'll add you to our WhatsApp broadcast list.</p>
+
+        <form onsubmit="submitNewsletter(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nlName">Full Name *</label>
+              <input type="text" id="nlName" placeholder="Muhammad Ali" required>
+            </div>
+            <div class="form-group">
+              <label for="nlPhone">Phone / WhatsApp *</label>
+              <input type="tel" id="nlPhone" placeholder="03XX-XXXXXXX" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nlEmail">Email Address</label>
+              <input type="email" id="nlEmail" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label for="nlCity">City *</label>
+              <input type="text" id="nlCity" placeholder="Faisalabad" required>
+            </div>
+          </div>
+
+          <div class="interests-group">
+            <label class="section-label">Interests (select all that apply)</label>
+            <div class="interest-checks">
+              <label class="interest-check">
+                <input type="checkbox" id="intProducts" value="New Products"> <i class="fa-solid fa-boxes-stacked"></i> New Products
+              </label>
+              <label class="interest-check">
+                <input type="checkbox" id="intPrices" value="Price Updates"> <i class="fa-solid fa-tags"></i> Price Updates
+              </label>
+              <label class="interest-check">
+                <input type="checkbox" id="intTips" value="Plumbing Tips"> <i class="fa-solid fa-book-open"></i> Plumbing Tips
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-nl-submit">
+            <i class="fa-brands fa-whatsapp"></i> Subscribe via WhatsApp
+          </button>
+        </form>
+      </div>
+
+      <!-- Thank You State -->
+      <div class="nl-thankyou" id="nlThankyou">
+        <div class="ty-icon"><i class="fa-solid fa-check"></i></div>
+        <h3>You're subscribed!</h3>
+        <p>Thank you for signing up. Your WhatsApp subscription request has been sent. We'll add you to our broadcast list shortly.</p>
+        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-house"></i> Back to Home</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ Footer ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="/images/logo.svg" alt="JPS" class="f-logo-img" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;border-radius:8px">
+          <div>
+            <span class="f-logo-name">Jalandhar Pipe Store</span>
+            <span class="f-logo-sub">Plumbing Materials · Faisalabad</span>
+          </div>
+        </div>
+        <p>Your trusted source for quality plumbing materials in Faisalabad. Serving contractors, plumbers, and homeowners since 2003.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/92412645043" class="f-soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="f-soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="f-links">
+          <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+          <a href="products.html"><i class="fa-solid fa-chevron-right"></i> All Products</a>
+          <a href="categories.html"><i class="fa-solid fa-chevron-right"></i> Categories</a>
+          <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+          <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+          <a href="pricelist.html"><i class="fa-solid fa-chevron-right"></i> Price List</a>
+          <a href="enquiry.html"><i class="fa-solid fa-chevron-right"></i> Request Quote</a>
+          <a href="tracking.html"><i class="fa-solid fa-chevron-right"></i> Track Order</a>
+          <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a>
+          <a href="reviews.html"><i class="fa-solid fa-chevron-right"></i> Reviews</a>
+          <a href="newsletter.html"><i class="fa-solid fa-chevron-right"></i> Newsletter</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <div class="f-links">
+          <a href="products.html?cat=Pipes"><i class="fa-solid fa-chevron-right"></i> Pipes</a>
+          <a href="products.html?cat=Valves"><i class="fa-solid fa-chevron-right"></i> Valves</a>
+          <a href="products.html?cat=Pipe Fittings"><i class="fa-solid fa-chevron-right"></i> Pipe Fittings</a>
+          <a href="products.html?cat=Water Tanks"><i class="fa-solid fa-chevron-right"></i> Water Tanks</a>
+          <a href="products.html?cat=Pumps"><i class="fa-solid fa-chevron-right"></i> Pumps</a>
+          <a href="products.html?cat=Bathroom Accessories"><i class="fa-solid fa-chevron-right"></i> Bathroom</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="f-contacts">
+          <div class="fc-item"><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/8GQNQTBFiwBma3us7" target="_blank" style="color:inherit;text-decoration:underline dotted">Shop No. 13, Jalander Pipe Store, Railway Rd, Tariqabad, Faisalabad 38000, Pakistan</a></div>
+          <div class="fc-item"><i class="fa-solid fa-phone"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-brands fa-whatsapp"></i><span>041 2645043</span></div>
+          <div class="fc-item"><i class="fa-solid fa-clock"></i><span>Mon–Sat: 8:00 AM – 8:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jalandhar Pipe Store. All rights reserved.</p>
+      <p>Designed with care for Faisalabad's plumbing community</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ WhatsApp Float ══ -->
+<a href="https://wa.me/92412645043?text=Hi!%20I%20need%20plumbing%20materials" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- ══ Back to Top ══ -->
+<button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="js/products-data.js?v=3"></script>
+<script src="js/main.js?v=11"></script>
+<script src="js/features.js?v=5"></script>
+<script>
+function submitNewsletter(e) {
+  e.preventDefault();
+  const name  = document.getElementById('nlName').value.trim();
+  const phone = document.getElementById('nlPhone').value.trim();
+  const email = document.getElementById('nlEmail').value.trim();
+  const city  = document.getElementById('nlCity').value.trim();
+  const interests = [];
+  if (document.getElementById('intProducts').checked) interests.push('New Products');
+  if (document.getElementById('intPrices').checked)   interests.push('Price Updates');
+  if (document.getElementById('intTips').checked)     interests.push('Plumbing Tips');
+
+  let msg = 'JPS Newsletter Signup\n\nName: ' + name
+    + '\nPhone: ' + phone
+    + (email ? '\nEmail: ' + email : '')
+    + '\nCity: ' + city
+    + (interests.length ? '\nInterests: ' + interests.join(', ') : '');
+
+  window.open('https://wa.me/923126450430?text=' + encodeURIComponent(msg), '_blank');
+
+  document.getElementById('nlForm').style.display = 'none';
+  document.getElementById('nlThankyou').style.display = 'block';
+}
+</script>
+</body>
+</html>
